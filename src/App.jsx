@@ -1,20 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
+
+import './App.css';
+
+import Header from './components/header';
+import Footer from './components/footer';
+import Home from './pages/Home';
+import About from './pages/about';
+import CaseStudies from './pages/CaseStudies';
+import Playground from './pages/Playground';
+import Contact from './pages/Contact';
+import ForWheels from './pages/ForWheels';
+import PlatePal from './pages/PlatePal';
+import Twikkie from './pages/Twikkie';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <h1 className="text-4xl font-bold text-red-500">It works</h1>
+    <Router>
+      <div className="min-h-screen">
+        <Header />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/case-studies' element={<CaseStudies />} />
+          <Route path="/playground" element={<Playground />} />
+          <Route path="/contact" element={<Contact />} />
 
-      <button className="px-6 py-3 rounded-xl bg-black text-white hover:bg-neutral-800">
-  Hello portfolio
-</button>
-    </>
-  )
+            <Route path='/case-studies/twikkie' element={<Twikkie />} />
+            <Route path='/case-studies/forwheels' element={<ForWheels />} />
+            <Route path='/case-studies/platepal' element={<PlatePal />} />
+          </Routes>
+        <Footer />
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;

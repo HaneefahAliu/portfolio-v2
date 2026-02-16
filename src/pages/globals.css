@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Subtle vertical grid background */
+.page-grid {
+    background-image:
+    repeating-linear-gradient(
+        to right,
+        rgba(68, 68, 68, 0.05) 0px,
+        rgba(68, 68, 68, 0.05) 1px,
+        transparent 1px,
+        transparent 400px
+        );
+    background-size: auto;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.marquee {
+    animation: marquee 35s linear infinite;
+}
+
+.marquee:hover {
+    animation-play-state: paused;
+}
