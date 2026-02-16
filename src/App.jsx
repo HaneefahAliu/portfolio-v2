@@ -5,7 +5,7 @@ import './App.css';
 import Header from './components/header';
 import Footer from './components/footer';
 import Home from './pages/Home';
-import About from './pages/about';
+import About from './pages/About';
 import CaseStudies from './pages/CaseStudies';
 import Playground from './pages/Playground';
 import Contact from './pages/Contact';
