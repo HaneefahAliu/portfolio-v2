@@ -47,7 +47,7 @@ const projects = [
       title: 'EduLearn',
       image: EduLearn,
       description: 'Expanding Classroom Boundaries With Smart Teaching Solutions',
-      locked: true,
+      locked: false,
       featured: false,
     },
 ];

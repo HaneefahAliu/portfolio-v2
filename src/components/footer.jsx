@@ -26,14 +26,26 @@ const Footer = () => {
                 <div class="flex flex-row">
                     <div>
                         <p>[social]</p>
+                        <div>
+                            <a>Email me</a>
+                            <a>My Resume</a>
+                        </div>
                     </div>
 
                     <div>
                         <p>[menu]</p>
+                        <div>
+                            <a>Email me</a>
+                            <a>My Resume</a>
+                        </div>
                     </div>
-                    
+
                     <div>
                         <p>[social]</p>
+                        <div>
+                            <a>Email me</a>
+                            <a>My Resume</a>
+                        </div>
                     </div>
 
                     <div>
