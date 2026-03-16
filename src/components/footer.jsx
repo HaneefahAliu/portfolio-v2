@@ -9,42 +9,79 @@ const Footer = () => {
         <footer className="min-h-screen bg-black text-white">
             {/* grid lines overlay */}
             <div className="pointer-events-none absolute inset-0 opacity-20">
-                <div className="h-full w-full bg-[repeating-linear-gradient(to_right,rgba(255,255,255,0.12)_0px,rgba(255,255,255,0.12)_1px,transparent_1px,transparent_320px)] bg-[position:40px_0]" />
+                <div className="h-full w-full bg-[repeating-linear-gradient(to_right,rgba(170, 24, 24, 0.12)_0px,rgba(197, 25, 25, 0.12)_1px,transparent_1px,transparent_320px)] bg-[position:40px_0]" />
             </div>
 
-            <div div className="px-4">
+            <div div className="pt-2 pb-4">
                 <div className="flex min-h-[560px] flex-col items-center justify-center text-center">
-                    <h2 className="text-[70px] font-extrabold font-anton leading-[1] tracking-tight">
-                        LET&apos;S MAKE SOMETHING COOL!
-                    </h2>
-
+                    <h2 className="text-[100px] font-extrabold font-anton leading-[1] tracking-tight">LET&apos;S MAKE SOMETHING COOL!</h2>
                     <p className="mt-2 max-w-[600px] text-[14px] leading-5 text-white/80 font-inter font-light">
                         Curious problems, ambitious teams, and thoughtful ideas are my favourite things to work on. If you’re working on something great, I’d love to hear from you :)
                     </p>
                 </div>
 
                 <div class="flex flex-row justify-between">
-                    <div className="flex flex-col">
-                        <p>[social]</p>
-                        <div>
-                            <a>Email me</a>
-                            <a>My Resume</a>
+                    <div>
+                        <p className="uppercase text-[12px] text-white/60">[reach me]</p>
+                        <div className="flex flex-col">
+                            <a href="mailto:aliuhaneefah@gmail.com" target="_blank">Email me</a>
+                            <a href="https://drive.google.com/file/d/12BHwm1T7urf-gQgDPAoH4sIyc3YSSmgq/view?usp=sharing" target="_blank">My Resume</a>
                         </div>
                     </div>
 
                     <div>
-                        <p>[menu]</p>
-                        <div>
-                            <a>Email me</a>
-                            <a>My Resume</a>
+                        <p className="uppercase text-[12px] text-white/60">[menu]</p>
+                        <div className="flex flex-col">
+                            <a href="/">
+                                Home
+                            </a>
+                            <a href="/case-studies">
+                                Case Studies
+                            </a>
+                            <a href="/playground">
+                                Explorations
+                            </a>
+                            <a href="/about">
+                                ABOUT
+                            </a>
                         </div>
                     </div>
 
                     <div>
-                        <p>[social]</p>
-                        <div>
-                            <a>Email me</a>
-                            <a>My Resume</a>
+                        <p className="uppercase text-[12px] text-white/60 pb-2">[social]</p>
+                        <div className="flex flex-col text-[14px] text-white font-inter font-light">
+                            <a
+                                href="https://www.linkedin.com/in/haneefah-aliu-6a8a21160/"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="hover:text-white/50 transition"
+                            >
+                                LinkedIn
+                            </a>
+                            <a
+                                href="https://www.behance.net/haneefahhh"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="hover:text-white/50 transition"
+                            >
+                                Behance
+                            </a>
+                            <a
+                                href="https://dribbble.com/Haneefahhh"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="hover:text-white/50 transition"
+                            >
+                                Dribble
+                            </a>
+                            <a
+                                href="https://www.instagram.com/haneefah.design/"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="hover:text-white/50 transition"
+                            >
+                                Instagram
+                            </a>
                         </div>
                     </div>
 
@@ -57,42 +94,6 @@ const Footer = () => {
                             Back to top <span className="text-[14px]"><ArrowUpRight size={18} /></span>
                         </button>
                     </div>
-                </div>
-
-                {/* SOCIAL LINKS ROW */}
-                <div className="flex items-center pb-4 justify-between text-[14px] text-white font-inter font-light">
-                    <a
-                        href="https://www.linkedin.com/in/haneefah-aliu-6a8a21160/"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="hover:text-white/50 transition"
-                    >
-                        [LinkedIn]
-                    </a>
-                    <a
-                        href="https://www.instagram.com/haneefah.design/"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="hover:text-white/50 transition"
-                    >
-                        [Instagram]
-                    </a>
-                    <a
-                        href="https://www.behance.net/haneefahhh"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="hover:text-white/50 transition"
-                    >
-                        [Behance]
-                    </a>
-                    <a
-                        href="https://medium.com/@haneefahaliu"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="hover:text-white/50 transition"
-                    >
-                        [Medium]
-                    </a>
                 </div>
 
                 <div className="relative">
