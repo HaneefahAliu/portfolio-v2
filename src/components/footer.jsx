@@ -23,8 +23,8 @@ const Footer = () => {
                     </p>
                 </div>
 
-                <div class="flex flex-row">
-                    <div>
+                <div class="flex flex-row justify-between">
+                    <div className="flex flex-col">
                         <p>[social]</p>
                         <div>
                             <a>Email me</a>
