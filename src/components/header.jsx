@@ -90,7 +90,7 @@ export default function Header() {
                     {/* Menu Footer */}
                     <div className="p-4 sm:p-6 lg:p-8">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-                            <div className="text-white font-inter font-light text-[14px] uppercase">
+                            <div className="text-white font-inter font-light text-[12px] uppercase justify-between">
                                 <a href="mailto:aliuhaneefah@gmail.com" className=" underline decoration-solid hover:text-secondary-text transition-colors duration-200">
                                     Email Me
                                 </a>
@@ -98,8 +98,8 @@ export default function Header() {
                                     My Resume
                                 </a>
                             </div>
-                            
-                            <div className="flex space-x-4 text-[14px] font-inter uppercase font-light text-white">
+
+                            <div className="flex space-x-4 text-[12px] font-inter uppercase font-light text-white">
                                 <a href="https://www.linkedin.com/in/haneefah-aliu-6a8a21160/"  target="_blank" className="hover:text-secondary-text transition-colors duration-200 px-3 py-1">
                                     [LinkedIn]
                                 </a>

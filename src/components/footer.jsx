@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="pb-6">
                 <div className="flex min-h-[560px] flex-col items-center justify-center text-center">
                     <h2 className="text-[100px] font-extrabold font-anton leading-[1] tracking-tight">LET&apos;S MAKE SOMETHING COOL!</h2>
-                    <p className="mt-6 max-w-[400px] text-[14px] leading-5 text-[#BABABA] font-inter font-light">
+                    <p className="mt-6 max-w-[450px] text-[16px] leading-5 text-[#BABABA] font-inter font-light">
                         Curious problems, ambitious teams, and thoughtful ideas are my favourite things to work on. If you’re working on something great, I’d love to hear from you :)
                     </p>
                 </div>
