@@ -41,11 +41,6 @@ function Home() {
                             <ProjectCard key={p.id} project={p} />
                         ))}
                     </section>
-
-                    <ContactSection 
-                        action="https://formspree.io/f/abcdwxyz"
-                        method="POST"
-                    />
                 </div>
             </div>
         </main>

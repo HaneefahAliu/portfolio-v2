@@ -1,5 +1,5 @@
 import React from "react";
-import "./globals.css";
+import "../pages/globals.css";
 import { ArrowUpRight } from "lucide-react";
 import LargeText from "../assets/images/haneefah-cut.png";
 
@@ -7,7 +7,7 @@ const Footer = () => {
     const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
     return (
-        <footer className="min-h-screen bg-black text-white footer-grid">
+        <footer className="min-h-screen bg-[#1A1A1A] text-white footer-grid">
             <div className="pb-6">
                 <div className="flex min-h-[560px] flex-col items-center justify-center text-center">
                     <h2 className="text-[100px] font-extrabold font-anton leading-[1] tracking-tight">LET&apos;S MAKE SOMETHING COOL!</h2>
