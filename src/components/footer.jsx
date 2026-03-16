@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="pb-6">
                 <div className="flex min-h-[560px] flex-col items-center justify-center text-center">
                     <h2 className="text-[100px] font-extrabold font-anton leading-[1] tracking-tight">LET&apos;S MAKE SOMETHING COOL!</h2>
-                    <p className="mt-6 max-w-[500px] text-[14px] leading-5 text-white font-inter font-light">
+                    <p className="mt-6 max-w-[400px] text-[14px] leading-5 text-[#BABABA] font-inter font-light">
                         Curious problems, ambitious teams, and thoughtful ideas are my favourite things to work on. If you’re working on something great, I’d love to hear from you :)
                     </p>
                 </div>
@@ -96,7 +96,7 @@ const Footer = () => {
                     <img src={LargeText} alt="Haneefah" className="w-full block"/>
 
                     {/* Footer text OVER the image */}
-                    <div className="absolute bottom-0 left-0 right-0 px-6 py-4 flex items-center justify-between text-[14px] text-white/50 font-inter font-light">
+                    <div className="absolute bottom-0 left-0 right-0 px-6 py-4 flex items-center justify-between text-[14px] text-white/30 font-inter font-light">
                         <span>Haneefah Aliu © 2026</span>
 
                         <span>Designed &amp; developed by{" "}
