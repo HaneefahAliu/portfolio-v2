@@ -81,7 +81,7 @@ export default function Header() {
                             <a href="/about" className="block text-4xl xl:text-8xl font-anton text-grey hover:text-white transition-colors duration-300 tracking-wider" onClick={toggleMenu}>
                                 ABOUT
                             </a>
-                            <a href="/contact" className="block text-4xl xl:text-8xl font-anton text-grey hover:text-white transition-colors duration-300 tracking-wider" onClick={toggleMenu}>
+                            <a href="/footer" className="block text-4xl xl:text-8xl font-anton text-grey hover:text-white transition-colors duration-300 tracking-wider" onClick={toggleMenu}>
                                 CONTACT
                             </a>
                         </nav>

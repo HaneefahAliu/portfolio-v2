@@ -13,53 +13,37 @@ const Footer = () => {
             </div>
 
             <div div className="px-4">
-                {/* TOP NAV ROW */}
-                <div className="flex items-center justify-between pt-6">
-                    <nav className="flex flex-wrap gap-x-8 gap-y-3 text-[14px] text-white/60 font-inter font-light">
-                        <a href="/" className="hover:text-white transition">Home</a>
-                        <a href="/case-studies" className="hover:text-white transition">Case Studies</a>
-                        <a href="/playground" className="hover:text-white transition">Playground</a>
-                        <a href="/about" className="hover:text-white transition">About</a>
-                        <a href="/contact" className="hover:text-white transition">Contact</a>
-                    </nav>
-                    {/* BACK TO TOP */}
-                    <button
-                        type="button"
-                        onClick={scrollToTop}
-                        className="flex items-center gap-1 text-sm text-white hover:text-white/60 transition font-inter font-light"
-                    >
-                        Back to top <span className="text-[14px]"><ArrowUpRight size={18} /></span>
-                    </button>
-                </div>
-
-                {/* CENTER CTA */}
                 <div className="flex min-h-[560px] flex-col items-center justify-center text-center">
-                    <h2 className="font-anton text-[70px]">
-                        Got a great Idea?
+                    <h2 className="text-[70px] font-extrabold font-anton leading-[1] tracking-tight">
+                        LET&apos;S MAKE SOMETHING COOL!
                     </h2>
 
-                    <p className="mt-2 max-w-[600px] text-[14px] leading-5 text-white font-inter font-light">
-                        Interested in discussing a project? I would love to hear about you and your project. Feel free to reach out to me and I’ll get back to you.
+                    <p className="mt-2 max-w-[600px] text-[14px] leading-5 text-white/80 font-inter font-light">
+                        Curious problems, ambitious teams, and thoughtful ideas are my favourite things to work on. If you’re working on something great, I’d love to hear from you :)
                     </p>
+                </div>
 
-                    <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-                        {/* Resume */}
-                        <a
-                            href="/resume.pdf"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[14px] font-medium text-black hover:bg-highlight transition font-inter"
-                        >
-                            <FileText size={18} />Download Resume
-                        </a>    
+                <div class="flex flex-row">
+                    <div>
+                        <p>[social]</p>
+                    </div>
 
-                        {/* Email */}
-                        <a
-                        href="mailto:YOUR_EMAIL@example.com"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-6 py-3 text-sm font-medium text-white hover:bg-white/15 transition font-inter"
+                    <div>
+                        <p>[menu]</p>
+                    </div>
+                    
+                    <div>
+                        <p>[social]</p>
+                    </div>
+
+                    <div>
+                        <button
+                            type="button"
+                            onClick={scrollToTop}
+                            className="flex items-center gap-1 text-sm text-white hover:text-white/60 transition font-inter font-light"
                         >
-                            <Mails size={18} className="opacity-80" /> Email me
-                        </a>
+                            Back to top <span className="text-[14px]"><ArrowUpRight size={18} /></span>
+                        </button>
                     </div>
                 </div>
 
