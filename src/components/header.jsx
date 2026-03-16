@@ -75,8 +75,8 @@ export default function Header() {
                             <a href="/case-studies" className="block text-4xl xl:text-8xl font-anton text-grey hover:text-white transition-colors duration-300 tracking-wider" onClick={toggleMenu}>
                                 CASE STUDIES
                             </a>
-                            <a href="" className="block text-4xl xl:text-8xl font-anton text-grey hover:text-white transition-colors duration-300 tracking-wider" onClick={toggleMenu}>
-                                EXPLORATION
+                            <a href="/playground" className="block text-4xl xl:text-8xl font-anton text-grey hover:text-white transition-colors duration-300 tracking-wider" onClick={toggleMenu}>
+                                EXPLORATIONS
                             </a>
                             <a href="/about" className="block text-4xl xl:text-8xl font-anton text-grey hover:text-white transition-colors duration-300 tracking-wider" onClick={toggleMenu}>
                                 ABOUT
