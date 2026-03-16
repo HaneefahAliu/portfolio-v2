@@ -12,7 +12,7 @@ const Footer = () => {
                 <div className="h-full w-full bg-[repeating-linear-gradient(to_right,rgba(170, 24, 24, 0.12)_0px,rgba(197, 25, 25, 0.12)_1px,transparent_1px,transparent_320px)] bg-[position:40px_0]" />
             </div>
 
-            <div div className="pt-2 pb-4">
+            <div div className="pb-6">
                 <div className="flex min-h-[560px] flex-col items-center justify-center text-center">
                     <h2 className="text-[100px] font-extrabold font-anton leading-[1] tracking-tight">LET&apos;S MAKE SOMETHING COOL!</h2>
                     <p className="mt-2 max-w-[600px] text-[14px] leading-5 text-white/80 font-inter font-light">
@@ -20,41 +20,41 @@ const Footer = () => {
                     </p>
                 </div>
 
-                <div class="flex flex-row justify-between">
+                <div class="flex flex-row justify-between mx-auto max-w-[1440px]">
                     <div>
-                        <p className="uppercase text-[12px] text-white/60">[reach me]</p>
-                        <div className="flex flex-col">
-                            <a href="mailto:aliuhaneefah@gmail.com" target="_blank">Email me</a>
-                            <a href="https://drive.google.com/file/d/12BHwm1T7urf-gQgDPAoH4sIyc3YSSmgq/view?usp=sharing" target="_blank">My Resume</a>
+                        <p className="uppercase text-[12px] text-white/60 pb-6">[reach me]</p>
+                        <div className="flex flex-col text-[14px] text-white font-inter font-light">
+                            <a href="mailto:aliuhaneefah@gmail.com" target="_blank" className="pb-4">Email me</a>
+                            <a href="https://drive.google.com/file/d/12BHwm1T7urf-gQgDPAoH4sIyc3YSSmgq/view?usp=sharing" target="_blank" className="pb-4">My Resume</a>
                         </div>
                     </div>
 
                     <div>
-                        <p className="uppercase text-[12px] text-white/60">[menu]</p>
-                        <div className="flex flex-col">
-                            <a href="/">
+                        <p className="uppercase text-[12px] text-white/60 pb-6">[menu]</p>
+                        <div className="flex flex-col text-[14px] text-white font-inter font-light">
+                            <a href="/" className="pb-4">
                                 Home
                             </a>
-                            <a href="/case-studies">
+                            <a href="/case-studies" className="pb-4">
                                 Case Studies
                             </a>
-                            <a href="/playground">
+                            <a href="/playground" className="pb-4">
                                 Explorations
                             </a>
-                            <a href="/about">
-                                ABOUT
+                            <a href="/about" className="pb-4">
+                                About
                             </a>
                         </div>
                     </div>
 
                     <div>
-                        <p className="uppercase text-[12px] text-white/60 pb-2">[social]</p>
+                        <p className="uppercase text-[12px] text-white/60 pb-6">[social]</p>
                         <div className="flex flex-col text-[14px] text-white font-inter font-light">
                             <a
                                 href="https://www.linkedin.com/in/haneefah-aliu-6a8a21160/"
                                 target="_blank"
                                 rel="noreferrer"
-                                className="hover:text-white/50 transition"
+                                className="hover:text-white/50 transition pb-4"
                             >
                                 LinkedIn
                             </a>
@@ -62,7 +62,7 @@ const Footer = () => {
                                 href="https://www.behance.net/haneefahhh"
                                 target="_blank"
                                 rel="noreferrer"
-                                className="hover:text-white/50 transition"
+                                className="hover:text-white/50 transition pb-4"
                             >
                                 Behance
                             </a>
@@ -70,7 +70,7 @@ const Footer = () => {
                                 href="https://dribbble.com/Haneefahhh"
                                 target="_blank"
                                 rel="noreferrer"
-                                className="hover:text-white/50 transition"
+                                className="hover:text-white/50 transition pb-4"
                             >
                                 Dribble
                             </a>
@@ -78,7 +78,7 @@ const Footer = () => {
                                 href="https://www.instagram.com/haneefah.design/"
                                 target="_blank"
                                 rel="noreferrer"
-                                className="hover:text-white/50 transition"
+                                className="hover:text-white/50 transition pb-4"
                             >
                                 Instagram
                             </a>
