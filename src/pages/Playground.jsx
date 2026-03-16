@@ -7,6 +7,11 @@ export default function Playground({ items }) {
   return (
     <main className="page-grid">
       <div className="mx-auto max-w-[1440px]">
+        <div className="min-h-screen flex flex-col align-center">
+              <h1 className="text-[100px]">🚧</h1>
+              <h1 className="font-plusJakarta font-bold text-[120px]">Under Construction :)</h1>
+              <p className="font-inter font-light text-secondary-text text-sm">I'm working on something special for you. In the mean time, check out my <a href="/case-studies" className="underline decoration-solid hover:text-black transition">Case Studies</a></p>
+          </div>
         {/* <section className="min-h-screen flex flex-col">
           <h3 className="mt-auto pb-40 font-inter font-medium text-[40px] max-w-[800px]">
             A space for creative exploration — visual studies, experiments, and
@@ -14,7 +19,7 @@ export default function Playground({ items }) {
           </h3>
         </section> */}
 
-        <section className="pb-24">
+        {/* <section className="pb-24"> */}
           {/* <div className="columns-1 sm:columns-2 lg:columns-3 [column-gap:12px]">
             {data.map((item, index) => (
               <div key={index} className="mb-2 break-inside-avoid">
@@ -27,12 +32,8 @@ export default function Playground({ items }) {
               </div>
             ))}
           </div> */}
-          <div>
-              <h1 className="text-[100px]">🚧</h1>
-              <h1 className="font-plusJakarta font-bold">Under Construction :)</h1>
-              <p className="font-inter font-light tracking-[0.22em] text-secondary-text text-sm">I'm working on something special for you. In the mean time, check out my <a href="/case-studies" className="hover:text-black transition">Case Studies</a></p>
-          </div>
-        </section>
+          
+        {/* </section> */}
       </div>
     </main>
   );
