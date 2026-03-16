@@ -1,8 +1,8 @@
 import Twikkie from '../assets/images/twikkie.png';
-import TwikkieDS from '../assets/images/twikkie.png';
+import TwikkieDS from '../assets/images/twikkie-ds.png';
 import ForWheels from "../assets/images/forwheels.png"
-import PlatePal from '../assets/images/PP.png';
-import EduLearn from '../assets/images/SL.png';
+import PlatePal from '../assets/images/platepal.png';
+import EduLearn from '../assets/images/edulearn.png';
 
 const projects = [
     {
