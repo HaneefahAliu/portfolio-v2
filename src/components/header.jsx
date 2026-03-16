@@ -76,7 +76,7 @@ export default function Header() {
                                 CASE STUDIES
                             </a>
                             <a href="" className="block text-4xl xl:text-8xl font-anton text-grey hover:text-white transition-colors duration-300 tracking-wider" onClick={toggleMenu}>
-                                PLAYGROUND
+                                EXPLORATION
                             </a>
                             <a href="/about" className="block text-4xl xl:text-8xl font-anton text-grey hover:text-white transition-colors duration-300 tracking-wider" onClick={toggleMenu}>
                                 ABOUT
