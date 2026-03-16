@@ -1,21 +1,21 @@
 import React from "react";
-import playgroundItems from "../data/playground";
+// import playgroundItems from "../data/playground";
 
 export default function Playground({ items }) {
-  const data = items ?? playgroundItems; // fallback
+  // const data = items ?? playgroundItems; 
 
   return (
     <main className="page-grid">
       <div className="mx-auto max-w-[1440px]">
-        <section className="min-h-screen flex flex-col">
+        {/* <section className="min-h-screen flex flex-col">
           <h3 className="mt-auto pb-40 font-inter font-medium text-[40px] max-w-[800px]">
             A space for creative exploration — visual studies, experiments, and
             playful explorations that inspire my larger work.
           </h3>
-        </section>
+        </section> */}
 
         <section className="pb-24">
-          <div className="columns-1 sm:columns-2 lg:columns-3 [column-gap:12px]">
+          {/* <div className="columns-1 sm:columns-2 lg:columns-3 [column-gap:12px]">
             {data.map((item, index) => (
               <div key={index} className="mb-2 break-inside-avoid">
                 <img
@@ -26,6 +26,11 @@ export default function Playground({ items }) {
                 />
               </div>
             ))}
+          </div> */}
+          <div>
+              <h1 className="text-[100px]">🚧</h1>
+              <h1 className="font-plusJakarta font-bold">Under Construction :)</h1>
+              <p className="font-inter font-light tracking-[0.22em] text-secondary-text text-sm">I'm working on something special for you. In the mean time, check out my <a href="/case-studies" className="hover:text-black transition">Case Studies</a></p>
           </div>
         </section>
       </div>
