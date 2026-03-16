@@ -90,7 +90,7 @@ export default function Header() {
                     {/* Menu Footer */}
                     <div className="p-4 sm:p-6 lg:p-8">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-                            <div className="text-white font-inter font-light text-[12px] uppercase justify-between">
+                            <div className="text-white font-inter font-light text-[12px] uppercase flex flex-row justify-between">
                                 <a href="mailto:aliuhaneefah@gmail.com" className=" underline decoration-solid hover:text-secondary-text transition-colors duration-200">
                                     Email Me
                                 </a>
