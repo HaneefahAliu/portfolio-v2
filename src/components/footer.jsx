@@ -1,5 +1,6 @@
 import React from "react";
-import { ArrowUpRight, FileText, Mails } from "lucide-react";
+import "./globals.css";
+import { ArrowUpRight } from "lucide-react";
 import LargeText from "../assets/images/haneefah-cut.png";
 
 const Footer = () => {
@@ -7,15 +8,10 @@ const Footer = () => {
 
     return (
         <footer className="min-h-screen bg-black text-white footer-grid">
-            {/* grid lines overlay */}
-            <div className="pointer-events-none absolute inset-0 opacity-20">
-                <div className="h-full w-full bg-[repeating-linear-gradient(to_right,rgba(170, 24, 24, 0.12)_0px,rgba(197, 25, 25, 0.12)_1px,transparent_1px,transparent_320px)] bg-[position:40px_0]" />
-            </div>
-
-            <div div className="pb-6">
+            <div className="pb-6">
                 <div className="flex min-h-[560px] flex-col items-center justify-center text-center">
                     <h2 className="text-[100px] font-extrabold font-anton leading-[1] tracking-tight">LET&apos;S MAKE SOMETHING COOL!</h2>
-                    <p className="mt-2 max-w-[600px] text-[16px] leading-5 text-white/80 font-inter font-light">
+                    <p className="mt-6 max-w-[500px] text-[14px] leading-5 text-white font-inter font-light">
                         Curious problems, ambitious teams, and thoughtful ideas are my favourite things to work on. If you’re working on something great, I’d love to hear from you :)
                     </p>
                 </div>

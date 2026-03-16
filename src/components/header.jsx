@@ -90,23 +90,27 @@ export default function Header() {
                     {/* Menu Footer */}
                     <div className="p-4 sm:p-6 lg:p-8">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-                            <div className="text-white">
-                                <a href="mailto:aliuhaneefah@gmail.com" className="font-inter font-light text-[14px] underline decoration-solid hover:text-secondary-text transition-colors duration-200">
-                                    aliuhaneefah@gmail.com
+                            <div className="text-white font-inter font-light text-[14px] uppercase">
+                                <a href="mailto:aliuhaneefah@gmail.com" className=" underline decoration-solid hover:text-secondary-text transition-colors duration-200">
+                                    Email Me
+                                </a>
+                                <a href="https://drive.google.com/file/d/12BHwm1T7urf-gQgDPAoH4sIyc3YSSmgq/view?usp=sharing" target="_blank" className="hover:text-secondary-text transition-colors duration-200">
+                                    My Resume
                                 </a>
                             </div>
-                            <div className="flex space-x-4 text-[14px] font-inter font-light text-white">
+                            
+                            <div className="flex space-x-4 text-[14px] font-inter uppercase font-light text-white">
                                 <a href="https://www.linkedin.com/in/haneefah-aliu-6a8a21160/"  target="_blank" className="hover:text-secondary-text transition-colors duration-200 px-3 py-1">
                                     [LinkedIn]
-                                </a>
-                                <a href="https://www.instagram.com/haneefah.design/" target="_blank" className="hover:text-secondary-text transition-colors duration-200 px-3 py-1">
-                                    [Instagram]
                                 </a>
                                 <a href="https://www.behance.net/haneefahhh" target="_blank" className="hover:text-secondary-text transition-colors duration-200 px-3 py-1">
                                     [Behance]
                                 </a>
-                                <a href="https://medium.com/@haneefahaliu" target="_blank" className="hover:text-secondary-text transition-colors duration-200 px-3 py-1">
-                                    [Medium]
+                                <a href="https://dribbble.com/Haneefahhh" target="_blank" className="hover:text-secondary-text transition-colors duration-200 px-3 py-1">
+                                    [Dribble]
+                                </a>
+                                <a href="https://www.instagram.com/haneefah.design/" target="_blank" className="hover:text-secondary-text transition-colors duration-200 px-3 py-1">
+                                    [Instagram]
                                 </a>
                             </div>
                         </div>
