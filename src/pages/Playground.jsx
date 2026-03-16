@@ -7,10 +7,10 @@ export default function Playground({ items }) {
   return (
     <main className="page-grid">
       <div className="mx-auto max-w-[1440px]">
-        <div className="min-h-screen flex flex-col align-center">
+        <div className="min-h-screen flex flex-col mt-6 content-center">
               <h1 className="text-[100px]">🚧</h1>
-              <h1 className="font-plusJakarta font-bold text-[120px]">Under Construction :)</h1>
-              <p className="font-inter font-light text-secondary-text text-sm">I'm working on something special for you. In the mean time, check out my <a href="/case-studies" className="underline decoration-solid hover:text-black transition">Case Studies</a></p>
+              <h1 className="font-plusJakarta font-bold text-[100px]">Under Construction :)</h1>
+              <p className="font-inter font-light text-secondary-text text-md">I'm working on something special for you. In the mean time, check out my <a href="/case-studies" className="underline decoration-solid hover:text-black transition">Case Studies</a></p>
           </div>
         {/* <section className="min-h-screen flex flex-col">
           <h3 className="mt-auto pb-40 font-inter font-medium text-[40px] max-w-[800px]">
