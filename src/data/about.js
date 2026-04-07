@@ -32,14 +32,16 @@ export const history = [
   { role: "UX Designer Intern", org: "Sterling Bank", dates: "2019" },
 ];
 
-import Pic1 from "../assets/images/ss1.png";
-import Pic2 from "../assets/images/ss1.png";
-import Pic3 from "../assets/images//ss3.png";
-import Pic4 from "../assets/images/ss4.png";
+import Pic1 from "../assets/images/ss1.JPG";
+import Pic2 from "../assets/images/ss2.JPG";
+import Pic3 from "../assets/images/ss3.JPG";
+import Pic4 from "../assets/images/ss4.jpeg";
+import Pic5 from "../assets/images/ss5.png";
 
 export const galleryItems = [
-  { src: Pic1, caption: "POST-GYM PUMPPP" },
-  { src: Pic2, caption: "MY BABIES, APOLLO AND ARTEMIS; AND JAMES" },
-  { src: Pic3, caption: "MY BABIES, APOLLO AND ARTEMIS; AND JAMES" },
-  { src: Pic4, caption: "MY BABIES, APOLLO AND ARTEMIS; AND JAMES" },
+  { src: Pic1, caption: "WINGS GIVER." },
+  { src: Pic2, caption: "POST-GYM PIC." },
+  { src: Pic3, caption: "ONE OF MY LEGO BABIES." },
+  { src: Pic4, caption: "CAMERA + MAC." },
+  { src: Pic5, caption: "AURA FARMING." },
 ];
