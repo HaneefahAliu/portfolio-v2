@@ -31,7 +31,7 @@ export default function ProjectCard({ project }) {
         <img
           src={project.image}
           alt={project.title}
-          className="h-[420px] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          className="w-full aspect-[16/9] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         />
 
         {/* DARK OVERLAY */}
@@ -66,12 +66,12 @@ export default function ProjectCard({ project }) {
       </div>
 
       {/* BOTTOM TEXT */}
-      <div className="mt-4 grid grid-cols-[280px_1fr] gap-10">
-        <div className="text-[20px] font-light font-inter tracking-wide uppercase">
+      <div className="mt-4 grid grid-cols-[50%_1fr] gap-6">
+        <div className="text-xl font-light font-inter tracking-wide uppercase">
           {project.title}
         </div>
 
-        <p className="text-[14px] font-light font-inter tracking-wide leading-6 text-secondary-text text-end">
+        <p className="text-sm pb-12 font-light font-inter tracking-wide leading-6 text-secondary-text text-end">
           {project.description}
         </p>
       </div>
