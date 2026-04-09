@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Over+the+Rainbow&display=swap');
+
 /* Subtle vertical grid background */
 .page-grid {
     background-image:
@@ -26,6 +28,7 @@
         );
     background-size: auto;
 }
+
 
 @keyframes marquee {
     0% { transform: translateX(0); }

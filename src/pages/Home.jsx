@@ -1,8 +1,6 @@
 import React from 'react';
-import AvailabilityPill from '../components/pill';
 import projects from "../data/projects";
 import ProjectCard from "../components/projectCard";
-import ContactSection from "../components/contactSection";
 import "./globals.css";
 
 function Home() {
@@ -38,7 +36,7 @@ function Home() {
 
                 {/* Subtext */}
                 <p
-                    className="mt-6 text-[14px] text-secondary-text font-regular max-w-md leading-relaxed"
+                    className="mt-6 font-inter font-light text-[16px] text-secondary-text max-w-md leading-relaxed"
                     style={{ animation: "fadeUp 0.6s ease 0.7s forwards", opacity: 0 }}
                 >
                     I care about the whole experience — how it looks, how it works, and how it makes people feel.

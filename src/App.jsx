@@ -8,7 +8,6 @@ import Home from './pages/Home';
 import About from './pages/About';
 import CaseStudies from './pages/CaseStudies';
 import Playground from './pages/Playground';
-import Contact from './pages/Contact';
 import ForWheels from './pages/ForWheels';
 import PlatePal from './pages/PlatePal';
 import Twikkie from './pages/Twikkie';
@@ -23,7 +22,6 @@ function App() {
             <Route path='/about' element={<About />} />
             <Route path='/case-studies' element={<CaseStudies />} />
             <Route path="/playground" element={<Playground />} />
-            <Route path="/contact" element={<Contact />} />
 
             <Route path='/case-studies/twikkie' element={<Twikkie />} />
             <Route path='/case-studies/forwheels' element={<ForWheels />} />

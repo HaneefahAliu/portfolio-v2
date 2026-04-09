@@ -1,104 +1,64 @@
 import React from "react";
+import hanee1 from "../assets/images/hanee-1.JPG";
+import hanee2 from "../assets/images/hanee-2.jpg";
 
-import {services, galleryItems} from '../data/about';
-
+import {galleryItems} from "../data/about";
 import AutoMarqueeGallery from "../components/imageMarquee";
-import Pic1 from "../assets/images/hanee-1.JPG";
-import Pic2 from "../assets/images/hanee-2.jpg";
+import "./globals.css";
 
-
-export default function About() {
+export default function AboutSection() {
     return (
-        <main className='page-grid'>
-            <div className="mx-auto max-w-[1440px]">
-                <section className="min-h-screen flex flex-col">
-                    <div className="mt-auto pb-40">
-                        <div className="relative h-[120px] w-[180px] group">
-                            {/* CARD 1 */}
-                            <div className="absolute left-0 top-4 rotate-[-10deg] transition-all duration-500 ease-out group-hover:-translate-x-4 group-hover:-rotate-[18deg]">
-                                <div className="absolute -inset-2 rounded-[18px] bg-white/70 blur-lg" />
-                                <div className="relative rounded-[18px] bg-white p-[6px] shadow-[0_16px_30px_rgba(0,0,0,0.22)]">
-                                    <img src={Pic1} alt="Haneefah" className="h-[90px] w-[70px] rounded-[12px] object-cover" />
-                                    <div className=" pointer-events-none absolute inset-0 rounded-[12px] bg-[radial-gradient(rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:6px_6px] mix-blend-overlay"/>
-                                </div>
-                            </div>
-
-                            {/* CARD 2 */}
-                            <div className="absolute left-14 top-0 rotate-[8deg] transition-all duration-500 ease-out group-hover:translate-x-4 group-hover:rotate-[16deg]">
-                                <div className="absolute -inset-2 rounded-[18px] bg-white/70 blur-lg" />
-                                <div className="relative rounded-[18px] bg-white p-[6px] shadow-[0_16px_30px_rgba(0,0,0,0.22)]">
-                                    <img src={Pic2} alt="Haneefah" className="h-[90px] w-[70px] rounded-[12px] object-cover"/>
-                                    <div className="pointer-events-none absolute inset-0 rounded-[12px] bg-[radial-gradient(rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:6px_6px] mix-blend-overlay"/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="font-plusJakarta">
-                            <p className="mt-8 text-[20px] italic font-light tracking-[-0.02em] text-secondary-text">Haneefah Aliu</p>
-                            <h1 className="text-[100px] font-bold leading-[1.05]">
-                                Product Designer,
-                                <br />
-                                Side quest warrior.
-                            </h1>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="px-6 py-2">
-                    <div className="mx-auto max-w-[1400px] px-6 py-16 lg:px-10 lg:py-24">
-                        <div className="grid grid-cols-12 gap-6">
-                            {/* LEFT LABEL */}
-                            <div className="col-span-12 lg:col-span-2">
-                                <div className="flex items-center gap-3 lg:sticky lg:top-10">
-                                    <p className="text-xs uppercase text-secondary-text text font-inter font-light tracking-[0.22em]">/ about me</p>
-                                </div>
-                            </div>
-
-                            {/* RIGHT CONTENT */}
-                            <div className="col-span-12 lg:col-span-10">
-                                <div className="mx-auto max-w-[700px] space-y-14">
-                                    <p className="font-inter font-light text-[18px]">Hi :) I’m Haneefah, a product designer who engineers sometimes with 5+ years of experience  creating clear, intuitive, and human-centered digital experiences. I love thoughtful details, refined visuals, and seamless interactions. I'm on a mission to make the digital world a little more fulfilling by merging tools and processes to produce simple and delightful designs that elevate everyday experiences – simple yet impactful, intuitive to use, and leaving a lasting impression while also meeting the objective of the business.</p>
-                                    <p className="font-inter font-light text-[18px]">With a background in Computer Information Systems and a Master’s in User Experience Design, I sit confidently at the intersection of design and engineering — bridging what's technically possible with what users truly need.</p>
-                                    <p className="font-inter font-light text-[18px]">My work is driven by user narratives and the desire to create meaningful, impact-driven experiences. I’m always exploring new technologies and methodologies, and I thrive in collaborative environments where complex problems become opportunities for thoughtful, human-centered solutions.</p>
-                                </div>
-                            </div>
-                        </div>
+        <div className="px-[15%] min-h-[100vh]">
+            <section className="py-16 flex flex-col md:flex-row items-center justify-between gap-12">
+                {/* LEFT — text */}
+                <div className="flex-1 max-w-lg">
+                    <p className="text-[32px] pb-2">👋</p>
+                    <h2 className="text-xl font-medium font-plusJakarta leading-[1.15] mb-6">Hi :)</h2>
+                    <div className="flex flex-col gap-6 text-[14px] font-inter font-light leading-7 text-black/50">
+                        <p>I'm a <span className="font-medium text-black">product designer</span> who engineers sometimes with 5+ years of experience creating clear, intuitive, and human-centered digital experiences. I love thoughtful details, refined visuals, and seamless interactions. </p>
+                        <p>I'm on a mission to make the digital world a little more fulfilling by merging tools and processes to produce simple and delightful designs that elevate everyday experiences – simple yet impactful, intuitive to use, and leaving a lasting impression while also meeting the objective of the business.</p>
+                        <p>With a background in Computer Information Systems and a Master’s in User Experience Design, I sit confidently at the intersection of design and engineering — bridging what's technically possible with what users truly need.</p>
+                        <p>My work is driven by user narratives and the desire to create meaningful, impact-driven experiences. I’m always exploring new technologies and methodologies, and I thrive in collaborative environments where complex problems become opportunities for thoughtful, human-centered solutions.</p>
                     </div>
 
-                    <div className="mx-auto max-w-[1400px] px-6 py-16 lg:px-10 lg:py-24">
-                        <div className="grid grid-cols-12 gap-6">
-                            {/* LEFT LABEL */}
-                            <div className="col-span-12 lg:col-span-2">
-                                <div className="lg:sticky lg:top-10">
-                                    <p className="text-xs uppercase font-inter font-light tracking-[0.22em] text-secondary-text">/ what i can do for you</p>
-                                </div>
-                            </div>
+                    <div className="mt-8 flex items-center gap-6 text-[14px] font-inter">
+                        <a href="mailto:aliuhaneefah@gmail.com" className="underline underline-offset-4 hover:text-black/50 transition">Email me</a>
+                        <a href="https://drive.google.com/file/d/12BHwm1T7urf-gQgDPAoH4sIyc3YSSmgq/view?usp=sharing" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-black/50 transition">Resume</a>
+                        <a href="https://www.linkedin.com/in/haneefah-aliu-6a8a21160/" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-black/50 transition">LinkedIn</a>
+                    </div>
+                </div>
 
-                            {/* RIGHT CONTENT */}
-                            <div className="col-span-12 lg:col-span-10">
-                                <div className="mx-auto max-w-[700px]">
-                                    {services.map((item, idx) => (
-                                        <div
-                                            key={item.title}
-                                            className={[
-                                            idx === 0 ? "pt-0" : "pt-10 border-t border-border-line",
-                                            "pb-10",
-                                            ].join(" ")}
-                                        >
-                                            <h3 className="text-[16px] font-bold font-plusJakarta tracking-[-0.02em] text-black">{item.title}</h3>
-                                            <p className="mt-2 text-[16px] font-light leading-relaxed text-secondary-text">{item.desc}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+                {/* RIGHT — stacked polaroids */}
+                <div className="relative shrink-0 w-[420px] h-[420px] group">
+                    {/* Back polaroid */}
+                    <div className="absolute bg-white p-3 pb-14 shadow-md w-[280px] h-[340px] rotate-[18deg] top-4 left-24 transition-transform duration-500 ease-out group-hover:rotate-[26deg] group-hover:translate-x-28 group-hover:-translate-y-2">
+                        <img src={hanee2} alt="Haneefah now" className="w-full h-full object-cover grayscale"/>
+                        {/* Polaroid caption */}
+                        <p className="absolute bottom-3 left-0 right-6 text-right text-[11px] text-secondary-text"
+                            style={{ fontFamily: "'Over the Rainbow', cursive" }}>
+                            Adult Hanee
+                        </p>
                     </div>
 
-                    <div>
-                        <AutoMarqueeGallery items={galleryItems} />
+                    {/* Front polaroid */}
+                    <div className="absolute bg-white p-3 pb-14 shadow-md w-[280px] h-[340px] -rotate-[10deg] top-4 left-0 transition-transform duration-500 ease-out group-hover:-rotate-[16deg] group-hover:-translate-x-12 group-hover:translate-y-4">
+                        <img src={hanee1} alt="Haneefah young" className="w-full h-full object-cover"/>
+                        {/* Polaroid caption */}
+                        <p className="absolute bottom-3 left-6 right-0 text-center text-[11px] text-secondary-text"
+                            style={{ fontFamily: "'Over the Rainbow', cursive" }}>
+                            Baby Hanee
+                        </p>
                     </div>
-                </section>
-            </div>
-        </main>
+                </div>
+            </section>
+
+            <section className="py-16">
+                <h2 className="py-20 ont-light font-anton leading-[1.15] text-7xl">Random Shenanigans</h2>
+                <div>
+                    <AutoMarqueeGallery items={galleryItems} />
+                </div>
+            </section>
+            
+        </div>
     );
 }

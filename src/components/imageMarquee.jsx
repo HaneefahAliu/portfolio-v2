@@ -178,7 +178,7 @@ export default function AutoMarqueeGallery({
   return (
     <section className="w-full">
       {/* Top bar */}
-      <div className="mx-auto max-w-[1440px] px-6 py-6 flex items-center justify-between">
+      <div className="py-6 flex items-center justify-between">
         <p className="text-lg font-light font-plusJakarta text-secondary-text">
           {activeIndex + 1}/{items.length}
         </p>
