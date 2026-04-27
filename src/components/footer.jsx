@@ -25,7 +25,7 @@ const Footer = () => {
                     <p className="uppercase text-[12px] text-white/40 pb-10">[reach me]</p>
                     <div className="flex flex-col text-[14px] text-white gap-4">
                         <a href="mailto:aliuhaneefah@gmail.com" target="_blank" className="hover:text-white/50">Email me</a>
-                        <a href="https://drive.google.com/file/d/12BHwm1T7urf-gQgDPAoH4sIyc3YSSmgq/view?usp=sharing" target="_blank" className="hover:text-white/50">My Resume</a>
+                        <a href="https://drive.google.com/file/d/16O7lryzTYDdf300XZD0CP47gqPur4KW7/view?usp=sharing" target="_blank" className="hover:text-white/50">My Resume</a>
                     </div>
                 </div>
 

@@ -1,4 +1,9 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop';
+import CustomCursor from './components/cursor';
+import Loader from './components/loader';
+
 
 import './App.css';
 
@@ -13,23 +18,29 @@ import PlatePal from './pages/PlatePal';
 import Twikkie from './pages/Twikkie';
 
 function App() {
+  const [loading, setLoading] = useState(true);
   return (
-    <Router>
-      <div className="min-h-screen">
-        <Header />
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/case-studies' element={<CaseStudies />} />
-            <Route path="/playground" element={<Playground />} />
+    <>
+    {loading && <Loader onComplete={() => setLoading(false)} />}
+    <CustomCursor />
+      <Router>
+          <ScrollToTop /> 
+        <div className={`transition-opacity duration-700 ${loading ? 'opacity-0' : 'opacity-100'}`}>
+          <Header />
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/case-studies' element={<CaseStudies />} />
+              <Route path="/playground" element={<Playground />} />
 
-            <Route path='/case-studies/twikkie' element={<Twikkie />} />
-            <Route path='/case-studies/forwheels' element={<ForWheels />} />
-            <Route path='/case-studies/platepal' element={<PlatePal />} />
-          </Routes>
-        <Footer />
-      </div>
-    </Router>
+              <Route path='/case-studies/twikkie' element={<Twikkie />} />
+              <Route path='/case-studies/forwheels' element={<ForWheels />} />
+              <Route path='/case-studies/platepal' element={<PlatePal />} />
+            </Routes>
+          <Footer />
+        </div>
+      </Router>
+    </>
   );
 }
 

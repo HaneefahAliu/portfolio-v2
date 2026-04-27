@@ -3,27 +3,28 @@ import hanee1 from "../assets/images/hanee-1.JPG";
 import hanee2 from "../assets/images/hanee-2.jpg";
 
 import {galleryItems} from "../data/about";
+import ToolkitMarquee from "../components/iconMarquee";
 import AutoMarqueeGallery from "../components/imageMarquee";
+import Interests from "../components/interests";
 import "./globals.css";
 
 export default function AboutSection() {
     return (
         <div className="px-[15%] min-h-[100vh]">
-            <section className="py-16 flex flex-col md:flex-row items-center justify-between gap-12">
+            <section className="py-12 flex flex-col md:flex-row items-center justify-between gap-12">
                 {/* LEFT — text */}
                 <div className="flex-1 max-w-lg">
-                    <p className="text-[32px] pb-2">👋</p>
                     <h2 className="text-xl font-medium font-plusJakarta leading-[1.15] mb-6">Hi :)</h2>
-                    <div className="flex flex-col gap-6 text-[14px] font-inter font-light leading-7 text-black/50">
-                        <p>I'm a <span className="font-medium text-black">product designer</span> who engineers sometimes with 5+ years of experience creating clear, intuitive, and human-centered digital experiences. I love thoughtful details, refined visuals, and seamless interactions. </p>
+                    <div className="flex flex-col gap-6 text-[16px] font-inter font-light leading-7 text-black/50">
+                        <p>I'm a <span className="font-medium text-black">product designer</span> who engineers sometimes with <span className="font-medium text-black">5+ years of experience</span> creating clear, intuitive, and human-centered digital experiences. I love thoughtful details, refined visuals, and seamless interactions. </p>
                         <p>I'm on a mission to make the digital world a little more fulfilling by merging tools and processes to produce simple and delightful designs that elevate everyday experiences – simple yet impactful, intuitive to use, and leaving a lasting impression while also meeting the objective of the business.</p>
-                        <p>With a background in Computer Information Systems and a Master’s in User Experience Design, I sit confidently at the intersection of design and engineering — bridging what's technically possible with what users truly need.</p>
+                        <p>With a background in Computer Information Systems and a Master’s in User Experience Design, I sit confidently at the intersection of design and engineering plus understanding of business needs,  bridging what's technically possible with what users truly need.</p>
                         <p>My work is driven by user narratives and the desire to create meaningful, impact-driven experiences. I’m always exploring new technologies and methodologies, and I thrive in collaborative environments where complex problems become opportunities for thoughtful, human-centered solutions.</p>
                     </div>
 
                     <div className="mt-8 flex items-center gap-6 text-[14px] font-inter">
                         <a href="mailto:aliuhaneefah@gmail.com" className="underline underline-offset-4 hover:text-black/50 transition">Email me</a>
-                        <a href="https://drive.google.com/file/d/12BHwm1T7urf-gQgDPAoH4sIyc3YSSmgq/view?usp=sharing" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-black/50 transition">Resume</a>
+                        <a href="https://drive.google.com/file/d/16O7lryzTYDdf300XZD0CP47gqPur4KW7/view?usp=sharing" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-black/50 transition">Resume</a>
                         <a href="https://www.linkedin.com/in/haneefah-aliu-6a8a21160/" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-black/50 transition">LinkedIn</a>
                     </div>
                 </div>
@@ -53,7 +54,19 @@ export default function AboutSection() {
             </section>
 
             <section className="py-16">
-                <h2 className="py-20 ont-light font-anton leading-[1.15] text-7xl">Random Shenanigans</h2>
+                <div>
+                    <ToolkitMarquee />
+                </div>
+            </section>
+
+            <section className="py-32">
+                <div>
+                    <Interests />
+                </div>
+            </section>
+
+            <section className="py-16">
+                <h2 className="text-[20px] font-plusJakarta font-light uppercase tracking-widest text-secondary-text mb-10">#photo dump</h2>
                 <div>
                     <AutoMarqueeGallery items={galleryItems} />
                 </div>

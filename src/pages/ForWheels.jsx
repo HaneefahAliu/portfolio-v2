@@ -1,4 +1,4 @@
-import Cover from '../assets/images/forwheels.png' 
+// import Cover from '../assets/images/forwheels.png' 
 
 const ForWheels = () => {
   return ( 

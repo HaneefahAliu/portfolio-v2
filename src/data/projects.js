@@ -1,15 +1,11 @@
-import Twikkie from '../assets/images/twikkie.png';
-import TwikkieDS from '../assets/images/twikkie-ds.png';
-import ForWheels from "../assets/images/forwheels.png"
-import PlatePal from '../assets/images/platepal.png';
-import EduLearn from '../assets/images/edulearn.png';
+
 
 const projects = [
     {
       id: '1',
       route: 'twikkie',
       title: 'Twikkie',
-      image: Twikkie, // Path to your project image
+      image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300658/Case%20Studies/twikkie_a0abim.png', 
       description: 'Maximizing Workplace Potential: An All-in-One Cloud Solution for People Management', 
       locked: true,
       featured: true,
@@ -18,7 +14,7 @@ const projects = [
       id: '2',
       route: 'twikkieds',
       title: 'Twikkie - design system',
-      image: TwikkieDS,
+      image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300680/Case%20Studies/twikkie-ds_ataiao.png',
       description: 'Twikkie Design System',
       locked: true,
       featured: false,
@@ -27,25 +23,25 @@ const projects = [
       id: '3',
       route: 'forwheels',
       title: 'Forwheels',
-      image: ForWheels, // Path to your project image
+      image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300599/Case%20Studies/forwheels_keh0kp.png',
       description: 'Revolutionizing Automotive Services using Augmented Reality.', 
       locked: true,
       featured: true,
     },
     {
       id: '4',
-      route: 'platepal',
+      route: '/case-studies/platepal',
       title: 'PlatePal',
-      image: PlatePal,
+      image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300327/Case%20Studies/platepal_njtjjf.png',
       description: 'Building Better Eating Habits through Smart Meal Planning Technology.',
-      locked: true,
+      locked: false,
       featured: false,
     },
     {
       id: '5',
       route: 'https://medium.com/@haneefahaliu/edulearn-a-ux-case-study-f9071fb39613',
       title: 'EduLearn',
-      image: EduLearn,
+      image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300489/Case%20Studies/edulearn_sanogx.png',
       description: 'Expanding Classroom Boundaries With Smart Teaching Solutions',
       locked: false,
       featured: false,

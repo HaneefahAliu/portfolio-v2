@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function AutoMarqueeGallery({
   items,
@@ -187,18 +188,18 @@ export default function AutoMarqueeGallery({
           <button
             type="button"
             onClick={() => scrollByItems(-1)}
-            className="opacity-70 hover:opacity-100 transition"
+            className="opacity-30 hover:opacity-100 transition"
             aria-label="Previous"
           >
-            ←
+            <ChevronLeft />
           </button>
           <button
             type="button"
             onClick={() => scrollByItems(1)}
-            className="opacity-70 hover:opacity-100 transition"
+            className="opacity-30 hover:opacity-100 transition"
             aria-label="Next"
           >
-            →
+            <ChevronRight />
           </button>
         </div>
       </div>

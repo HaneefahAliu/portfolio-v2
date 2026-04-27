@@ -94,7 +94,7 @@ export default function ProjectCard({ project }) {
 
   // Internal route
   return (
-    <Link to={`/${project.route}`} className="block">
+    <Link to={project.route} className="block">
       {CardInner}
     </Link>
   );

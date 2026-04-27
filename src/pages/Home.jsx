@@ -7,7 +7,7 @@ function Home() {
     const featured = projects.filter((p) => p.featured);
     
     return (
-        <main className='page-grid'>
+        <main className='page-grid pb-24'>
             <div className="px-[12%]">
                 <div className="relative z-10 flex flex-col justify-center min-h-[60vh]">
                 <p

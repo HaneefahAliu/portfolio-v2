@@ -10,13 +10,23 @@ export default {
         anton: ['Anton', 'sans-serif'],
         plusJakarta: ['Plus Jakarta Sans', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
+        cursive: ['Snowburst One', 'system-ui']
       },
       colors: {
         'secondary-text': '#C0C1CF',
         'highlight': '#BFF500',
         'border-line': '#EDEDED',
         'grey': '#7C7D89',
-      }
+      },
+      animation: {
+        marquee: 'marquee 20s linear infinite',
+      },
+      keyframes: {
+        marquee: {
+          from: {transform: 'translateX(0)'},
+          to: { transform: 'translateX9-50%)'},
+        },
+      },
     },
   },
   plugins: [],
