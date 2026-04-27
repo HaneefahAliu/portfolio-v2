@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
-import ScrollToTop from './components/ScrollToTop';
+import ScrollToTop from './components/scrollToTop';
 import CustomCursor from './components/cursor';
 import Loader from './components/loader';
 
@@ -24,7 +24,7 @@ function App() {
     {loading && <Loader onComplete={() => setLoading(false)} />}
     <CustomCursor />
       <Router>
-          <ScrollToTop /> 
+        <ScrollToTop /> 
         <div className={`transition-opacity duration-700 ${loading ? 'opacity-0' : 'opacity-100'}`}>
           <Header />
             <Routes>
