@@ -16,7 +16,7 @@ export default function PlatePal() {
         </section>
 
         <section className="relative flex gap-16 pt-12 px-[6%]">
-          <div className="w-2/3 flex flex-col gap-6">
+          <div className="w-2/3 flex flex-col gap-4">
             <img src="https://res.cloudinary.com/haneefah/image/upload/v1777300247/Case%20Studies/PP1_a2zm8r.png" alt="PlatePal screens" className="w-full" />
             <img src="https://res.cloudinary.com/haneefah/image/upload/v1777300248/Case%20Studies/PP2_cclp0x.png" alt="PlatePal stats" className="w-full" />
           </div>
@@ -87,7 +87,7 @@ export default function PlatePal() {
         {/* end of problem */}
 
         {/* research */}
-        <div className="flex gap-16 px-[6%] py-24">
+        <div className="flex gap-16 px-[6%] pb-24">
           <div className="w-1/4">
             <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[research]</span>
           </div>
@@ -117,15 +117,15 @@ export default function PlatePal() {
             <div className="grid grid-cols-3 gap-12 pt-12">
               {[
                 {
-                  icon: <CookingPot size={40} strokeWidth={1.2} className='text-[#008000]' />, 
+                  icon: <CookingPot size={32} strokeWidth={1.2} className='text-[#008000]' />, 
                   text: "Users feel overwhelmed before they even start cooking."
                 },
                 {
-                  icon: <BookSearch size={40} strokeWidth={1.2} className='text-[#008000]' />,
+                  icon: <BookSearch size={32} strokeWidth={1.2} className='text-[#008000]' />,
                   text: "Meal planning is more about decision-making than recipes."
                 },
                 {
-                  icon: <CaptionsOff size={40} strokeWidth={1.2} className='text-[#008000]' />,
+                  icon: <CaptionsOff size={32} strokeWidth={1.2} className='text-[#008000]' />,
                   text: "Accessibility issues often break the entire experience — not just parts of it."
                 },
               ].map((item, i) => (
@@ -145,7 +145,7 @@ export default function PlatePal() {
 
         {/* persona */}
         <div>
-          <div className="flex gap-16 px-[6%] pt-24 pb-10">
+          <div className="flex gap-16 px-[6%] pt-20 pb-10">
             <div className="w-1/4">
               <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[user personas]</span>
             </div>
@@ -173,7 +173,7 @@ export default function PlatePal() {
 
         {/* design direction */}
         <div>
-          <div className="flex gap-16 px-[6%] pt-24 pb-10">
+          <div className="flex gap-16 px-[6%] pt-16 pb-10">
             <div className="w-1/4">
               <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[Design Direction]</span>
             </div>
@@ -220,7 +220,7 @@ export default function PlatePal() {
 
         {/* style guide */}
         <div>      
-          <div className="flex gap-16 px-[6%] pt-24 pb-12">
+          <div className="flex gap-16 px-[6%] pt-16 py-12">
             <div className="w-1/4">
               <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[style guide]</span>
             </div>
@@ -241,7 +241,7 @@ export default function PlatePal() {
           </div>
 
           <div className="px-[6%] pb-12">
-            <img src="" alt="PlatePal style" className="w-full pb-6" />
+            <img src="https://res.cloudinary.com/haneefah/image/upload/v1777392583/Case%20Studies/color_wpukoa.png" alt="PlatePal style" className="w-full pb-3" />
             <img src="https://res.cloudinary.com/haneefah/image/upload/v1777306845/Case%20Studies/PP7_zonlci.png" alt="PlatePal components" className="w-full" />
           </div>
         </div> 
@@ -249,7 +249,7 @@ export default function PlatePal() {
 
         {/* testing */}
         <div>
-          <div className="flex gap-16 px-[6%] pt-24 pb-12">
+          <div className="flex gap-16 px-[6%] pt-20 pb-12">
             <div className="w-1/4">
               <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[testing + iterations]</span>
             </div>
@@ -288,8 +288,8 @@ export default function PlatePal() {
           </div>
 
           <div className="px-[6%]">
-            <img src="https://res.cloudinary.com/haneefah/image/upload/v1777308499/Case%20Studies/PP-test1_kj8j4c.png" alt="PlatePal iterations" className="w-full pb-6" />
-            <img src="https://res.cloudinary.com/haneefah/image/upload/v1777308500/Case%20Studies/PP-test2_lvjuv0.png" alt="PlatePal iterations" className="w-full pb-6" />
+            <img src="https://res.cloudinary.com/haneefah/image/upload/v1777308499/Case%20Studies/PP-test1_kj8j4c.png" alt="PlatePal iterations" className="w-full pb-3" />
+            <img src="https://res.cloudinary.com/haneefah/image/upload/v1777308500/Case%20Studies/PP-test2_lvjuv0.png" alt="PlatePal iterations" className="w-full pb-3" />
             <img src="https://res.cloudinary.com/haneefah/image/upload/v1777308502/Case%20Studies/PP-test3_phrq9a.png" alt="PlatePal iterations" className="w-full" />
           </div>
         </div>
@@ -297,7 +297,7 @@ export default function PlatePal() {
 
         {/* design */}
         <div>
-          <div className="flex gap-16 px-[6%] py-24">
+          <div className="flex gap-16 px-[6%] pt-24 pb-8">
             <div className="w-1/4">
               <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[the solution]</span>
             </div>
@@ -327,8 +327,9 @@ export default function PlatePal() {
           </div>
 
           <div className="px-[6%]">
-            <img src="" alt="PlatePal" className="w-full pb-6" />
-            <img src="" alt="PlatePal" className="w-full" />
+            <img src="https://res.cloudinary.com/haneefah/image/upload/v1777396619/Case%20Studies/PP_vku41v.png" alt="PlatePal" className="w-full pb-3" />
+            <img src="https://res.cloudinary.com/haneefah/image/upload/v1777398109/Case%20Studies/design_bnjrpx.png" alt="PlatePal" className="w-full pb-3" />
+            <img src="https://res.cloudinary.com/haneefah/image/upload/v1777398579/Case%20Studies/design2_enfbr9.png" alt="PlatePal" className="w-full" />
           </div>
         </div>
         {/* end of design */}

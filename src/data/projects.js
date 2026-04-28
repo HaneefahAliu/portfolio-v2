@@ -21,11 +21,11 @@ const projects = [
     },
     {
       id: '3',
-      route: 'forwheels',
-      title: 'Forwheels',
+      route: '/case-studies/forwheels',
+      title: 'forwheels',
       image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300599/Case%20Studies/forwheels_keh0kp.png',
       description: 'Revolutionizing Automotive Services using Augmented Reality.', 
-      locked: true,
+      locked: false,
       featured: true,
     },
     {
