@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 
 const languages = [
-    'مرحبا',      // Arabic
-    'こんにちは',   // Japanese
-    'Bonjour',    // French
-    'Hola',       // Spanish
-    'Ciao',       // Italian
-    'Olá',        // Portuguese
-    'Hej',        // Swedish
-    'Merhaba',    // Turkish
-    'Привет',     // Russian
+    'أهلاً وسهلاً',      // Arabic
+    'ようこそ',   // Japanese
+    'Bienvenue',    // French
+    'Bienvenido',       // Spanish
+    'Benvenuto',       // Italian
+    'Bem-vindo',        // Portuguese
+    'Willkommen',        // German
+    'Karibu',    // Swahili
+    '欢迎',     // Chinese
+    'Káàbọ̀',     // Yoruba
     'Welcome',         // English — last
 ];
 
