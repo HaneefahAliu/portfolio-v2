@@ -10,7 +10,7 @@ import "./globals.css";
 
 export default function AboutSection() {
     return (
-        <div className="px-[15%] min-h-[100vh]">
+        <div className="page-grid px-[15%] min-h-[100vh]">
             <section className="py-12 flex flex-col md:flex-row items-center justify-between gap-12">
                 {/* LEFT — text */}
                 <div className="flex-1 max-w-lg">

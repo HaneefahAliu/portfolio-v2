@@ -6,6 +6,14 @@
     cursor: none !important;
 }
 
+:root {
+    --cursor-color: black;
+}
+
+body.dark-bg {
+    --cursor-color: white;
+}
+
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

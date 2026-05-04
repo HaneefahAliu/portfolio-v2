@@ -76,21 +76,21 @@ export const findings = [
     {
         title: '👁️ The eyes have it',
         description: 'Observation is one of our earliest and most powerful learning tools. Mimicry, watching, copying - and it never really stops.',
-        quote: 'I find it easier to learn by watching people than listening to explanations. I get sleepy when people explain to me.',
+        quote: '\"I find it easier to learn by watching people than listening to explanations. I get sleepy when people explain to me.\"',
     },
     {
         title: '🖼️ Images over text',
         description: 'The brain processes images 60,000x faster than text. Our users felt this long before they could articulate it — they reached for YouTube before manuals, every time.',
-        quote: 'I love when lecturers demonstrate what they\'re explaining. I usually don\'t forget afterwards.',
+        quote: '\"I love when lecturers demonstrate what they\'re explaining. I usually don\'t forget afterwards.\"',
     },
     {
         title: '🔧 Cars need attention',
         description: 'Many users were already engaged and observant with their vehicles. They just lacked a reliable, accessible way to act on what they noticed.',
-        quote: 'I know my car has problems by looking at the dashboard lights. I just don\'t always know what to do next',
+        quote: '\"I know my car has problems by looking at the dashboard lights. I just don\'t always know what to do next\"',
     },
     {
         title: '💪 Confidence grows with time',
         description: 'Competence builds through doing. Users who tried things themselves grew quickly — they just needed a safe space to start and fail without consequences.',
-        quote: '"These days I only go to the mechanic if I try and can neither find nor fix the problem myself."',
+        quote: '\"These days I only go to the mechanic if I try and can neither find nor fix the problem myself.\"',
     },
 ];

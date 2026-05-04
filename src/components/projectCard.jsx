@@ -21,6 +21,7 @@ export default function ProjectCard({ project }) {
     <div className="w-full group">
       {/* IMAGE WRAPPER */}
       <div
+        data-cursor="hide"
         className={`relative w-full overflow-hidden ${
           project.locked ? "cursor-not-allowed" : "cursor-none"
         }`}

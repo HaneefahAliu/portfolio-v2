@@ -1,37 +1,62 @@
 import { useEffect, useState } from 'react';
 
+const languages = [
+    'مرحبا',      // Arabic
+    'こんにちは',   // Japanese
+    'Bonjour',    // French
+    'Hola',       // Spanish
+    'Ciao',       // Italian
+    'Olá',        // Portuguese
+    'Hej',        // Swedish
+    'Merhaba',    // Turkish
+    'Привет',     // Russian
+    'Welcome',         // English — last
+];
+
 export default function Loader({ onComplete }) {
-    const full = 'Haneefah';
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const [display, setDisplay] = useState('HANEEFAH');
+    const [index, setIndex] = useState(0);
     const [done, setDone] = useState(false);
 
     useEffect(() => {
-        let iterations = 0;
         const interval = setInterval(() => {
-            setDisplay(
-                full.split('').map((char, i) => {
-                    if (i < iterations) return char;
-                    return chars[Math.floor(Math.random() * chars.length)];
-                }).join('')
-            );
-            iterations += 0.4;
-            if (iterations >= full.length) {
-                clearInterval(interval);
-                setDisplay(full);
-                setTimeout(() => setDone(true), 600);
-                setTimeout(() => onComplete?.(), 1100);
-            }
-        }, 50);
+            setIndex(prev => {
+                if (prev === languages.length - 1) {
+                    clearInterval(interval);
+                    setTimeout(() => setDone(true), 800);
+                    setTimeout(() => onComplete?.(), 1300);
+                    return prev;
+                }
+                return prev + 1;
+            });
+        }, 200);
+
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <div className={`fixed inset-0 z-[9999] bg-[#000000] flex items-center justify-center transition-opacity duration-500 ${
-            done ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        }`}>
-            <h1 className="font-cursive text-[clamp(3rem,12vw,10rem)] text-white tracking-widest">
-                {display}
+        <div 
+            className={`fixed inset-0 z-[9999] flex items-center justify-center transition-opacity duration-500 ${
+                done ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+            style={{
+                backgroundColor: '#0a0a0a',
+                backgroundImage: `
+                    radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px),
+                    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)
+                `,
+                backgroundSize: '30px 30px, 60px 60px, 60px 60px',
+            }}
+        >
+            <h1 className="text-[clamp(1rem,1vw,2rem)] font-plusJakarta font-light">
+                <span className="text-white/80">HA says </span>
+                <span
+                    key={index}
+                    style={{ animation: 'fadeUp 0.15s ease forwards', display: 'inline-block', opacity: 0, color: 'white', fontWeight: 'bold' }}
+                >
+                    {languages[index]}
+                </span>
+                <span>👋</span>
             </h1>
         </div>
     );

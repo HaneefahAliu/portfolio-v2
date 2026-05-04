@@ -8,7 +8,7 @@ const projects = [
       image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300658/Case%20Studies/twikkie_a0abim.png', 
       description: 'Maximizing Workplace Potential: An All-in-One Cloud Solution for People Management', 
       locked: true,
-      featured: true,
+      featured: false,
     },
     {
       id: '2',
@@ -35,7 +35,7 @@ const projects = [
       image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300327/Case%20Studies/platepal_njtjjf.png',
       description: 'Building Better Eating Habits through Smart Meal Planning Technology.',
       locked: false,
-      featured: false,
+      featured: true,
     },
     {
       id: '5',

@@ -11,22 +11,22 @@ export default function Header() {
     ];
 
 return (
-        <header>
+        <header className='page-grid'>
             <div className="flex items-center justify-between px-[4%] py-8">
                 {/* Logo */}
-                <a href='/'>
+                <Link to='/'>
                     <img className='h-auto w-8' src={Logo} alt="Haneefah" />
-                </a>
+                </Link>
 
                 {/* Nav links */}
                 <nav className="flex items-center px-2 py-1.5 gap-1">
                     {links.map(({ label, href }) => {
-                        const isActive = location.pathname === href;
+                        const isActive = location.pathname === href || location.pathname.startsWith(href + '/');
                         return (
                             <Link
                                 key={href}
                                 to={href}
-                                className={`text-[14px] font-inter px-4 py-1.5 rounded-full font-light uppercase transition-all duration-200 ${
+                                className={`text-[13px] font-inter px-4 py-1.5 rounded-full font-light uppercase transition-all duration-200 ${
                                     isActive
                                         ? 'bg-black/8 text-black font-medium'
                                         : 'text-secondary-text hover:text-black'
@@ -39,8 +39,11 @@ return (
 
                     <div className="w-px h-4 bg-secondary-text mx-1" />
 
-                    <a href="mailto:aliuhaneefah@gmail.com" className="text-[14px] font-inter px-4 py-1.5 rounded-full font-light uppercase text-secondary-text hover:text-black transition-all duration-200">
+                    <a href="mailto:aliuhaneefah@gmail.com" className="text-[13px] font-inter px-4 py-1.5 rounded-full font-light uppercase text-secondary-text hover:text-black transition-all duration-200">
                         Contact
+                    </a>
+                    <a href="https://drive.google.com/file/d/16O7lryzTYDdf300XZD0CP47gqPur4KW7/view?usp=sharing" target="_blank" className="text-[13px] font-inter px-4 py-1.5 rounded-full font-light uppercase text-secondary-text hover:text-black transition-all duration-200">
+                        Resume
                     </a>
                 </nav>
 

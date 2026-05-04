@@ -2,73 +2,51 @@ import { CookingPot, BookSearch, CaptionsOff } from 'lucide-react';
 import {cards, stats, quotes, solutions } from "../data/card";
 import BackButton from "../components/backButton";
 import MoreProjects from "../components/moreProjects";
+import QuickLinks from "../components/quickLinks"; 
+import CaseStudyHeader from "../components/projectHeader";
 import "./globals.css";
+
+const links = [
+    { id: 'problem', label: 'THE PROBLEM' },
+    { id: 'research', label: 'Research' },
+    { id: 'personas', label: 'user personas' },
+    { id: 'dd', label: 'design direction' },
+    { id: 'style', label: 'style guide' },
+    { id: 'testing', label: 'testing + iterations' },
+    { id: 'solution', label: 'the solution' },
+    { id: 'platform', label: 'Multi-platform thinking' },
+    { id: 'reflections', label: 'reflections + takeaways' },
+];
 
 export default function PlatePal() {
   return (
     <main className='page-grid'>
+      <QuickLinks links={links} triggerId="heading"/>
+
       {/* Heading */}
-      <div>
-        <section className="px-[6%] pt-16">
-          <BackButton label="Go Back" />
-          <h1 className="py-10 font-anton text-7xl leading-[1.5] max-w-6xl">PlatePal - designing a meal planning app where nobody gets left out</h1>
-          <img src="https://res.cloudinary.com/haneefah/image/upload/v1777300327/Case%20Studies/platepal_njtjjf.png" alt="PlatePal Cover" className="w-full block" />
-        </section>
-
-        <section className="relative flex gap-16 pt-12 px-[6%]">
-          <div className="w-2/3 flex flex-col gap-4">
-            <img src="https://res.cloudinary.com/haneefah/image/upload/v1777300247/Case%20Studies/PP1_a2zm8r.png" alt="PlatePal screens" className="w-full" />
-            <img src="https://res.cloudinary.com/haneefah/image/upload/v1777300248/Case%20Studies/PP2_cclp0x.png" alt="PlatePal stats" className="w-full" />
-          </div>
-
-          <div className="w-1/3">
-            <div className="sticky top-24 flex flex-col gap-8">
-              <div>
-                <span className="text-xs font-light font-plusJakarta tracking-widest text-secondary-text">[SUMMARY]</span>
-                <p className="mt-2 font-inter font-light leading-7">
-                  Planning what to eat sounds simple, until you actually try to do it. You scroll through endless recipes, juggle dietary needs, forget ingredients. And somehow, it still ends in frustration. For many people, especially those relying on assistive technologies, this process is even harder. PlatePal was designed to change that.
-                </p>
-              </div>
-
-              <div>
-                <span className="text-xs font-light font-plusJakarta tracking-widest text-secondary-text">[ROLE]</span>
-                <p className="mt-2 font-inter font-light leading-7">
-                  UX Research, Accessibility, UI Design, Prototyping, User Testing.
-                </p>
-              </div>
-
-              <div>
-                <span className="text-xs font-light font-plusJakarta tracking-widest text-secondary-text">[TOOLS]</span>
-                <p className="mt-2 font-inter font-light leading-7">Figma, FigJam.</p>
-              </div>
-
-              <div>
-                <span className="text-xs font-light font-plusJakarta tracking-widest text-secondary-text">[DELIVERABLES]</span>
-                <p className="mt-2 font-inter font-light leading-7">
-                  High Fidelity Designs, Interactive Prototype, Multi-platform Designs, Design Assets.
-                </p>
-              </div>
-
-              <div>
-                <span className="text-xs font-light font-plusJakarta tracking-widest text-secondary-text">[PLATFORM]</span>
-                <p className="mt-2 font-inter font-light leading-7">Phone, Tablet, Smart Watch.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
+      <CaseStudyHeader
+        title="PlatePal - designing a meal planning app where nobody gets left out."
+        cover="https://res.cloudinary.com/haneefah/image/upload/v1777300327/Case%20Studies/platepal_njtjjf.png"
+        screens="https://res.cloudinary.com/haneefah/image/upload/v1777300247/Case%20Studies/PP1_a2zm8r.png"
+        stats="https://res.cloudinary.com/haneefah/image/upload/v1777300248/Case%20Studies/PP2_cclp0x.png"
+        summary="Planning what to eat sounds simple, until you actually try to do it. You scroll through endless recipes, juggle dietary needs, forget ingredients. And somehow, it still ends in frustration. For many people, especially those relying on assistive technologies, this process is even harder. PlatePal was designed to change that."
+        role="UX Research, Accessibility, UI Design, Prototyping, User Testing."
+        tools="Figma, FigJam."
+        deliverables="High Fidelity Designs, Interactive Prototype, Multi-platform Designs, Design Assets."
+        platform="Phone, Tablet, Smart Watch."
+      />
       {/* End of Heading */}
 
       {/* Content */}
       <section>
         {/* problem */}
-        <div className="flex gap-16 px-[6%] py-24">
+        <div id="problem" className="pl-[20%] pr-[10%] flex py-24">
           <div className="w-1/4">
             <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[THE PROBLEM]</span>
           </div>
 
           <div className="w-3/4 flex flex-col gap-6">
-            <h2 className="text-2xl pb-3 font-semibold font-plusJakarta leading-[1.7]">
+            <h2 className="text-4xl pb-3 font-semibold font-plusJakarta leading-[1.5]">
               Meal planning is fragmented, overwhelming, and often inaccessible — and for some people, the apps meant to help make it worse.
             </h2>
             <p className="font-inter font-light leading-7 text-black/80">
@@ -87,13 +65,13 @@ export default function PlatePal() {
         {/* end of problem */}
 
         {/* research */}
-        <div className="flex gap-16 px-[6%] pb-24">
+        <div id="research" className="pl-[20%] pr-[10%] flex pt-20 pb-10">
           <div className="w-1/4">
             <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[research]</span>
           </div>
 
           <div className="w-3/4 flex flex-col gap-6">
-            <h2 className="text-2xl pb-3 font-semibold font-plusJakarta leading-[1.7]">
+            <h2 className="text-4xl pb-3 font-semibold font-plusJakarta leading-[1.5]">
               Why does this matter?
             </h2>
 
@@ -144,14 +122,14 @@ export default function PlatePal() {
         {/* end of research */}
 
         {/* persona */}
-        <div>
-          <div className="flex gap-16 px-[6%] pt-20 pb-10">
+        <div id='personas'>
+          <div className="pl-[20%] pr-[10%] flex pt-20 pb-10">
             <div className="w-1/4">
               <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[user personas]</span>
             </div>
 
             <div className="w-3/4 flex flex-col gap-6">
-              <h2 className="text-2xl font-semibold font-plusJakarta leading-[1.7]">
+              <h2 className="text-4xl font-semibold font-plusJakarta leading-[1.5]">
                 Designing for real people.
               </h2>
               
@@ -172,14 +150,14 @@ export default function PlatePal() {
         {/* end of persona */}
 
         {/* design direction */}
-        <div>
-          <div className="flex gap-16 px-[6%] pt-16 pb-10">
+        <div id="dd">
+          <div className="pl-[20%] pr-[10%] flex pt-20 pb-10">
             <div className="w-1/4">
               <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[Design Direction]</span>
             </div>
 
             <div className="w-3/4 flex flex-col gap-6">
-              <h2 className="text-2xl font-semibold font-plusJakarta leading-[1.7]">
+              <h2 className="text-4xl font-semibold font-plusJakarta leading-[1.5]">
                 Simple. Structured. Stress-free.
               </h2>
               
@@ -197,16 +175,16 @@ export default function PlatePal() {
             <img src="https://res.cloudinary.com/haneefah/image/upload/v1777305777/Case%20Studies/PP5_ujt2ws.png" alt="PlatePal sketches" className="w-full" />
           </div>
 
-          <div className="flex gap-16 px-[6%] py-16">
+          <div className="pl-[20%] pr-[10%] flex pt-20 pb-10">
             <div className="w-1/4">
               <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text"></span>
             </div>
 
             <div className="w-3/4 flex flex-col gap-6 pb-6">
               <p className="font-inter font-light leading-7 text-black/80">In the high-fidelity designs, a few choices were particularly intentional:</p>
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-3 gap-6">
                 {cards.map((card) => (
-                  <div key={card.title} className="p-6 pb-0 flex flex-col gap-3">
+                  <div key={card.title} className="pb-12 flex flex-col gap-3">
                     <p className='font-plusJakarta text-xl font-semibold text-[#008000]'>{card.number}</p>
                     <h3 className="font-semibold font-plusJakarta">{card.title}</h3>
                     <p className="font-inter font-light text-sm leading-6 text-secondary-text">{card.description}</p>
@@ -219,14 +197,14 @@ export default function PlatePal() {
         {/* end of design direction */}
 
         {/* style guide */}
-        <div>      
-          <div className="flex gap-16 px-[6%] pt-16 py-12">
+        <div id="style">      
+          <div className="pl-[20%] pr-[10%] flex pt-20 pb-10">
             <div className="w-1/4">
               <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[style guide]</span>
             </div>
 
             <div className="w-3/4 flex flex-col gap-6">
-              <h2 className="text-2xl font-semibold font-plusJakarta leading-[1.7]">
+              <h2 className="text-4xl font-semibold font-plusJakarta leading-[1.5]">
                 Designing a system, not just screens.
               </h2>
               
@@ -248,8 +226,8 @@ export default function PlatePal() {
         {/* end of style guide */}
 
         {/* testing */}
-        <div>
-          <div className="flex gap-16 px-[6%] pt-20 pb-12">
+        <div id='testing'>
+          <div className="pl-[20%] pr-[10%] flex pt-20 pb-10">
             <div className="w-1/4">
               <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[testing + iterations]</span>
             </div>
@@ -296,14 +274,14 @@ export default function PlatePal() {
         {/* end of testing */}
 
         {/* design */}
-        <div>
-          <div className="flex gap-16 px-[6%] pt-24 pb-8">
+        <div id='solution'>
+          <div className="pl-[20%] pr-[10%] flex pt-20 pb-10">
             <div className="w-1/4">
               <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[the solution]</span>
             </div>
 
             <div className="w-3/4 flex flex-col gap-6">
-              <h2 className="text-2xl pb-3 font-semibold font-plusJakarta leading-[1.7]">
+              <h2 className="text-4xl pb-3 font-semibold font-plusJakarta leading-[1.5]">
                 PlatePal's Recipe to Success
               </h2>
 
@@ -311,11 +289,11 @@ export default function PlatePal() {
                 PlatePal is a meal planning and recipe application designed to make home cooking more accessible, enjoyable, and stress-free for everyone. The solution centres on <span className='font-bold'>four core features:</span>
               </p>
 
-              <div className="grid grid-cols-4 gap-4 pb-6">
+              <div className="grid grid-cols-2 gap-4 pb-6">
                 {solutions.map((solution) => (
-                  <div key={solution.title} className="p-6 pb-0 flex flex-col gap-3">
-                    <p className='font-plusJakarta text-xl font-semibold text-[#008000]'>{solution.number}</p>
-                    <p className="font-inter font-light text-sm leading-6 text-black">{solution.description}</p>
+                  <div key={solution.title} className="py-10 flex flex-col gap-3">
+                    <p className='font-plusJakarta text-2xl font-semibold text-[#008000]'>{solution.number}</p>
+                    <p className="font-inter font-light text-md leading-6 text-black">{solution.description}</p>
                   </div>
                 ))}
               </div>
@@ -335,14 +313,14 @@ export default function PlatePal() {
         {/* end of design */}
 
         {/* multi-platform */}
-        <div>
-          <div className="flex gap-16 px-[6%] py-24">
+        <div id='platform'>
+          <div className="pl-[20%] pr-[10%] flex pt-20 pb-10">
             <div className="w-1/4">
               <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[multi-platform thinking]</span>
             </div>
 
             <div className="w-3/4 flex flex-col gap-6">
-              <h2 className="text-2xl pb-3 font-semibold font-plusJakarta leading-[1.7]">
+              <h2 className="text-4xl pb-3 font-semibold font-plusJakarta leading-[1.5]">
                 The same experience, tailored for different devices
               </h2>
               <p className="font-inter font-light leading-7 text-black/80">
@@ -362,13 +340,13 @@ export default function PlatePal() {
         {/* end of multi-platform */}
 
         {/* reflections */}
-        <div className="flex gap-16 px-[6%] py-24">
+        <div id='reflections' className="pl-[20%] pr-[10%] flex pt-20 pb-40">
           <div className="w-1/4">
             <span className="text-xs font-light font-plusJakarta tracking-widest uppercase text-secondary-text">[reflections + takeaways]</span>
           </div>
 
           <div className="w-3/4 flex flex-col gap-6">
-            <h2 className="text-2xl pb-3 font-semibold font-plusJakarta leading-[1.7]">
+            <h2 className="text-4xl pb-3 font-semibold font-plusJakarta leading-[1.5]">
               What did I learn from this project?
             </h2>
             <p className="font-inter font-light leading-7 text-black/80">
