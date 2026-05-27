@@ -8,6 +8,9 @@ export default function CustomCursor() {
     const [isDark, setIsDark] = useState(false);
     const location = useLocation();
 
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    if (isTouch) return null;
+
     useEffect(() => {
         setIsHidden(false);
         setIsHovering(false);
