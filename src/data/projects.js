@@ -16,7 +16,7 @@ const projects = [
       title: 'Twikkie - design system',
       image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300680/Case%20Studies/twikkie-ds_ataiao.png',
       description: 'Twikkie Design System',
-      locked: true,
+      locked: false,
       featured: false,
     },
     {

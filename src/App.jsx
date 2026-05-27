@@ -12,10 +12,11 @@ import Footer from './components/footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import CaseStudies from './pages/CaseStudies';
-import Playground from './pages/Playground';
+import Lab from './pages/Lab';
 import ForWheels from './pages/ForWheels';
 import PlatePal from './pages/PlatePal';
 import Twikkie from './pages/Twikkie';
+import TwikkieDs from './pages/TwikkieDs';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -31,9 +32,10 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/about' element={<About />} />
               <Route path='/case-studies' element={<CaseStudies />} />
-              <Route path="/playground" element={<Playground />} />
+              <Route path="/lab" element={<Lab />} />
 
               <Route path='/case-studies/twikkie' element={<Twikkie />} />
+              <Route path='/case-studies/twikkieds' element={<TwikkieDs />} />
               <Route path='/case-studies/forwheels' element={<ForWheels />} />
               <Route path='/case-studies/platepal' element={<PlatePal />} />
             </Routes>

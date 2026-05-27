@@ -9,7 +9,6 @@ const Footer = () => {
     const [time, setTime] = useState('');
     const headingRef = useRef(null);
 
-    // live time
     useEffect(() => {
         const update = () => {
             const t = new Date().toLocaleTimeString('en-CA', {
@@ -25,7 +24,6 @@ const Footer = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // parallax tilt + color sweep
     useEffect(() => {
         const el = headingRef.current;
         if (!el) return;
@@ -67,21 +65,20 @@ const Footer = () => {
     }, []);
 
     return (
-        <footer 
-            className="bg-[#1A1A1A] text-white flex flex-col min-h-screen"
+        <footer
+            className="bg-[#1A1A1A] text-white flex flex-col"
             onMouseEnter={() => document.body.classList.add('dark-bg')}
             onMouseLeave={() => document.body.classList.remove('dark-bg')}
         >
-
             {/* CTA */}
-            <div className="flex-1 flex flex-col items-center justify-center text-center px-[8%] py-16">
+            <div className="flex-1 flex flex-col items-center justify-center text-center px-6 sm:px-[8%] py-16 sm:py-24">
                 <h2
                     ref={headingRef}
-                    className="text-[clamp(2.5rem,8vw,7rem)] font-extrabold font-anton leading-[1] tracking-tight transition-transform duration-100 cursor-default select-none"
+                    className="text-[clamp(2rem,8vw,7rem)] font-extrabold font-anton leading-[1] tracking-tight transition-transform duration-100 cursor-default select-none"
                 >
                     LET&apos;S MAKE SOMETHING COOL!
                 </h2>
-                <p className="mt-6 max-w-[450px] text-[16px] leading-6 text-[#BABABA] font-inter font-light">
+                <p className="mt-6 max-w-xl text-[14px] sm:text-[16px] leading-6 text-[#BABABA] font-inter font-light">
                     Curious problems, ambitious teams, and thoughtful ideas are my favourite things to work on. If you're working on something great, I'd love to hear from you :)
                 </p>
             </div>
@@ -105,9 +102,9 @@ const Footer = () => {
             </div>
 
             {/* Links */}
-            <div className="flex flex-row justify-between px-[8%] py-12">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-10 px-6 sm:px-[8%] py-12">
                 <div className="font-inter font-light">
-                    <p className="uppercase text-[12px] text-white/40 pb-10">[reach me]</p>
+                    <p className="uppercase text-[12px] text-white/40 pb-6 sm:pb-10">[reach me]</p>
                     <div className="flex flex-col text-[14px] text-white gap-4">
                         <a href="mailto:aliuhaneefah@gmail.com" target="_blank" rel="noreferrer" className="hover:text-white/50">Email me</a>
                         <a href="https://drive.google.com/file/d/16O7lryzTYDdf300XZD0CP47gqPur4KW7/view?usp=sharing" target="_blank" rel="noreferrer" className="hover:text-white/50">My Resume</a>
@@ -115,28 +112,27 @@ const Footer = () => {
                 </div>
 
                 <div className="font-inter font-light">
-                    <p className="uppercase text-[12px] text-white/40 pb-10">[menu]</p>
+                    <p className="uppercase text-[12px] text-white/40 pb-6 sm:pb-10">[menu]</p>
                     <div className="flex flex-col text-[14px] text-white gap-4">
                         <Link to="/" className="hover:text-white/50">Home</Link>
                         <Link to="/case-studies" className="hover:text-white/50">Case Studies</Link>
-                        <Link to="/playground" className="hover:text-white/50">Explorations</Link>
+                        <Link to="/lab" className="hover:text-white/50">Lab</Link>
                         <Link to="/about" className="hover:text-white/50">About</Link>
                     </div>
                 </div>
 
                 <div className="font-inter font-light">
-                    <p className="uppercase text-[12px] text-white/40 pb-10">[social]</p>
+                    <p className="uppercase text-[12px] text-white/40 pb-6 sm:pb-10">[social]</p>
                     <div className="flex flex-col text-[14px] text-white gap-4">
                         <a href="https://www.linkedin.com/in/haneefah-aliu-6a8a21160/" target="_blank" rel="noreferrer" className="hover:text-white/50">LinkedIn</a>
-                        <a href="https://www.behance.net/haneefahhh" target="_blank" rel="noreferrer" className="hover:text-white/50">Behance</a>
-                        <a href="https://dribbble.com/Haneefahhh" target="_blank" rel="noreferrer" className="hover:text-white/50">Dribbble</a>
+                        <a href="https://github.com/HaneefahAliu" target="_blank" rel="noreferrer" className="hover:text-white/50">Github</a>
                         <a href="https://www.instagram.com/haneefah.design/" target="_blank" rel="noreferrer" className="hover:text-white/50">Instagram</a>
                     </div>
                 </div>
 
                 {/* Time + back to top */}
-                <div className="flex flex-col justify-between">
-                    <div className="text-right">
+                <div className="flex flex-col justify-between gap-6 col-span-2 md:col-span-1">
+                    <div className="md:text-right">
                         <p className="uppercase text-[12px] text-white/40 pb-2">[local time]</p>
                         <p className="text-[14px] font-inter text-white tabular-nums">{time}</p>
                         <p className="text-[11px] font-inter text-white/30 mt-1">Toronto, ON</p>
@@ -144,7 +140,7 @@ const Footer = () => {
                     <button
                         type="button"
                         onClick={scrollToTop}
-                        className="flex items-center gap-1 text-sm text-white hover:text-white/60 transition font-inter font-light"
+                        className="flex items-center gap-1 text-sm text-white hover:text-white/60 transition font-inter font-light md:self-end"
                     >
                         Back to top <ArrowUpRight size={18} />
                     </button>
@@ -154,12 +150,11 @@ const Footer = () => {
             {/* Large name image */}
             <div className="relative">
                 <img src={LargeText} alt="Haneefah" className="w-full block" />
-                <div className="absolute bottom-0 left-0 right-0 px-[2%] py-4 flex items-center justify-between text-[14px] text-white/80 font-inter font-light">
+                <div className="absolute bottom-0 left-0 right-0 px-3 sm:px-[2%] py-2 sm:py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 text-[11px] sm:text-[14px] text-white/80 font-inter font-light">
                     <span>Haneefah © 2026</span>
-                    <span>Made with one too many ☕️ and not enough 💤 </span>
+                    <span className="hidden sm:block">Made with one too many ☕️ and not enough 💤</span>
                 </div>
             </div>
-
         </footer>
     );
 };
