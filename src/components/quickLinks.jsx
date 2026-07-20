@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 export default function QuickLinks({ links, triggerId, top = '8rem' }) {
     const [active, setActive] = useState('');
     const [visible, setVisible] = useState(false);
+    const [hiddenByEnd, setHiddenByEnd] = useState(false);
 
     useEffect(() => {
         const trigger = document.getElementById(triggerId);
@@ -16,24 +17,20 @@ export default function QuickLinks({ links, triggerId, top = '8rem' }) {
                     setVisible(false);
                 }
             },
-        { rootMargin: '-100px 0px 0px 0px' }
+            { rootMargin: '-100px 0px 0px 0px' }
         );
         observer.observe(trigger);
 
         const handleScroll = () => {
-        const rect = trigger.getBoundingClientRect();
-        if (window.scrollY < 100) {
-            setVisible(false);
-        }
-    };
-    window.addEventListener('scroll', handleScroll);
-
+            if (window.scrollY < 100) setVisible(false);
+        };
+        window.addEventListener('scroll', handleScroll);
 
         return () => {
-        observer.disconnect();
-        window.removeEventListener('scroll', handleScroll);
-    };
-}, [triggerId]);
+            observer.disconnect();
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [triggerId]);
 
     useEffect(() => {
         const observers = links.map(({ id }) => {
@@ -54,21 +51,40 @@ export default function QuickLinks({ links, triggerId, top = '8rem' }) {
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
-  useEffect(() => {
-    const footer = document.querySelector('footer');
-    const moreProjects = document.getElementById('more-projects');
-    const target = moreProjects || footer;
-    if (!target) return;
+    useEffect(() => {
+        const moreProjects = document.getElementById('more-projects');
+        const footer = document.getElementById('footer');
+        const observers = [];
 
-    const observer = new IntersectionObserver(
-        ([entry]) => {
-            setVisible(!entry.isIntersecting);
-        },
-        { rootMargin: '0px' }
-    );
-    observer.observe(target);
-    return () => observer.disconnect();
-}, []);
+        if (moreProjects) {
+            const obs = new IntersectionObserver(
+                ([entry]) => {
+                    if (!hiddenByEnd) setVisible(!entry.isIntersecting);
+                },
+                { rootMargin: '0px' }
+            );
+            obs.observe(moreProjects);
+            observers.push(obs);
+        }
+
+        if (footer) {
+            const obs = new IntersectionObserver(
+                ([entry]) => {
+                    if (entry.isIntersecting) {
+                        setHiddenByEnd(true);
+                        setVisible(false);
+                    } else {
+                        setHiddenByEnd(false);
+                    }
+                },
+                { rootMargin: '0px' }
+            );
+            obs.observe(footer);
+            observers.push(obs);
+        }
+
+        return () => observers.forEach(o => o.disconnect());
+    }, [hiddenByEnd]);
 
     return (
         <div
@@ -80,18 +96,15 @@ export default function QuickLinks({ links, triggerId, top = '8rem' }) {
             <div className="flex flex-col">
                 {links.map(({ id, label }, i) => (
                     <div key={id} className="flex items-center gap-3 py-3 relative">
-                        {/* line goes from bottom of this dot to top of next */}
                         {i !== links.length - 1 && (
                             <div className="absolute left-[3px] top-[calc(50%+4px)] w-px h-[calc(100%-8px)] bg-black/15" />
                         )}
-                        {/* dot */}
                         <button
                             onClick={() => handleClick(id)}
                             className={`w-2 h-2 rounded-full flex-shrink-0 relative z-10 transition-all duration-300 ${
                                 active === id ? 'bg-black scale-125' : 'bg-black/20 hover:bg-black/40'
                             }`}
                         />
-                        {/* label */}
                         <button
                             onClick={() => handleClick(id)}
                             className={`text-left text-[11px] font-inter uppercase tracking-widest transition-all duration-200 ${

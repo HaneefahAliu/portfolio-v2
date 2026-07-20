@@ -3,6 +3,7 @@ import "../pages/globals.css";
 import { ArrowUpRight } from "lucide-react";
 import LargeText from "../assets/images/haneefah-cut.png";
 import { Link } from "react-router-dom";
+import ResumeButton from './resumeLink';
 
 const Footer = () => {
     const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -66,7 +67,8 @@ const Footer = () => {
 
     return (
         <footer
-            className="bg-[#1A1A1A] text-white flex flex-col"
+            id="footer"
+            className="bg-[#1A1A1A] footer-grid text-white flex flex-col"
             onMouseEnter={() => document.body.classList.add('dark-bg')}
             onMouseLeave={() => document.body.classList.remove('dark-bg')}
         >
@@ -107,7 +109,7 @@ const Footer = () => {
                     <p className="uppercase text-[12px] text-white/40 pb-6 sm:pb-10">[reach me]</p>
                     <div className="flex flex-col text-[14px] text-white gap-4">
                         <a href="mailto:aliuhaneefah@gmail.com" target="_blank" rel="noreferrer" className="hover:text-white/50">Email me</a>
-                        <a href="https://drive.google.com/file/d/16O7lryzTYDdf300XZD0CP47gqPur4KW7/view?usp=sharing" target="_blank" rel="noreferrer" className="hover:text-white/50">My Resume</a>
+                        <ResumeButton className="appearance-none bg-transparent border-none p-0 text-left cursor-pointer text-white text-[14px] font-inter font-light hover:text-white/50 transition" />
                     </div>
                 </div>
 

@@ -6,6 +6,7 @@ import {galleryItems} from "../data/about";
 import ToolkitMarquee from "../components/iconMarquee";
 import AutoMarqueeGallery from "../components/imageMarquee";
 import Interests from "../components/interests";
+import ResumeButton from '../components/resumeLink';
 import "./globals.css";
 
 export default function AboutSection() {
@@ -24,7 +25,7 @@ export default function AboutSection() {
 
                     <div className="mt-8 flex items-center gap-4 sm:gap-6 text-[13px] sm:text-[14px] font-inter">
                         <a href="mailto:aliuhaneefah@gmail.com" className="underline underline-offset-4 hover:text-black/50 transition">Email me</a>
-                        <a href="https://drive.google.com/file/d/16O7lryzTYDdf300XZD0CP47gqPur4KW7/view?usp=sharing" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-black/50 transition">Resume</a>
+                        <ResumeButton />
                         <a href="https://www.linkedin.com/in/haneefah-aliu-6a8a21160/" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-black/50 transition">LinkedIn</a>
                     </div>
                 </div>

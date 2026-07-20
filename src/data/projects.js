@@ -1,44 +1,51 @@
-
-
 const projects = [
     {
       id: '1',
-      route: 'twikkie',
-      title: 'Twikkie',
-      image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300658/Case%20Studies/twikkie_a0abim.png', 
-      description: 'Maximizing Workplace Potential: An All-in-One Cloud Solution for People Management', 
+      route: '',
+      title: 'Runwae',
+      image: 'https://res.cloudinary.com/haneefah/image/upload/v1784565627/Case%20Studies/runwae_t6s0mh.png', 
+      description: 'Making Social Planning Effortless: An All-in-One Platform for Discovering Events, Planning Group Trips, and Booking Experiences', 
       locked: true,
       featured: false,
     },
     {
       id: '2',
-      route: 'twikkieds',
-      title: 'Twikkie - design system',
+      route: '/case-studies/twikkie',
+      title: 'Twikkie',
+      image: 'https://res.cloudinary.com/haneefah/image/upload/v1781113831/Case%20Studies/twikkie_u2cpk4.png', 
+      description: 'Maximizing Workplace Potential: An All-in-One Cloud Solution for People Management', 
+      locked: false,
+      featured: true,
+    },
+    {
+      id: '3',
+      route: '/case-studies/twikkieds',
+      title: 'Twikkie - Design System',
       image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300680/Case%20Studies/twikkie-ds_ataiao.png',
       description: 'Twikkie Design System',
       locked: false,
       featured: false,
     },
     {
-      id: '3',
+      id: '4',
       route: '/case-studies/forwheels',
-      title: 'forwheels',
+      title: 'ForWheels',
       image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300599/Case%20Studies/forwheels_keh0kp.png',
       description: 'Revolutionizing Automotive Services using Augmented Reality.', 
       locked: false,
       featured: true,
     },
     {
-      id: '4',
+      id: '5',
       route: '/case-studies/platepal',
       title: 'PlatePal',
       image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300327/Case%20Studies/platepal_njtjjf.png',
       description: 'Building Better Eating Habits through Smart Meal Planning Technology.',
       locked: false,
-      featured: true,
+      featured: false,
     },
     {
-      id: '5',
+      id: '6',
       route: 'https://medium.com/@haneefahaliu/edulearn-a-ux-case-study-f9071fb39613',
       title: 'EduLearn',
       image: 'https://res.cloudinary.com/haneefah/image/upload/v1777300489/Case%20Studies/edulearn_sanogx.png',
@@ -49,5 +56,3 @@ const projects = [
 ];
 
 export default projects;
-
-

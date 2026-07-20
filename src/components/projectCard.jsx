@@ -67,7 +67,7 @@ export default function ProjectCard({ project }) {
       </div>
 
       {/* BOTTOM TEXT */}
-      <div className="mt-4 grid grid-cols-[50%_1fr] gap-6">
+      <div className="mt-4 grid grid-cols-[50%_1fr] gap-4">
         <div className="text-xl font-light font-inter tracking-wide uppercase">
           {project.title}
         </div>
