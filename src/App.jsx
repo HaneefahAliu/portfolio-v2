@@ -10,6 +10,7 @@ import './App.css';
 
 import Header from './components/header';
 import Footer from './components/footer';
+import SpotifyVinyl from "./components/spotifyVinyl";
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -50,6 +51,7 @@ function App() {
 
       {/* Prevent cursor effects from appearing over the intro */}
       {!loading && <CustomCursor />}
+      {!loading && <SpotifyVinyl />}
 
       {/* Full-screen loader, mounted once per page load */}
       {loading && (
