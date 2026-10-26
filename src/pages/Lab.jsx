@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import labProjects from "../data/lab";
-import LabCard from "../components/LabCard";
+import LabCard from "../components/labCard";
 
 const tabs = [
   "Interactions",
