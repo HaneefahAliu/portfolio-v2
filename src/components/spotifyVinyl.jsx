@@ -10,19 +10,22 @@ export default function SpotifyVinyl() {
   const [loading, setLoading] = useState(true);
 
   const widgetRef = useRef(null);
+  const controllerRef = useRef(null);
   const requestIdRef = useRef(0);
 
+  // Fetch Spotify listening activity
   useEffect(() => {
     let active = true;
-    let controller = null;
 
     async function updateTrack() {
       if (document.hidden) return;
 
       const requestId = ++requestIdRef.current;
 
-      controller?.abort();
-      controller = new AbortController();
+      controllerRef.current?.abort();
+
+      const controller = new AbortController();
+      controllerRef.current = controller;
 
       try {
         const response = await fetch(
@@ -77,7 +80,7 @@ export default function SpotifyVinyl() {
 
     return () => {
       active = false;
-      controller?.abort();
+      controllerRef.current?.abort();
       window.clearInterval(interval);
 
       document.removeEventListener(
@@ -89,6 +92,7 @@ export default function SpotifyVinyl() {
     };
   }, []);
 
+  // Close hover card on outside click / Escape
   useEffect(() => {
     function handleOutsideClick(event) {
       if (
@@ -110,7 +114,10 @@ export default function SpotifyVinyl() {
       handleOutsideClick
     );
 
-    document.addEventListener("keydown", handleEscape);
+    document.addEventListener(
+      "keydown",
+      handleEscape
+    );
 
     return () => {
       document.removeEventListener(
@@ -141,7 +148,7 @@ export default function SpotifyVinyl() {
       {/* ARTIST HOVER CARD */}
       <div
         className={`
-          mb-3 w-[230px] origin-bottom-right
+          mb-4 w-[230px] origin-bottom-right
           rounded-2xl border border-black/10
           bg-white/95 p-3.5 text-black
           shadow-[0_12px_45px_rgba(0,0,0,0.14)]
@@ -209,34 +216,36 @@ export default function SpotifyVinyl() {
         </div>
       </div>
 
-      {/* VINYL AND ALBUM SLEEVE */}
+      {/* VINYL + ALBUM SLEEVE */}
       <button
         type="button"
         aria-label={`${track.title} by ${track.artist}. Show music details`}
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
         className="
-          relative flex h-[84px] w-[100px]
+          relative flex
+          h-[100px] w-[120px]
           items-center justify-end
           cursor-pointer select-none
           focus-visible:outline focus-visible:outline-2
           focus-visible:outline-offset-4
           focus-visible:outline-black
-          sm:h-[100px] sm:w-[120px]
+          sm:h-[200px] sm:w-[230px]
         "
       >
-        {/* Sleeve behind the record */}
+        {/* ALBUM SLEEVE */}
         <div
           className={`
             absolute right-3 top-1/2
-            h-[70px] w-[70px] -translate-y-1/2
+            h-[85px] w-[85px]
+            -translate-y-1/2
             overflow-hidden rounded-[4px]
             bg-neutral-800 shadow-lg
             transition-transform duration-500 ease-out
-            sm:h-[82px] sm:w-[82px]
+            sm:right-5 sm:h-[170px] sm:w-[170px]
             ${
               open
-                ? "-translate-x-5"
+                ? "-translate-x-5 sm:-translate-x-10"
                 : "translate-x-0"
             }
           `}
@@ -250,29 +259,29 @@ export default function SpotifyVinyl() {
           )}
         </div>
 
-        {/* Vinyl record */}
+        {/* VINYL RECORD */}
         <div
           className={`
             relative z-10 flex
-            h-[84px] w-[84px] shrink-0
-            items-center justify-center
+            h-[100px] w-[100px]
+            shrink-0 items-center justify-center
             rounded-full bg-[#111]
             shadow-[0_5px_22px_rgba(0,0,0,0.3)]
             transition-transform duration-500 ease-out
-            sm:h-[100px] sm:w-[100px]
+            sm:h-[200px] sm:w-[200px]
             ${
               open
-                ? "translate-x-2"
+                ? "translate-x-2 sm:translate-x-4"
                 : "translate-x-0"
             }
           `}
         >
+          {/* ROTATING RECORD */}
           <div
             className="
               relative flex h-full w-full
               items-center justify-center
               rounded-full
-              motion-reduce:animate-none
             "
             style={{
               animationName: "spotifyVinylSpin",
@@ -285,10 +294,10 @@ export default function SpotifyVinyl() {
             }}
           >
             {/* Vinyl grooves */}
-            <div className="absolute inset-[7px] rounded-full border border-white/10" />
-            <div className="absolute inset-[13px] rounded-full border border-white/[0.08]" />
-            <div className="absolute inset-[19px] rounded-full border border-white/[0.08]" />
-            <div className="absolute inset-[25px] rounded-full border border-white/[0.06]" />
+            <div className="absolute inset-[7%] rounded-full border border-white/10" />
+            <div className="absolute inset-[13%] rounded-full border border-white/[0.08]" />
+            <div className="absolute inset-[19%] rounded-full border border-white/[0.08]" />
+            <div className="absolute inset-[25%] rounded-full border border-white/[0.06]" />
 
             {/* Light reflection */}
             <div
@@ -299,10 +308,11 @@ export default function SpotifyVinyl() {
               "
             />
 
-            {/* Center album label */}
+            {/* ALBUM ARTWORK */}
             <div
               className="
-                relative z-10 h-[45%] w-[45%]
+                relative z-10
+                h-[45%] w-[45%]
                 overflow-hidden rounded-full
                 border-2 border-neutral-700
                 bg-neutral-600
@@ -316,7 +326,7 @@ export default function SpotifyVinyl() {
                 />
               )}
 
-              {/* Center hole */}
+              {/* Center spindle */}
               <span
                 className="
                   absolute left-1/2 top-1/2
@@ -331,10 +341,16 @@ export default function SpotifyVinyl() {
         </div>
       </button>
 
+      {/* VINYL ANIMATION */}
       <style>{`
         @keyframes spotifyVinylSpin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+          from {
+            transform: rotate(0deg);
+          }
+
+          to {
+            transform: rotate(360deg);
+          }
         }
 
         @media (prefers-reduced-motion: reduce) {
