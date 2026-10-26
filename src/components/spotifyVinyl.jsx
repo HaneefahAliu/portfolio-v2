@@ -1,67 +1,126 @@
 
 import { useEffect, useRef, useState } from "react";
-import { Music2, ExternalLink } from "lucide-react";
+import { ExternalLink, Music2 } from "lucide-react";
+
+const POLL_INTERVAL = 10000;
 
 export default function SpotifyVinyl() {
   const [track, setTrack] = useState(null);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+
   const widgetRef = useRef(null);
+  const requestIdRef = useRef(0);
 
   useEffect(() => {
-    let mounted = true;
+    let active = true;
+    let controller = null;
 
-    const fetchTrack = async () => {
+    async function updateTrack() {
+      if (document.hidden) return;
+
+      const requestId = ++requestIdRef.current;
+
+      controller?.abort();
+      controller = new AbortController();
+
       try {
         const response = await fetch(
-          "/api/spotify/now-playing",
-          { cache: "no-store" }
+          `/api/spotify/now-playing?t=${Date.now()}`,
+          {
+            cache: "no-store",
+            signal: controller.signal,
+          }
         );
 
-        if (!response.ok) return;
+        if (!response.ok) {
+          throw new Error(`Spotify API: ${response.status}`);
+        }
 
         const data = await response.json();
 
-        if (mounted && data.id) {
+        if (!active || requestId !== requestIdRef.current) {
+          return;
+        }
+
+        if (data.id) {
           setTrack(data);
         }
       } catch (error) {
-        console.error("Spotify widget:", error);
+        if (error.name !== "AbortError") {
+          console.error("Spotify widget:", error);
+        }
       } finally {
-        if (mounted) setLoading(false);
+        if (active) setLoading(false);
       }
+    }
+
+    updateTrack();
+
+    const interval = window.setInterval(
+      updateTrack,
+      POLL_INTERVAL
+    );
+
+    const onVisibilityChange = () => {
+      if (!document.hidden) updateTrack();
     };
 
-    fetchTrack();
+    const onFocus = () => updateTrack();
 
-    // Check for song changes every 30 seconds.
-    const interval = setInterval(fetchTrack, 30000);
+    document.addEventListener(
+      "visibilitychange",
+      onVisibilityChange
+    );
+
+    window.addEventListener("focus", onFocus);
 
     return () => {
-      mounted = false;
-      clearInterval(interval);
+      active = false;
+      controller?.abort();
+      window.clearInterval(interval);
+
+      document.removeEventListener(
+        "visibilitychange",
+        onVisibilityChange
+      );
+
+      window.removeEventListener("focus", onFocus);
     };
   }, []);
 
   useEffect(() => {
-    const closeOnOutsideClick = (event) => {
+    function handleOutsideClick(event) {
       if (
         widgetRef.current &&
         !widgetRef.current.contains(event.target)
       ) {
         setOpen(false);
       }
-    };
+    }
+
+    function handleEscape(event) {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    }
 
     document.addEventListener(
       "pointerdown",
-      closeOnOutsideClick
+      handleOutsideClick
     );
+
+    document.addEventListener("keydown", handleEscape);
 
     return () => {
       document.removeEventListener(
         "pointerdown",
-        closeOnOutsideClick
+        handleOutsideClick
+      );
+
+      document.removeEventListener(
+        "keydown",
+        handleEscape
       );
     };
   }, []);
@@ -71,57 +130,63 @@ export default function SpotifyVinyl() {
   return (
     <div
       ref={widgetRef}
-      className="group fixed bottom-5 right-5 z-40 flex flex-col items-end sm:bottom-7 sm:right-7"
+      className="
+        group fixed bottom-5 right-5 z-[100]
+        flex flex-col items-end
+        sm:bottom-8 sm:right-8
+      "
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      {/* HOVER CARD */}
+      {/* ARTIST HOVER CARD */}
       <div
         className={`
-          mb-3 w-[210px] origin-bottom-right
-          rounded-xl border border-black/10
-          bg-white/95 p-3 text-black
-          shadow-[0_10px_35px_rgba(0,0,0,0.12)]
+          mb-3 w-[230px] origin-bottom-right
+          rounded-2xl border border-black/10
+          bg-white/95 p-3.5 text-black
+          shadow-[0_12px_45px_rgba(0,0,0,0.14)]
           backdrop-blur-xl
           transition-all duration-300 ease-out
           ${
             open
               ? "visible translate-y-0 scale-100 opacity-100"
-              : "invisible translate-y-2 scale-95 opacity-0"
+              : "invisible pointer-events-none translate-y-3 scale-95 opacity-0"
           }
         `}
       >
         <div className="flex items-center gap-3">
-          {track.albumArt ? (
-            <img
-              src={track.albumArt}
-              alt={`${track.album} album cover`}
-              className="h-12 w-12 shrink-0 rounded-md object-cover"
-            />
-          ) : (
-            <div className="flex h-12 w-12 items-center justify-center rounded-md bg-gray-100">
-              <Music2 size={20} />
-            </div>
-          )}
+          <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-neutral-100">
+            {track.artistImage || track.albumArt ? (
+              <img
+                src={track.artistImage || track.albumArt}
+                alt={track.artist}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center">
+                <Music2 size={18} />
+              </div>
+            )}
+          </div>
 
           <div className="min-w-0 flex-1">
-            <p className="truncate font-plusJakarta text-xs font-semibold">
+            <p className="truncate font-plusJakarta text-[13px] font-semibold">
               {track.artist}
             </p>
 
-            <p className="mt-1 truncate font-inter text-[11px] text-gray-500">
+            <p className="mt-1 truncate font-inter text-[11px] text-neutral-500">
               {track.title}
             </p>
           </div>
         </div>
 
-        <div className="mt-3 flex items-center justify-between border-t border-black/10 pt-2">
-          <span className="flex items-center gap-1.5 font-inter text-[9px] uppercase tracking-widest text-gray-500">
+        <div className="mt-3 flex items-center justify-between border-t border-black/10 pt-2.5">
+          <span className="flex items-center gap-2 font-inter text-[9px] uppercase tracking-[0.13em] text-neutral-500">
             <span
-              className={`h-1.5 w-1.5 rounded-full ${
+              className={`h-[6px] w-[6px] rounded-full ${
                 track.isPlaying
                   ? "bg-green-500"
-                  : "bg-gray-400"
+                  : "bg-neutral-400"
               }`}
             />
 
@@ -135,34 +200,43 @@ export default function SpotifyVinyl() {
               href={track.spotifyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Open song on Spotify"
-              className="text-gray-500 transition-colors hover:text-black"
+              aria-label="View track on Spotify"
+              className="text-neutral-400 transition-colors hover:text-black"
             >
-              <ExternalLink size={13} />
+              <ExternalLink size={14} />
             </a>
           )}
         </div>
       </div>
 
-      {/* VINYL + SLEEVE */}
+      {/* VINYL AND ALBUM SLEEVE */}
       <button
         type="button"
-        aria-label={`Spotify: ${track.title} by ${track.artist}`}
+        aria-label={`${track.title} by ${track.artist}. Show music details`}
         aria-expanded={open}
-        onClick={() => setOpen((previous) => !previous)}
-        className="relative flex h-[62px] w-[74px] items-center justify-end outline-none sm:h-[72px] sm:w-[86px]"
+        onClick={() => setOpen((value) => !value)}
+        className="
+          relative flex h-[84px] w-[100px]
+          items-center justify-end
+          cursor-pointer select-none
+          focus-visible:outline focus-visible:outline-2
+          focus-visible:outline-offset-4
+          focus-visible:outline-black
+          sm:h-[100px] sm:w-[120px]
+        "
       >
-        {/* Subtle album sleeve */}
+        {/* Sleeve behind the record */}
         <div
           className={`
-            absolute right-2 top-1/2 h-[51px] w-[51px]
-            -translate-y-1/2 overflow-hidden
-            rounded-[3px] bg-neutral-800
-            shadow-md transition-transform duration-500
-            sm:h-[59px] sm:w-[59px]
+            absolute right-3 top-1/2
+            h-[70px] w-[70px] -translate-y-1/2
+            overflow-hidden rounded-[4px]
+            bg-neutral-800 shadow-lg
+            transition-transform duration-500 ease-out
+            sm:h-[82px] sm:w-[82px]
             ${
               open
-                ? "-translate-x-4"
+                ? "-translate-x-5"
                 : "translate-x-0"
             }
           `}
@@ -171,20 +245,21 @@ export default function SpotifyVinyl() {
             <img
               src={track.albumArt}
               alt=""
-              className="h-full w-full object-cover opacity-80"
+              className="h-full w-full object-cover"
             />
           )}
         </div>
 
-        {/* Spinning vinyl */}
+        {/* Vinyl record */}
         <div
           className={`
-            relative z-10 flex h-[62px] w-[62px]
-            shrink-0 items-center justify-center
+            relative z-10 flex
+            h-[84px] w-[84px] shrink-0
+            items-center justify-center
             rounded-full bg-[#111]
-            shadow-[0_3px_14px_rgba(0,0,0,0.25)]
-            transition-transform duration-500
-            sm:h-[72px] sm:w-[72px]
+            shadow-[0_5px_22px_rgba(0,0,0,0.3)]
+            transition-transform duration-500 ease-out
+            sm:h-[100px] sm:w-[100px]
             ${
               open
                 ? "translate-x-2"
@@ -193,24 +268,46 @@ export default function SpotifyVinyl() {
           `}
         >
           <div
-            className={`
+            className="
               relative flex h-full w-full
-              items-center justify-center rounded-full
-              ${track.isPlaying ? "animate-spin" : ""}
-            `}
+              items-center justify-center
+              rounded-full
+              motion-reduce:animate-none
+            "
             style={{
+              animationName: "spotifyVinylSpin",
               animationDuration: "5s",
               animationTimingFunction: "linear",
               animationIterationCount: "infinite",
+              animationPlayState: track.isPlaying
+                ? "running"
+                : "paused",
             }}
           >
             {/* Vinyl grooves */}
-            <div className="absolute inset-[6px] rounded-full border border-white/10" />
-            <div className="absolute inset-[11px] rounded-full border border-white/10" />
-            <div className="absolute inset-[16px] rounded-full border border-white/10" />
+            <div className="absolute inset-[7px] rounded-full border border-white/10" />
+            <div className="absolute inset-[13px] rounded-full border border-white/[0.08]" />
+            <div className="absolute inset-[19px] rounded-full border border-white/[0.08]" />
+            <div className="absolute inset-[25px] rounded-full border border-white/[0.06]" />
 
-            {/* Album artwork in the center */}
-            <div className="relative z-10 h-[43%] w-[43%] overflow-hidden rounded-full border border-white/20 bg-neutral-600">
+            {/* Light reflection */}
+            <div
+              className="
+                pointer-events-none absolute inset-0
+                rounded-full
+                bg-[conic-gradient(transparent_0deg,rgba(255,255,255,0.08)_55deg,transparent_90deg,transparent_200deg,rgba(255,255,255,0.06)_250deg,transparent_280deg)]
+              "
+            />
+
+            {/* Center album label */}
+            <div
+              className="
+                relative z-10 h-[45%] w-[45%]
+                overflow-hidden rounded-full
+                border-2 border-neutral-700
+                bg-neutral-600
+              "
+            >
               {track.albumArt && (
                 <img
                   src={track.albumArt}
@@ -219,12 +316,33 @@ export default function SpotifyVinyl() {
                 />
               )}
 
-              {/* Record spindle */}
-              <span className="absolute left-1/2 top-1/2 h-[5px] w-[5px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-black ring-1 ring-white/40" />
+              {/* Center hole */}
+              <span
+                className="
+                  absolute left-1/2 top-1/2
+                  h-[6px] w-[6px]
+                  -translate-x-1/2 -translate-y-1/2
+                  rounded-full bg-black
+                  ring-1 ring-white/40
+                "
+              />
             </div>
           </div>
         </div>
       </button>
+
+      <style>{`
+        @keyframes spotifyVinylSpin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .group [style*="spotifyVinylSpin"] {
+            animation: none !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
