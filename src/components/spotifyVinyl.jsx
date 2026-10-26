@@ -162,23 +162,29 @@ export default function SpotifyVinyl() {
           sm:h-[200px] sm:w-[270px]
         "
       >
-       {/* SLIDING ALBUM SLEEVE */}
-<div
-  className={`
-    absolute bottom-[8%] left-[8%] z-0
-    aspect-square h-[80%]
-    overflow-hidden rounded-[3px]
-    bg-neutral-800
-    shadow-[0_5px_15px_rgba(0,0,0,0.18)]
-    transition-transform duration-700
-    ease-[cubic-bezier(0.22,1,0.36,1)]
-    ${
-      open
-        ? "-translate-x-[95%]"
-        : "translate-x-[5%]"
-    }
-  `}
->
+        {/* SLIDING ALBUM SLEEVE */}
+        <div
+          className={`
+            absolute bottom-[8%] left-[8%] z-0
+            aspect-square h-[80%]
+            overflow-hidden rounded-[3px]
+            bg-neutral-800
+            shadow-[0_5px_15px_rgba(0,0,0,0.18)]
+            transition-transform duration-700 ease-out
+            ${
+              open
+                ? "-translate-x-[55%]"
+                : "translate-x-[5%]"
+            }
+          `}
+        >
+          {track.albumArt && (
+            <img
+              src={track.albumArt}
+              alt={`${track.album} album cover`}
+              className="h-full w-full object-cover"
+            />
+          )}
         </div>
 
         {/* CREAM TURNTABLE BODY */}
