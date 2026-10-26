@@ -7,12 +7,9 @@ const POLL_INTERVAL = 10000;
 export default function SpotifyVinyl() {
   const [track, setTrack] = useState(null);
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
 
-  const widgetRef = useRef(null);
   const controllerRef = useRef(null);
 
-  // Keep Spotify data updated
   useEffect(() => {
     let active = true;
 
@@ -33,9 +30,7 @@ export default function SpotifyVinyl() {
           }
         );
 
-        if (!response.ok) {
-          throw new Error(`Spotify API: ${response.status}`);
-        }
+        if (!response.ok) return;
 
         const data = await response.json();
 
@@ -46,14 +41,12 @@ export default function SpotifyVinyl() {
         if (error.name !== "AbortError") {
           console.error("Spotify widget:", error);
         }
-      } finally {
-        if (active) setLoading(false);
       }
     }
 
     updateTrack();
 
-    const interval = window.setInterval(
+    const interval = setInterval(
       updateTrack,
       POLL_INTERVAL
     );
@@ -62,64 +55,33 @@ export default function SpotifyVinyl() {
       if (!document.hidden) updateTrack();
     };
 
-    window.addEventListener("focus", updateTrack);
     document.addEventListener(
       "visibilitychange",
       handleVisibility
     );
+
+    window.addEventListener("focus", updateTrack);
 
     return () => {
       active = false;
       controllerRef.current?.abort();
       clearInterval(interval);
 
-      window.removeEventListener("focus", updateTrack);
       document.removeEventListener(
         "visibilitychange",
         handleVisibility
       );
+
+      window.removeEventListener("focus", updateTrack);
     };
   }, []);
 
-  // Close mobile card when tapping outside
-  useEffect(() => {
-    function handleOutside(event) {
-      if (
-        widgetRef.current &&
-        !widgetRef.current.contains(event.target)
-      ) {
-        setOpen(false);
-      }
-    }
-
-    function handleEscape(event) {
-      if (event.key === "Escape") {
-        setOpen(false);
-      }
-    }
-
-    document.addEventListener("pointerdown", handleOutside);
-    document.addEventListener("keydown", handleEscape);
-
-    return () => {
-      document.removeEventListener(
-        "pointerdown",
-        handleOutside
-      );
-      document.removeEventListener(
-        "keydown",
-        handleEscape
-      );
-    };
-  }, []);
-
-  if (loading || !track) return null;
+  if (!track) return null;
 
   const isPlaying = track.isPlaying === true;
 
   return (
     <div
-      ref={widgetRef}
       className="
         fixed bottom-5 right-4 z-[100]
         flex flex-col items-end
@@ -128,25 +90,18 @@ export default function SpotifyVinyl() {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      {/* SONG DETAILS CARD */}
+      {/* ALWAYS-VISIBLE MUSIC CARD */}
       <div
-        className={`
-          absolute bottom-full right-0 mb-4
-          w-[230px] rounded-2xl
-          border border-black/10 bg-white/95
-          p-3.5 text-black
-          shadow-[0_12px_40px_rgba(0,0,0,0.13)]
+        className="
+          mb-3 w-[190px]
+          rounded-xl border border-black/10
+          bg-white/95 p-2.5 text-black
+          shadow-[0_8px_28px_rgba(0,0,0,0.12)]
           backdrop-blur-xl
-          transition-all duration-300
-          ${
-            open
-              ? "visible translate-y-0 opacity-100"
-              : "invisible pointer-events-none translate-y-2 opacity-0"
-          }
-        `}
+        "
       >
-        <div className="flex items-center gap-3">
-          <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-neutral-100">
+        <div className="flex items-center gap-2.5">
+          <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-neutral-100">
             {track.artistImage || track.albumArt ? (
               <img
                 src={track.artistImage || track.albumArt}
@@ -155,36 +110,20 @@ export default function SpotifyVinyl() {
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center">
-                <Music2 size={18} />
+                <Music2 size={15} />
               </div>
             )}
           </div>
 
           <div className="min-w-0 flex-1">
-            <p className="truncate font-plusJakarta text-[13px] font-semibold">
+            <p className="truncate font-plusJakarta text-[11px] font-semibold">
               {track.title}
             </p>
 
-            <p className="mt-1 truncate font-inter text-[11px] text-neutral-500">
+            <p className="mt-0.5 truncate font-inter text-[10px] text-neutral-500">
               {track.artist}
             </p>
           </div>
-        </div>
-
-        <div className="mt-3 flex items-center justify-between border-t border-black/10 pt-2.5">
-          <span className="flex items-center gap-2 font-inter text-[9px] uppercase tracking-widest text-neutral-500">
-            <span
-              className={`h-[6px] w-[6px] rounded-full ${
-                isPlaying
-                  ? "bg-green-500"
-                  : "bg-neutral-400"
-              }`}
-            />
-
-            {isPlaying
-              ? "Now playing"
-              : "Last on rotation"}
-          </span>
 
           {track.spotifyUrl && (
             <a
@@ -192,98 +131,96 @@ export default function SpotifyVinyl() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Open track on Spotify"
-              className="text-neutral-400 transition-colors hover:text-black"
+              className="shrink-0 text-neutral-400 transition-colors hover:text-black"
             >
-              <ExternalLink size={14} />
+              <ExternalLink size={12} />
             </a>
           )}
         </div>
+
+        <div className="mt-2 flex items-center gap-1.5 border-t border-black/10 pt-1.5">
+          <span
+            className={`h-[5px] w-[5px] rounded-full ${
+              isPlaying
+                ? "bg-green-500"
+                : "bg-neutral-400"
+            }`}
+          />
+
+          <span className="font-inter text-[8px] uppercase tracking-[0.13em] text-neutral-500">
+            {isPlaying
+              ? "Now playing"
+              : "Last on rotation"}
+          </span>
+        </div>
       </div>
 
-      {/* TURNTABLE + SLIDING SLEEVE */}
-      <button
-        type="button"
-        onClick={() => setOpen((value) => !value)}
-        aria-label={`${track.title} by ${track.artist}. Show listening details`}
-        aria-expanded={open}
+      {/* TURNTABLE + ALBUM SLEEVE */}
+      <div
         className="
-          relative block h-[145px] w-[190px]
-          cursor-pointer select-none
-          bg-transparent p-0
-          focus-visible:outline focus-visible:outline-2
-          focus-visible:outline-offset-4
-          focus-visible:outline-black
-          sm:h-[210px] sm:w-[270px]
+          relative h-[145px] w-[195px]
+          sm:h-[200px] sm:w-[270px]
         "
       >
-        {/* ALBUM SLEEVE */}
+        {/* SLIDING ALBUM SLEEVE */}
         <div
           className={`
-            absolute left-[15%] top-1/2
-            z-0 h-[75%] aspect-square
-            -translate-y-1/2 overflow-hidden
-            rounded-[3px] bg-neutral-800
-            shadow-[0_5px_15px_rgba(0,0,0,0.2)]
+            absolute bottom-[8%] left-[8%] z-0
+            aspect-square h-[80%]
+            overflow-hidden rounded-[3px]
+            bg-neutral-800
+            shadow-[0_5px_15px_rgba(0,0,0,0.18)]
             transition-transform duration-700 ease-out
             ${
               open
                 ? "-translate-x-[30%]"
-                : "translate-x-[8%]"
+                : "translate-x-[5%]"
             }
           `}
         >
           {track.albumArt && (
             <img
               src={track.albumArt}
-              alt=""
+              alt={`${track.album} album cover`}
               className="h-full w-full object-cover"
             />
           )}
-
-          <div className="pointer-events-none absolute inset-0 border border-white/20" />
         </div>
 
-        {/* TURNTABLE BODY */}
+        {/* CREAM TURNTABLE BODY */}
         <div
           className="
-            absolute right-0 top-1/2 z-10
+            absolute right-0 top-0 z-10
             aspect-square h-full
-            -translate-y-1/2
-            rounded-[17px]
-            border border-[#d6c8b6]
+            overflow-hidden rounded-[18px]
+            border border-[#d3c6b5]
             bg-gradient-to-br
-            from-[#fffaf0] via-[#eee5d8] to-[#cbbba6]
-            shadow-[0_10px_25px_rgba(40,30,20,0.23),inset_2px_2px_5px_rgba(255,255,255,0.85),inset_-3px_-3px_7px_rgba(80,60,40,0.12)]
+            from-[#fffaf0] via-[#e9dfd1] to-[#c7b6a2]
+            shadow-[0_10px_28px_rgba(40,30,20,0.22),inset_2px_2px_6px_rgba(255,255,255,0.9)]
             sm:rounded-[24px]
           "
         >
-          {/* Speaker holes */}
-          <div
-            className="
-              absolute left-[8%] top-[9%]
-              grid grid-cols-3 gap-[3px]
-              sm:gap-[5px]
-            "
-          >
+          {/* SPEAKER HOLES */}
+          <div className="absolute left-[8%] top-[8%] grid grid-cols-3 gap-[3px] sm:gap-[4px]">
             {Array.from({ length: 12 }).map((_, index) => (
               <span
                 key={index}
-                className="h-[2px] w-[2px] rounded-full bg-[#74695e] sm:h-[3px] sm:w-[3px]"
+                className="h-[2px] w-[2px] rounded-full bg-[#756b60] sm:h-[3px] sm:w-[3px]"
               />
             ))}
           </div>
 
-          {/* Record platter */}
+          {/* RECORD PLATTER */}
           <div
             className="
               absolute left-1/2 top-1/2
-              h-[79%] w-[79%]
+              h-[76%] w-[76%]
               -translate-x-1/2 -translate-y-1/2
-              rounded-full bg-[#292929]
-              shadow-[0_2px_7px_rgba(0,0,0,0.35)]
+              rounded-full bg-[#242424]
+              shadow-[0_3px_8px_rgba(0,0,0,0.4)]
             "
           >
-            {/* Spinning vinyl */}
+            {/* SPINNING VINYL */}
             <div
               className="relative h-full w-full rounded-full bg-[#101010]"
               style={{
@@ -293,18 +230,14 @@ export default function SpotifyVinyl() {
                   : "paused",
               }}
             >
-              {/* Grooves */}
               {[7, 13, 19, 25, 31].map((inset) => (
                 <div
                   key={inset}
                   className="absolute rounded-full border border-white/10"
-                  style={{
-                    inset: `${inset}%`,
-                  }}
+                  style={{ inset: `${inset}%` }}
                 />
               ))}
 
-              {/* Reflective sheen */}
               <div
                 className="
                   absolute inset-0 rounded-full
@@ -312,11 +245,11 @@ export default function SpotifyVinyl() {
                 "
               />
 
-              {/* Center album artwork */}
+              {/* CENTER LABEL */}
               <div
                 className="
                   absolute left-1/2 top-1/2
-                  h-[40%] w-[40%]
+                  h-[42%] w-[42%]
                   -translate-x-1/2 -translate-y-1/2
                   overflow-hidden rounded-full
                   border-2 border-[#333]
@@ -344,11 +277,11 @@ export default function SpotifyVinyl() {
             </div>
           </div>
 
-          {/* Tonearm assembly */}
+          {/* SILVER TONEARM */}
           <div
             className="
-              absolute right-[8%] top-[8%]
-              z-20 h-[66%] w-[39%]
+              absolute right-[8%] top-[8%] z-20
+              h-[66%] w-[39%]
               origin-[85%_12%]
               transition-transform duration-700 ease-out
             "
@@ -358,20 +291,19 @@ export default function SpotifyVinyl() {
                 : "rotate(10deg)",
             }}
           >
-            {/* Tonearm pivot */}
             <div
               className="
                 absolute right-0 top-0 z-20
                 h-[23%] w-[38%]
                 rounded-full border border-[#8b8177]
-                bg-gradient-to-br from-white via-[#bcb6ad] to-[#6f6b65]
+                bg-gradient-to-br
+                from-white via-[#bcb6ad] to-[#6f6b65]
                 shadow-[0_2px_4px_rgba(0,0,0,0.3)]
               "
             >
               <div className="absolute inset-[28%] rounded-full border border-[#827c74] bg-[#d8d4ce]" />
             </div>
 
-            {/* Main tonearm shaft */}
             <svg
               viewBox="0 0 80 130"
               className="absolute inset-0 h-full w-full overflow-visible drop-shadow-[1px_2px_1px_rgba(0,0,0,0.35)]"
@@ -385,6 +317,7 @@ export default function SpotifyVinyl() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
+
               <path
                 d="M 66 13 L 58 47 L 27 96"
                 fill="none"
@@ -393,6 +326,7 @@ export default function SpotifyVinyl() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
+
               <path
                 d="M 21 90 L 34 98 L 28 112 L 15 104 Z"
                 fill="#e5dfd6"
@@ -402,45 +336,45 @@ export default function SpotifyVinyl() {
             </svg>
           </div>
 
-          {/* Playback light */}
-          <div className="absolute bottom-[9%] left-[9%] flex items-center gap-1">
-            <span
-              className={`
-                h-[7px] w-[7px]
-                rounded-full border border-black/10
-                transition-all duration-500
-                sm:h-[10px] sm:w-[10px]
-                ${
-                  isPlaying
-                    ? "bg-[#29e566] shadow-[0_0_8px_3px_rgba(41,229,102,0.45)]"
-                    : "bg-[#7d9982]"
-                }
-              `}
-            />
-          </div>
+          {/* GREEN PLAYBACK INDICATOR */}
+          <div
+            className={`
+              absolute bottom-[9%] left-[9%]
+              h-[7px] w-[7px] rounded-full
+              border border-black/10
+              transition-all duration-500
+              sm:h-[10px] sm:w-[10px]
+              ${
+                isPlaying
+                  ? "bg-[#29e566] shadow-[0_0_8px_3px_rgba(41,229,102,0.45)]"
+                  : "bg-[#829484]"
+              }
+            `}
+          />
 
-          {/* Volume knob */}
+          {/* VOLUME KNOB */}
           <div
             className="
               absolute bottom-[7%] right-[8%]
               h-[17%] w-[17%]
               rounded-full border border-[#9c9084]
-              bg-gradient-to-br from-white via-[#c8c0b5] to-[#8e857b]
+              bg-gradient-to-br
+              from-white via-[#c8c0b5] to-[#8e857b]
               shadow-[0_2px_4px_rgba(0,0,0,0.3)]
             "
           >
             <div className="absolute inset-[22%] rounded-full border border-[#a49a8e] bg-gradient-to-br from-[#f7f3ec] to-[#a69d91]" />
+
             <span className="absolute left-1/2 top-[12%] h-[20%] w-[2px] -translate-x-1/2 rounded-full bg-[#756e65]" />
           </div>
 
-          {/* Tiny personal branding */}
+          {/* BRAND DETAIL */}
           <span className="absolute right-[8%] top-[3%] font-plusJakarta text-[8px] font-bold tracking-tight text-[#a49a8d] sm:text-[10px]">
             ha.
           </span>
         </div>
-      </button>
+      </div>
 
-      {/* Scoped animation */}
       <style>{`
         @keyframes miniTurntableSpin {
           from { transform: rotate(0deg); }
