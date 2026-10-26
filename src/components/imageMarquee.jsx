@@ -1,242 +1,578 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function AutoMarqueeGallery({
-  items,
-  speed = 0.6,            // px per frame (0.4–1.0 feels nice)
-  gapPx = 40,             // should match the gap class used below (gap-10 = 2.5rem = 40px)
+  items = [],
+  speed = 0.6,
+  gapPx = 40,
   pauseAfterInteractionMs = 900,
 }) {
   const doubled = useMemo(() => [...items, ...items], [items]);
 
   const viewportRef = useRef(null);
+  const trackRef = useRef(null);
   const rafRef = useRef(null);
+  const arrowRafRef = useRef(null);
+  const arrowTimeoutRef = useRef(null);
+  const scrollTimeoutRef = useRef(null);
 
   const isHoveringRef = useRef(false);
   const isDraggingRef = useRef(false);
-  const isUserScrollingRef = useRef(false);
-  const pauseUntilRef = useRef(0);
+  const isPageScrollingRef = useRef(false);
+  const isArrowAnimatingRef = useRef(false);
 
+  const pauseUntilRef = useRef(0);
   const dragStartXRef = useRef(0);
   const dragStartScrollLeftRef = useRef(0);
+  const dragPointerIdRef = useRef(null);
+  const scrollPositionRef = useRef(0);
+  const loopWidthRef = useRef(0);
+  const lastTimeRef = useRef(null);
+  const activeIndexRef = useRef(0);
 
-  const [activeIndex, setActiveIndex] = useState(0); // 0..items.length-1
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
-  // --- Helpers ---
-  const pauseFor = (ms) => {
-    pauseUntilRef.current = Math.max(pauseUntilRef.current, Date.now() + ms);
-  };
+  const itemCount = items.length;
 
-  const shouldPause = () => {
-    if (Date.now() < pauseUntilRef.current) return true;
-    if (isHoveringRef.current) return true;
-    if (isDraggingRef.current) return true;
-    if (isUserScrollingRef.current) return true;
-    return false;
-  };
+  // ----------------------------------------
+  // HELPERS
+  // ----------------------------------------
 
-  const normalizeLoop = () => {
+  const pauseFor = useCallback((ms) => {
+    pauseUntilRef.current = Math.max(
+      pauseUntilRef.current,
+      performance.now() + ms
+    );
+  }, []);
+
+  const shouldPause = useCallback(() => {
+    return (
+      performance.now() < pauseUntilRef.current ||
+      isHoveringRef.current ||
+      isDraggingRef.current ||
+      isPageScrollingRef.current ||
+      isArrowAnimatingRef.current
+    );
+  }, []);
+
+  const getItems = useCallback(() => {
+    return trackRef.current?.querySelectorAll("[data-item]") || [];
+  }, []);
+
+  // Measure the exact distance between
+  // the first image and its duplicate.
+  const measureLoop = useCallback(() => {
+    const children = getItems();
+
+    if (!itemCount || children.length <= itemCount) {
+      loopWidthRef.current = 0;
+      return;
+    }
+
+    const first = children[0];
+    const duplicate = children[itemCount];
+
+    loopWidthRef.current =
+      duplicate.offsetLeft - first.offsetLeft;
+  }, [getItems, itemCount]);
+
+  // Keep scroll position inside one cycle.
+  const normalizePosition = useCallback((position) => {
+    const width = loopWidthRef.current;
+
+    if (width <= 0) return 0;
+
+    return ((position % width) + width) % width;
+  }, []);
+
+  const applyPosition = useCallback(
+    (position) => {
+      const el = viewportRef.current;
+      if (!el) return;
+
+      const normalized = normalizePosition(position);
+
+      scrollPositionRef.current = normalized;
+      el.scrollLeft = normalized;
+    },
+    [normalizePosition]
+  );
+
+  // ----------------------------------------
+  // ACTIVE IMAGE COUNTER
+  // ----------------------------------------
+
+  const updateActiveIndex = useCallback(() => {
     const el = viewportRef.current;
-    if (!el) return;
 
-    const half = el.scrollWidth / 2;
-    // If we scroll past the first set, jump back by half (seamless)
-    if (el.scrollLeft >= half) el.scrollLeft -= half;
-    if (el.scrollLeft < 0) el.scrollLeft += half;
-  };
+    if (!el || !itemCount) return;
 
-  const measureAndUpdateIndex = () => {
-    const el = viewportRef.current;
-    if (!el || items.length === 0) return;
-
-    // Find nearest item based on the viewport center
-    const children = el.querySelectorAll("[data-item]");
+    const children = getItems();
     if (!children.length) return;
 
-    const center = el.scrollLeft + el.clientWidth / 2;
+    const viewportCenter =
+      el.getBoundingClientRect().left + el.clientWidth / 2;
 
-    // Item width estimation (first item)
-    const first = children[0];
-    const itemWidth = first.getBoundingClientRect().width;
-    const stride = itemWidth + gapPx;
+    let closestIndex = 0;
+    let closestDistance = Infinity;
 
-    const raw = Math.round(center / stride);
-    const idx = ((raw % items.length) + items.length) % items.length;
+    children.forEach((child, index) => {
+      const rect = child.getBoundingClientRect();
 
-    setActiveIndex(idx);
-  };
+      const itemCenter =
+        rect.left + rect.width / 2;
 
-  // --- Autoplay loop ---
+      const distance = Math.abs(
+        itemCenter - viewportCenter
+      );
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    const nextIndex = closestIndex % itemCount;
+
+    if (activeIndexRef.current !== nextIndex) {
+      activeIndexRef.current = nextIndex;
+      setActiveIndex(nextIndex);
+    }
+  }, [getItems, itemCount]);
+
+  // ----------------------------------------
+  // INITIAL MEASUREMENT + RESIZE
+  // ----------------------------------------
+
   useEffect(() => {
     const el = viewportRef.current;
-    if (!el) return;
+    const track = trackRef.current;
 
-    const tick = () => {
-      if (!shouldPause()) {
-        el.scrollLeft += speed;
-        normalizeLoop();
-        // update counter cheaply
-        measureAndUpdateIndex();
+    if (!el || !track || !itemCount) return;
+
+    const measure = () => {
+      const previousWidth = loopWidthRef.current;
+      const progress =
+        previousWidth > 0
+          ? scrollPositionRef.current / previousWidth
+          : 0;
+
+      measureLoop();
+
+      if (loopWidthRef.current > 0) {
+        applyPosition(progress * loopWidthRef.current);
       }
+
+      updateActiveIndex();
+    };
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+
+    observer.observe(el);
+    observer.observe(track);
+
+    return () => observer.disconnect();
+  }, [
+    itemCount,
+    gapPx,
+    measureLoop,
+    applyPosition,
+    updateActiveIndex,
+  ]);
+
+  // ----------------------------------------
+  // REDUCED MOTION
+  // ----------------------------------------
+
+  useEffect(() => {
+    const media = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    const update = () => {
+      setReducedMotion(media.matches);
+    };
+
+    update();
+
+    media.addEventListener?.("change", update);
+
+    return () => {
+      media.removeEventListener?.("change", update);
+    };
+  }, []);
+
+  // ----------------------------------------
+  // AUTOPLAY
+  // ----------------------------------------
+
+  useEffect(() => {
+    if (!itemCount || reducedMotion) return;
+
+    const tick = (time) => {
+      if (lastTimeRef.current === null) {
+        lastTimeRef.current = time;
+      }
+
+      const delta = Math.min(
+        time - lastTimeRef.current,
+        50
+      );
+
+      lastTimeRef.current = time;
+
+      if (!shouldPause() && loopWidthRef.current > 0) {
+        const movement =
+          speed * (delta / (1000 / 60));
+
+        applyPosition(
+          scrollPositionRef.current + movement
+        );
+
+        updateActiveIndex();
+      }
+
       rafRef.current = requestAnimationFrame(tick);
     };
 
     rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [speed, gapPx, items.length]);
 
-  // --- Pause when the page scrolls (debounced) ---
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      lastTimeRef.current = null;
+    };
+  }, [
+    speed,
+    itemCount,
+    reducedMotion,
+    shouldPause,
+    applyPosition,
+    updateActiveIndex,
+  ]);
+
+  // ----------------------------------------
+  // PAUSE DURING PAGE SCROLLING
+  // ----------------------------------------
+
   useEffect(() => {
-    let t = null;
+    const onPageScroll = () => {
+      isPageScrollingRef.current = true;
 
-    const onScroll = () => {
-      isUserScrollingRef.current = true;
-      if (t) clearTimeout(t);
-      t = setTimeout(() => {
-        isUserScrollingRef.current = false;
-      }, 180); // pause shortly after last scroll event
+      clearTimeout(scrollTimeoutRef.current);
+
+      scrollTimeoutRef.current = setTimeout(() => {
+        isPageScrollingRef.current = false;
+      }, 180);
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", onPageScroll, {
+      passive: true,
+    });
+
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (t) clearTimeout(t);
+      window.removeEventListener(
+        "scroll",
+        onPageScroll
+      );
+
+      clearTimeout(scrollTimeoutRef.current);
     };
   }, []);
 
-  // --- Drag to scroll (mouse grab) ---
+  // ----------------------------------------
+  // STOP ARROW ANIMATION
+  // ----------------------------------------
+
+  const stopArrowAnimation = useCallback(() => {
+    if (arrowRafRef.current !== null) {
+      cancelAnimationFrame(arrowRafRef.current);
+      arrowRafRef.current = null;
+    }
+
+    if (arrowTimeoutRef.current !== null) {
+      clearTimeout(arrowTimeoutRef.current);
+      arrowTimeoutRef.current = null;
+    }
+
+    isArrowAnimatingRef.current = false;
+  }, []);
+
+  // ----------------------------------------
+  // CUSTOM ARROW ANIMATION
+  // ----------------------------------------
+
+  const scrollByItems = useCallback(
+    (direction) => {
+      const el = viewportRef.current;
+      const children = getItems();
+
+      if (!el || !children.length) return;
+
+      stopArrowAnimation();
+
+      const first = children[0];
+      const second = children[1];
+
+      const stride = second
+        ? second.offsetLeft - first.offsetLeft
+        : first.offsetWidth + gapPx;
+
+      const startPosition = scrollPositionRef.current;
+      const distance = direction * stride;
+
+      pauseFor(pauseAfterInteractionMs + 500);
+
+      if (reducedMotion) {
+        applyPosition(startPosition + distance);
+        updateActiveIndex();
+        return;
+      }
+
+      isArrowAnimatingRef.current = true;
+
+      const duration = 500;
+      let startTime = null;
+
+      const easeInOutCubic = (t) => {
+        return t < 0.5
+          ? 4 * t * t * t
+          : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      };
+
+      const animate = (time) => {
+        if (startTime === null) {
+          startTime = time;
+        }
+
+        const elapsed = time - startTime;
+
+        const progress = Math.min(
+          elapsed / duration,
+          1
+        );
+
+        const eased = easeInOutCubic(progress);
+
+        const nextPosition =
+          startPosition + distance * eased;
+
+        applyPosition(nextPosition);
+        updateActiveIndex();
+
+        if (progress < 1) {
+          arrowRafRef.current =
+            requestAnimationFrame(animate);
+        } else {
+          applyPosition(startPosition + distance);
+          updateActiveIndex();
+
+          isArrowAnimatingRef.current = false;
+          arrowRafRef.current = null;
+
+          pauseFor(pauseAfterInteractionMs);
+        }
+      };
+
+      arrowRafRef.current =
+        requestAnimationFrame(animate);
+    },
+    [
+      getItems,
+      gapPx,
+      pauseFor,
+      pauseAfterInteractionMs,
+      reducedMotion,
+      applyPosition,
+      updateActiveIndex,
+      stopArrowAnimation,
+    ]
+  );
+
+  // ----------------------------------------
+  // DRAG TO SCROLL
+  // ----------------------------------------
+
   const onPointerDown = (e) => {
+    if (e.pointerType === "mouse" && e.button !== 0) {
+      return;
+    }
+
     const el = viewportRef.current;
     if (!el) return;
 
+    stopArrowAnimation();
+
     isDraggingRef.current = true;
+    dragPointerIdRef.current = e.pointerId;
+
+    dragStartXRef.current = e.clientX;
+    dragStartScrollLeftRef.current =
+      scrollPositionRef.current;
+
     pauseFor(pauseAfterInteractionMs);
 
     el.setPointerCapture?.(e.pointerId);
-
-    dragStartXRef.current = e.clientX;
-    dragStartScrollLeftRef.current = el.scrollLeft;
   };
 
   const onPointerMove = (e) => {
-    const el = viewportRef.current;
-    if (!el || !isDraggingRef.current) return;
+    if (
+      !isDraggingRef.current ||
+      dragPointerIdRef.current !== e.pointerId
+    ) {
+      return;
+    }
 
     const dx = e.clientX - dragStartXRef.current;
-    el.scrollLeft = dragStartScrollLeftRef.current - dx;
-    normalizeLoop();
-    measureAndUpdateIndex();
+
+    const nextPosition =
+      dragStartScrollLeftRef.current - dx;
+
+    applyPosition(nextPosition);
+    updateActiveIndex();
   };
 
-  const onPointerUp = () => {
+  const onPointerUp = (e) => {
+    if (
+      dragPointerIdRef.current !== null &&
+      dragPointerIdRef.current !== e.pointerId
+    ) {
+      return;
+    }
+
     isDraggingRef.current = false;
+    dragPointerIdRef.current = null;
+
     pauseFor(pauseAfterInteractionMs);
+
+    const el = viewportRef.current;
+
+    if (el?.hasPointerCapture?.(e.pointerId)) {
+      el.releasePointerCapture(e.pointerId);
+    }
   };
 
-  // --- Hover pause ---
+  // ----------------------------------------
+  // HOVER PAUSE
+  // ----------------------------------------
+
   const onMouseEnter = () => {
     isHoveringRef.current = true;
   };
+
   const onMouseLeave = () => {
     isHoveringRef.current = false;
     pauseFor(250);
   };
 
-  // --- Arrow buttons ---
-  const scrollByItems = (dir) => {
-    const el = viewportRef.current;
-    if (!el) return;
+  // ----------------------------------------
+  // CLEANUP
+  // ----------------------------------------
 
-    pauseFor(pauseAfterInteractionMs);
-
-    const child = el.querySelector("[data-item]");
-    if (!child) return;
-
-    const itemWidth = child.getBoundingClientRect().width;
-    const stride = itemWidth + gapPx;
-
-    el.scrollBy({ left: dir * stride, behavior: "smooth" });
-
-    // After smooth scroll completes, normalize and update
-    setTimeout(() => {
-      normalizeLoop();
-      measureAndUpdateIndex();
-    }, 350);
-  };
-
-  // Update index on resize (so counter stays right)
   useEffect(() => {
-    const el = viewportRef.current;
-    if (!el) return;
+    return () => {
+      stopArrowAnimation();
 
-    const ro = new ResizeObserver(() => measureAndUpdateIndex());
-    ro.observe(el);
-    return () => ro.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items.length]);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+
+      clearTimeout(scrollTimeoutRef.current);
+    };
+  }, [stopArrowAnimation]);
+
+  // ----------------------------------------
+  // RENDER
+  // ----------------------------------------
+
+  if (!itemCount) return null;
 
   return (
     <section className="w-full">
-      {/* Top bar */}
-      <div className="py-6 flex items-center justify-between">
-        <p className="text-lg font-light font-plusJakarta text-secondary-text">
-          {activeIndex + 1}/{items.length}
+      {/* TOP BAR */}
+      <div className="flex items-center justify-between py-6">
+        <p className="font-plusJakarta text-lg font-light text-secondary-text">
+          {activeIndex + 1}/{itemCount}
         </p>
 
-        <div className="flex items-center gap-6 text-2xl text-black">
+        <div className="flex items-center gap-6 text-black">
           <button
             type="button"
             onClick={() => scrollByItems(-1)}
-            className="opacity-30 hover:opacity-100 transition"
-            aria-label="Previous"
+            className="opacity-30 transition-opacity hover:opacity-100 focus-visible:opacity-100"
+            aria-label="Previous photo"
           >
-            <ChevronLeft />
+            <ChevronLeft size={24} />
           </button>
+
           <button
             type="button"
             onClick={() => scrollByItems(1)}
-            className="opacity-30 hover:opacity-100 transition"
-            aria-label="Next"
+            className="opacity-30 transition-opacity hover:opacity-100 focus-visible:opacity-100"
+            aria-label="Next photo"
           >
-            <ChevronRight />
+            <ChevronRight size={24} />
           </button>
         </div>
       </div>
 
-      {/* Viewport */}
+      {/* VIEWPORT */}
       <div
         ref={viewportRef}
-        className="overflow-hidden select-none cursor-grab active:cursor-grabbing"
+        className="cursor-grab select-none overflow-hidden active:cursor-grabbing"
+        style={{
+          touchAction: "pan-y",
+          overscrollBehaviorX: "contain",
+        }}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
+        onLostPointerCapture={() => {
+          isDraggingRef.current = false;
+          dragPointerIdRef.current = null;
+          pauseFor(pauseAfterInteractionMs);
+        }}
       >
-        {/* Track */}
-        <div className="flex w-max gap-10 px-6 pb-8">
+        {/* TRACK */}
+        <div
+          ref={trackRef}
+          className="flex w-max pb-8"
+          style={{
+            gap: `${gapPx}px`,
+            paddingLeft: "24px",
+            paddingRight: "24px",
+          }}
+        >
           {doubled.map((item, idx) => (
             <figure
               key={`${item.src}-${idx}`}
               data-item
-              className="w-[420px] shrink-0"
+              className="w-[260px] shrink-0 sm:w-[340px] lg:w-[420px]"
             >
-              <div className="bg-white overflow-hidden">
+              {/* IMAGE */}
+              <div className="overflow-hidden bg-white">
                 <img
                   src={item.src}
-                  alt={item.alt || ""}
-                  className="h-[520px] w-full object-cover"
+                  alt={item.alt || item.caption || ""}
+                  className="aspect-[420/520] w-full object-cover"
+                  loading={idx < 2 ? "eager" : "lazy"}
+                  decoding="async"
                   draggable={false}
                 />
               </div>
 
-              {item.caption ? (
-                <figcaption className="mt-3 text-xs uppercase font-inter font-light tracking-widest text-secondary-text">
+              {/* CAPTION */}
+              {item.caption && (
+                <figcaption className="mt-3 font-inter text-xs font-light uppercase tracking-widest text-secondary-text">
                   {item.caption}
                 </figcaption>
-              ) : null}
+              )}
             </figure>
           ))}
         </div>

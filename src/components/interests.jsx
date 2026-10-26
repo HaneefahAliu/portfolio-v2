@@ -5,12 +5,12 @@ const skills = [
     {
         icon: <Search size={15} />,
         label: "UX Research",
-        description: "User interviews, surveys, usability testing, and synthesizing insights into actionable findings."
+        description: "Interviews, usability testing, and behavioural insights that help me understand what people actually need.."
     },
     {
         icon: <Figma size={15} />,
         label: "UI Design",
-        description: "Crafting clean, intentional interfaces that balance aesthetics with usability."
+        description: "Thoughtful interfaces with strong hierarchy, visual polish, and interaction details."
     },
     {
         icon: <Layers size={15} />,
@@ -20,27 +20,27 @@ const skills = [
     {
         icon: <Smartphone size={15} />,
         label: "Mobile Design",
-        description: "Designing for iOS and Android with platform conventions and touch-first thinking."
+        description: "Mobile-first experiences designed around real behaviours, constraints, and platform patterns."
     },
     {
         icon: <Users size={15} />,
         label: "Design Systems",
-        description: "Building scalable component libraries and documentation that teams actually use."
+        description: "Reusable foundations, components, and patterns that keep products consistent as they grow."
     },
     {
-        icon: <BarChart2 size={15} />,
+        icon: <Users size={15} />,
         label: "Data-Informed Design",
-        description: "Using analytics, heatmaps, and A/B testing to validate and improve design decisions."
+        description: "Using product data alongside qualitative insights to identify friction and guide design decisions."
     },
     {
         icon: <Lightbulb size={15} />,
         label: "Product Strategy",
-        description: "Bridging user needs and business goals to shape product direction and roadmaps."
+        description: "Turning ambiguous problems into clear product opportunities, priorities, and experiences."
     },
     {
         icon: <Code size={15} />,
         label: "Design Engineering",
-        description: "Comfortable in code — turning designs into real, production-ready components."
+        description: "Bringing designs closer to production with modern frontend tools."
     },
 ];
 
@@ -52,7 +52,7 @@ export default function Interests() {
 
             {/* Heading */}
             <p className="text-center text-[14px] font-inter uppercase tracking-widest text-secondary-text mb-10">
-                what i can do for you
+                WHAT I DO
             </p>
 
             {/* Pills */}

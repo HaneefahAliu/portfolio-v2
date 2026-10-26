@@ -73,7 +73,7 @@ export default function ProjectCard({ project }) {
         </div>
 
         <p className="text-sm pb-12 font-light font-inter tracking-wide leading-6 text-secondary-text text-end">
-          {project.description}
+          {project.tags}
         </p>
       </div>
     </div>

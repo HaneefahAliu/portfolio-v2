@@ -14,7 +14,7 @@ export default function Projects() {
               Works.
             </h1>
             <p className="font-inter font-light text-[14px] sm:text-[16px] text-secondary-text max-w-full md:max-w-[520px] md:pb-4">
-              A collection of product and visual design projects that reflect how I solve problems, shape user experiences, and bring clarity to complex ideas.
+              A selection of product work exploring how I solve problems, design systems, and turn complex ideas into thoughtful digital experiences.
             </p>
           </div>
         </section>

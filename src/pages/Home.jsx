@@ -18,7 +18,7 @@ function Home() {
                         style={{ animation: "fadeUp 0.6s ease 0.1s forwards", opacity: 0 }}
                     >
                         Haneefah Aliu &nbsp;·&nbsp;{" "}
-                        <span className="text-black font-medium">Design Engineer based in Canada</span>
+                        <span className="text-black font-medium">Product Designer based in Canada</span>
                     </p>
 
                     {/* Headline */}
@@ -43,7 +43,7 @@ function Home() {
                         className="mt-4 sm:mt-6 font-inter font-light text-[14px] sm:text-[16px] text-secondary-text max-w-sm sm:max-w-md leading-relaxed"
                         style={{ animation: "fadeUp 0.6s ease 0.7s forwards", opacity: 0 }}
                     >
-                        I care about the whole experience — how it looks, how it works, and how it makes people feel.
+                        I turn complex ideas into thoughtful digital products, from early concepts and systems to polished, working interfaces.
                     </p>
                 </div>
 
@@ -51,7 +51,7 @@ function Home() {
                 <div>
                     <div className='flex items-center sm:items-end justify-between gap-4'>
                         <h1 className='text-2xl sm:text-3xl font-bold font-plusJakarta leading-[1.05]'>
-                            Selected Works.
+                            Featured Work.
                         </h1>
                         <Link
                             to="/case-studies"

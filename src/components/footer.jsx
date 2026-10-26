@@ -3,7 +3,6 @@ import "../pages/globals.css";
 import { ArrowUpRight } from "lucide-react";
 import LargeText from "../assets/images/haneefah-cut.png";
 import { Link } from "react-router-dom";
-import ResumeButton from './resumeLink';
 
 const Footer = () => {
     const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -90,7 +89,6 @@ const Footer = () => {
                 <div className="flex gap-12 animate-marquee w-max">
                     {[...Array(3)].flatMap(() => [
                         'Available for Work',
-                        'Toronto, Canada',
                         'Open to Collaboration',
                         'Product Design',
                         'UX Research',
@@ -109,7 +107,7 @@ const Footer = () => {
                     <p className="uppercase text-[12px] text-white/40 pb-6 sm:pb-10">[reach me]</p>
                     <div className="flex flex-col text-[14px] text-white gap-4">
                         <a href="mailto:aliuhaneefah@gmail.com" target="_blank" rel="noreferrer" className="hover:text-white/50">Email me</a>
-                        <ResumeButton className="appearance-none bg-transparent border-none p-0 text-left cursor-pointer text-white text-[14px] font-inter font-light hover:text-white/50 transition" />
+                        <a href="https://drive.google.com/file/d/1fGNiKPxZHb1oaEmhB0KASkdAuvTsb_Xg/view?usp=sharing" target="_blank" className="appearance-none bg-transparent border-none p-0 text-left cursor-pointer text-white text-[14px] font-inter font-light hover:text-white/50 transition" />
                     </div>
                 </div>
 

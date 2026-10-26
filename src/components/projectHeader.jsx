@@ -5,7 +5,7 @@ export default function CaseStudyHeader({ title, cover, screens, stats, summary,
         <div>
             <section className="px-[6%] pt-16">
                 <BackButton label="Go Back" />
-                <h1 className="py-10 font-anton text-7xl leading-[1.5] max-w-6xl">{title}</h1>
+                <h1 className="pt-10 font-anton text-7xl leading-[1.5] max-w-6xl">{title}</h1>
                 <img src={cover} alt={`${title} Cover`} className="w-full block" />
             </section>
 

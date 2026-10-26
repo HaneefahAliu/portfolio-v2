@@ -149,7 +149,7 @@ export default function TwikkieDs() {
                     </SectionBlock>
 
                     <div className="px-5 sm:px-[6%]">
-                        <img src="" alt="components" className="w-full" />
+                        <img src="https://res.cloudinary.com/haneefah/image/upload/v1781117728/Case%20Studies/twikkie7_fhfbhx.png" alt="Design System" className="w-full" />
                     </div>
                 </div>
 

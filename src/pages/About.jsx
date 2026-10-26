@@ -6,7 +6,6 @@ import {galleryItems} from "../data/about";
 import ToolkitMarquee from "../components/iconMarquee";
 import AutoMarqueeGallery from "../components/imageMarquee";
 import Interests from "../components/interests";
-import ResumeButton from '../components/resumeLink';
 import "./globals.css";
 
 export default function AboutSection() {
@@ -17,15 +16,14 @@ export default function AboutSection() {
                 <div className="flex-1 max-w-lg">
                     <h2 className="text-xl font-medium font-plusJakarta leading-[1.15] mb-6">Hi :)</h2>
                     <div className="flex flex-col gap-6 text-[15px] sm:text-[16px] font-inter font-light leading-7 text-black/50">
-                        <p>I'm a <span className="font-medium text-black">product designer</span> who engineers sometimes with <span className="font-medium text-black">5+ years of experience</span> creating clear, intuitive, and human-centered digital experiences. I love thoughtful details, refined visuals, and seamless interactions.</p>
-                        <p>I'm on a mission to make the digital world a little more fulfilling by merging tools and processes to produce simple and delightful designs that elevate everyday experiences – simple yet impactful, intuitive to use, and leaving a lasting impression while also meeting the objective of the business.</p>
-                        <p>With a background in Computer Information Systems and a Master's in User Experience Design, I sit confidently at the intersection of design and engineering plus understanding of business needs, bridging what's technically possible with what users truly need.</p>
-                        <p>My work is driven by user narratives and the desire to create meaningful, impact-driven experiences. I'm always exploring new technologies and methodologies, and I thrive in collaborative environments where complex problems become opportunities for thoughtful, human-centered solutions.</p>
+                        <p>I'm a <span className="font-medium text-black">product designer who engineers sometimes </span> with 5+ years of experience turning complex problems into clear, thoughtful digital products. I care about the details — how something looks, how it works, and whether it actually makes sense for the people using it.</p>
+                        <p>My background sits somewhere between design and technology: I studied Computer Information Systems before completing a Master's in User Experience Design. That combination shaped how I work today, thinking through the user experience while staying curious about how things are actually built.</p>
+                        <p>These days, I'm especially interested in design systems, emerging interfaces, and the space between designing a product and shipping one. When I'm not designing, I'm probably building something, learning something new, or adding another unnecessary hobby to the rotation.</p>
                     </div>
 
                     <div className="mt-8 flex items-center gap-4 sm:gap-6 text-[13px] sm:text-[14px] font-inter">
                         <a href="mailto:aliuhaneefah@gmail.com" className="underline underline-offset-4 hover:text-black/50 transition">Email me</a>
-                        <ResumeButton />
+                        <a href="https://drive.google.com/file/d/1fGNiKPxZHb1oaEmhB0KASkdAuvTsb_Xg/view?usp=sharing" target="_blank" className="underline underline-offset-4 hover:text-black/50 transition">Resume</a>
                         <a href="https://www.linkedin.com/in/haneefah-aliu-6a8a21160/" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-black/50 transition">LinkedIn</a>
                     </div>
                 </div>
@@ -62,7 +60,11 @@ export default function AboutSection() {
 
             <section className="py-10 sm:py-16">
                 <h2 className="text-[16px] sm:text-[20px] font-plusJakarta font-light uppercase tracking-widest text-secondary-text mb-8 sm:mb-10">#photo dump</h2>
-                <AutoMarqueeGallery items={galleryItems} />
+                <AutoMarqueeGallery
+                    items={galleryItems}
+                    speed={0.6}
+                    gapPx={40}
+                />
             </section>
         </div>
     );

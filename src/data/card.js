@@ -2,32 +2,32 @@ export const cards = [
     {
         number: '01',
         title: 'Colour Contrast',
-        description: 'Deep green (#004B23) on white, exceeding WCAG 1.4.6 enhanced contrast.',
+        description: 'High-contrast foreground/background combinations designed to meet WCAG guidance.',
     },
     {
         number: '02',
         title: 'Typography',
-        description: 'Urbanist at 16pt minimum — readable across all screen sizes with clear hierarchy.',
+        description: 'Readable type sizes with clear hierarchy and support for larger text.',
     },
     {
         number: '03',
         title: 'Touch Targets',
-        description: 'All inputs at 44×44px minimum so one-handed and motor-impaired users could tap confidently.',
+        description: 'Generous interactive areas designed to reduce precision requirements.',
     },
     {
         number: '04',
         title: 'Focus Visibility',
-        description: 'Active input fields highlighted to support keyboard and switch-access users (WCAG 2.4.7).',
+        description: 'Clear states for keyboard and switch-access navigation.',
     },
     {
         number: '05',
         title: 'Video Captions',
-        description: 'Two-line caption limit per BBC guidelines, with adjustable contrast for hard-of-hearing users.',
+        description: 'Captions and written instructions so cooking steps don\'t depend solely on audio.',
     },
     {
         number: '06',
         title: 'Text Alternatives',
-        description: 'All images include screen reader descriptions so VoiceOver users could navigate fully.',
+        description: 'Meaningful descriptions for relevant visual content and controls.',
     },
 ];
 
@@ -125,19 +125,19 @@ export const quotes = [
 export const solutions = [
     {
         number: '01',
-        description: 'a personalised meal planner that generates plans based on dietary preferences and nutritional goals.',
+        description: 'Users can build meal plans around dietary preferences and nutritional goals, reducing the repeated decision of what to prepare each day.',
     },
     {
         number: '02',
-        description: 'a recipe discovery system organised by cuisine, ingredients, and skill level.',
+        description: 'Recipes can be explored by factors such as cuisine, ingredients, preparation time and skill level, helping users narrow choices without navigating an overwhelming catalogue.',
     },
     {
         number: '03',
-        description: 'an integrated grocery list that builds automatically from meal plans',
+        description: 'Ingredients from planned meals can feed into a grocery list, connecting the decision to cook something with what is actually needed to make it.',
     },
     {
         number: '04',
-        description: 'a meal scanner that identifies dishes and surfaces recipes on the spot.',
+        description: 'Recipes are broken into manageable steps with visual, written and video guidance rather than relying on a single format.',
     },
 ]
 
@@ -162,4 +162,19 @@ export const findings = [
         description: 'Competence builds through doing. Users who tried things themselves grew quickly — they just needed a safe space to start and fail without consequences.',
         quote: '\"These days I only go to the mechanic if I try and can neither find nor fix the problem myself.\"',
     },
-];
+]
+
+export const principles = [
+    {
+        title:'Reduce cognitive load.',
+        text:'Keep choices focused and break complex processes into manageable steps.'
+    },
+    {
+        title:'Make actions obvious.',
+        text:'Users should understand what they can do, what happened after an action and what comes next.'
+    },
+    {
+        title:'Design accessibility into the interaction.',
+        text:'Accessibility shouldn\'t depend on a separate mode or an alternative version of the product.'
+    }
+]

@@ -1,7 +1,6 @@
 import { useLocation, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Logo from "../assets/images/Logo-black.png";
-import ResumeButton from './resumeLink';
 
 export default function Header() {
     const location = useLocation();
@@ -45,7 +44,7 @@ export default function Header() {
                                 className={`text-[13px] font-inter px-4 py-1.5 rounded-full font-light uppercase transition-all duration-200 block ${
                                     isActive(href)
                                         ? 'bg-black/8 text-black font-medium'
-                                        : 'text-secondary-text hover:text-black'
+                                        : 'text-link hover:text-black'
                                 }`}
                             >
                                 {label}
@@ -75,11 +74,11 @@ export default function Header() {
 
                     <a 
                         href="mailto:aliuhaneefah@gmail.com"
-                        className="text-[13px] font-inter px-4 py-1.5 rounded-full font-light uppercase text-secondary-text hover:text-black transition-all duration-200"
+                        className="text-[13px] font-inter px-4 py-1.5 rounded-full font-light uppercase text-link hover:text-black transition-all duration-200"
                     >
                         Contact
                     </a>
-                    <ResumeButton className="text-[13px] font-inter px-4 py-1.5 rounded-full font-light uppercase text-secondary-text hover:text-black transition-all duration-200" />
+                    {/* <ResumeButton className="text-[13px] font-inter px-4 py-1.5 rounded-full font-light uppercase text-secondary-text hover:text-black transition-all duration-200" /> */}
                 </nav>
 
                 {/* Desktop — Location + Status */}
@@ -170,14 +169,14 @@ export default function Header() {
                         </a>
                     ))}
 
-                    <ResumeButton
+                    {/* <ResumeButton
                         className="text-[13px] font-inter px-4 py-3 rounded-full font-light uppercase text-secondary-text hover:text-black transition-colors duration-200 text-left"
                         style={{
                             transform: menuOpen ? 'translateY(0)' : 'translateY(12px)',
                             opacity: menuOpen ? 1 : 0,
                             transition: `transform 0.3s ease ${(links.length + 2) * 0.06}s, opacity 0.3s ease ${(links.length + 2) * 0.06}s`,
                         }}
-                    />
+                    /> */}
                 </nav>
 
                 <div className="flex flex-col">

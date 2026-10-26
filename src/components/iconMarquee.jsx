@@ -16,7 +16,7 @@ export default function ToolkitMarquee() {
     return (
         <div>
             <p className="text-center text-[14px] font-inter uppercase tracking-widest text-secondary-text mb-10">
-                My Design Toolkit
+                TOOLS I WORK WITH
             </p>
 
             {/* Marquee wrapper — hides overflow */}

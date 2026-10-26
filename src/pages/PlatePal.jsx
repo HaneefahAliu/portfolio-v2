@@ -1,5 +1,5 @@
 import { CookingPot, BookSearch, CaptionsOff } from 'lucide-react';
-import {cards, stats, quotes, solutions } from "../data/card";
+import {cards, stats, quotes, solutions, principles } from "../data/card";
 import BackButton from "../components/backButton";
 import MoreProjects from "../components/moreProjects";
 import QuickLinks from "../components/quickLinks"; 
@@ -37,78 +37,85 @@ export default function PlatePal() {
       <QuickLinks links={links} triggerId="heading"/>
 
       <CaseStudyHeader
-        title="PlatePal - designing a meal planning app where nobody gets left out."
+        title="PlatePal — Designing meal planning that doesn’t leave people out."
         cover="https://res.cloudinary.com/haneefah/image/upload/v1777300327/Case%20Studies/platepal_njtjjf.png"
         screens="https://res.cloudinary.com/haneefah/image/upload/v1777300247/Case%20Studies/PP1_a2zm8r.png"
         stats="https://res.cloudinary.com/haneefah/image/upload/v1777300248/Case%20Studies/PP2_cclp0x.png"
-        summary="Planning what to eat sounds simple, until you actually try to do it. You scroll through endless recipes, juggle dietary needs, forget ingredients. And somehow, it still ends in frustration. For many people, especially those relying on assistive technologies, this process is even harder. PlatePal was designed to change that."
+        summary="Meal planning sounds simple until you actually have to do it. Finding recipes, accounting for dietary needs, buying ingredients and following cooking instructions creates a surprisingly fragmented experience, and many existing products introduce additional barriers for people with physical, sensory or cognitive accessibility needs."
         role="UX Research, Accessibility, UI Design, Prototyping, User Testing."
         tools="Figma, FigJam."
-        deliverables="High Fidelity Designs, Interactive Prototype, Multi-platform Designs, Design Assets."
+        deliverables="UX Research, Product Design, Interactive Prototype, Multi-platform Designs, Design Assets."
         platform="Phone, Tablet, Smart Watch."
       />
 
-      <section>
+    <section>
         {/* problem */}
         <SectionBlock id="problem" label="THE PROBLEM">
             <h2 className="text-2xl sm:text-4xl pb-3 font-semibold font-plusJakarta leading-[1.5]">
-                Meal planning is fragmented, overwhelming, and often inaccessible — and for some people, the apps meant to help make it worse.
+                Meal planning is already fragmented. Inaccessible experiences make it harder.
             </h2>
             <p className="font-inter font-light leading-7 text-black/80">
-                Despite the fact that food is one of the most essential aspects of everyday living, many people find it extremely difficult to plan, find, and prepare meals. A lot of individuals struggle not because they are incapable of cooking, but rather because the culinary process is flawed.
+                Cooking isn't a single task. Before someone prepares a meal, they may need to decide what to eat, find an appropriate recipe, check dietary requirements, identify ingredients, shop for groceries and then follow a series of cooking instructions.
             </p>
             <p className="font-inter font-light leading-7 text-black/80">
-                Recipes are scattered across platforms and buried behind adverts, meal planning needs too many manual steps, and for the 1 in 6 people worldwide living with a disability, these frustrations are compounded by digital tools that treat accessibility as an afterthought rather than a foundation.
+                Researching the space showed me that the problem wasn't simply finding recipes. It was the amount of decision-making and coordination surrounding them.
             </p>
             <p className="font-inter font-light leading-7 text-black/80">
-                With over 1 billion people living with disabilities worldwide, many existing cooking platforms unfairly exclude a large proportion of users, and I wanted to create something different – an application that truly worked for everyone, not just the average user that the industry typically designs for.
+                For people navigating visual, auditory, motor or cognitive accessibility needs, seemingly small interface decisions could create additional friction throughout that journey.
+            </p>
+            <p className="font-inter font-light leading-7 text-black/80">
+                I framed the challenge around one question:
+            </p>
+            <p className="border-l-2 border-gray-500 pl-4 sm:pl-6 py-2 bg-gray-50 font-inter font-light italic leading-7 text-black">
+                How might I make the journey from deciding what to eat to preparing a meal easier to navigate for people with different accessibility needs?
+            </p>
+            <p className="font-inter font-light leading-7 text-black/80">
+                Rather than creating separate experiences for disabled users, my goal was to explore whether accessibility could improve the core experience for everyone.
             </p>
         </SectionBlock>
 
         {/* research */}
         <SectionBlock id="research" label="research" className="pb-10">
             <h2 className="text-2xl sm:text-4xl pb-3 font-semibold font-plusJakarta leading-[1.5]">
-                Why does this matter?
+                Understanding where the friction actually happens
             </h2>
             <p className="font-inter font-light leading-7 text-black/80">
-                Food is more than just eating — it's independence, health, and daily structure. When users can't easily plan;
-                <ul className="list-disc list-inside flex flex-col gap-2 mt-2">
-                    <li>They rely on repetitive or unhealthy options.</li>
-                    <li>They lose time and mental energy.</li>
-                    <li>They feel excluded from something as basic as cooking.</li>
-                </ul>
+                I began by reviewing existing cooking and meal-planning experiences and looking at accessibility guidance surrounding common interactions such as navigation, recipe instructions, forms, video content and touch controls. The research shifted my understanding of the problem.
             </p>
+
             <p className="font-inter font-light leading-7 text-black/80">
-                Instead of designing first and "adding accessibility later," PlatePal was built around inclusive design principles from day one. This meant understanding diverse user needs early, designing with assistive technology in mind and simplifying flows without reducing functionality.
-            </p>
-            <p className="font-inter font-light leading-7 text-black/80">
-                PlatePal was created from the foundation up with inclusive design principles, as opposed to building first and "adding accessibility later". This meant identifying diverse user needs early on, designing with assistive technology in mind, and simplifying flows without sacrificing functionality. To do this, I carried out comprehensive research that involved analysing and comparing existing tools, user testing, and interviews, from which I was able to gather insights and put together user personas.
+                Initially, I thought PlatePal would primarily be a better recipe application. Instead, three broader challenges emerged:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 pt-12">
                 {[
-                    { icon: <CookingPot size={32} strokeWidth={1.2} className='text-[#008000]' />, text: "Users feel overwhelmed before they even start cooking." },
-                    { icon: <BookSearch size={32} strokeWidth={1.2} className='text-[#008000]' />, text: "Meal planning is more about decision-making than recipes." },
-                    { icon: <CaptionsOff size={32} strokeWidth={1.2} className='text-[#008000]' />, text: "Accessibility issues often break the entire experience — not just parts of it." },
+                    { icon: <CookingPot size={32} strokeWidth={1.2} className='text-[#008000]' />, heading:"01 The work starts before cooking", text: "Choosing what to eat, accounting for preferences and organising ingredients often created more cognitive load than following the recipe itself." },
+                    { icon: <BookSearch size={32} strokeWidth={1.2} className='text-[#008000]' />, heading:"02 Users move between disconnected tools", text: "Planning, recipes, grocery shopping and cooking instructions frequently existed as separate experiences, forcing users to repeatedly move information between them." },
+                    { icon: <CaptionsOff size={32} strokeWidth={1.2} className='text-[#008000]' />, heading:"03 One inaccessible interaction can break an entire journey", text: "A difficult form, poorly labelled control, inaccessible video or small touch target doesn't simply affect one screen. It can prevent someone from completing the task altogether." },
                 ].map((item, i) => (
                     <div key={i} className="flex flex-col gap-6">
                         <div>{item.icon}</div>
-                        <p className="text-[16px] font-inter font-regular leading-[1.8] text-black/70">{item.text}</p>
+                        <h3 className="font-semibold font-plusJakarta">{item.heading}</h3>
+                        <p className="text-[16px] font-inter font-light leading-[1.8] text-black/80">{item.text}</p>
                     </div>
                 ))}
             </div>
+            <p className="font-inter font-light leading-7 text-black/80 pt-8">
+                That gave me a clearer product direction. PlatePal needed to connect three moments:
+            </p>
+            <p className="font-inter font-bold leading-7 text-black/80">PLAN → SHOP → COOK</p>
         </SectionBlock>
 
         {/* personas */}
         <div id="personas">
             <SectionBlock id="personas-text" label="user personas" className="pb-10">
                 <h2 className="text-2xl sm:text-4xl font-semibold font-plusJakarta leading-[1.5]">
-                    Designing for real people.
+                    Designing for different needs
                 </h2>
                 <p className="font-inter font-light leading-7 text-black/80">
-                    To ground the experience in real needs, I developed four detailed personas grounded in real-world disability contexts, mapping out not just their goals but the specific barriers they faced with existing tools and the assistive technologies they relied on.
+                    To pressure-test the experience across different situations, I created four accessibility archetypes representing motor, visual, auditory and cognitive needs. These were not intended to suggest that everyone within those groups behaves the same way. Instead, they helped me translate accessibility research into concrete questions during design.
                 </p>
                 <p className="font-inter font-light leading-7 text-black/80">
-                    Building these personas around disability wasn't about designing a "special" experience — it was about designing a better experience, full stop. Many of the features that helped Sarah or Emily would benefit every user.
+                    Building these personas around disability wasn't about designing a "special" experience,  it was about designing a better experience, full stop. Many of the features that helped Sarah or Emily would benefit every user.
                 </p>
             </SectionBlock>
             <div className="px-5 sm:px-[6%] pb-16 sm:pb-24">
@@ -123,11 +130,19 @@ export default function PlatePal() {
                     Simple. Structured. Stress-free.
                 </h2>
                 <p className="font-inter font-light leading-7 text-black/80">
-                    Early sketches aimed to reduce cognitive stress. Clear layout hierarchy, minimal decision points per screen, and effective visual separation with whitespace. The goal was straightforward — Help users move forward without overthinking.
+                    Before moving into high fidelity, I explored the core journeys through sketches and low-fidelity concepts. I intentionally kept the interface visually quiet. Rather than exposing every possible action at once, screens would prioritise the decision users needed to make right now.
                 </p>
-                <p className="font-inter font-light leading-7 text-black/80">
-                    Every choice was made with accessibility in mind, even in the initial designs. Before moving on to high fidelity, I quickly tested layout concepts using paper prototypes, highlighting clear structure, plenty of white space, and user-friendly navigation that wouldn't require reading comprehension. I also used these prototypes to show where accessibility guidelines would be applied throughout the application.
+                <p className="font-inter font-light leading-7 text-black/80 pb-4">
+                    Three principles guided the design:
                 </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10">
+                    {principles.map((principle) => (
+                        <div key={principle.title} className="pb-6 sm:pb-12 flex flex-col gap-3">
+                            <h3 className="font-semibold font-plusJakarta">{principle.title}</h3>
+                            <p className="font-inter font-light text-sm leading-6 text-secondary-text">{principle.text}</p>
+                        </div>
+                    ))}
+                </div>
             </SectionBlock>
 
             <div className="px-5 sm:px-[6%]">
@@ -137,7 +152,7 @@ export default function PlatePal() {
             <div className="px-5 sm:px-[6%] md:pl-[20%] md:pr-[10%] flex flex-col md:flex-row gap-6 md:gap-0 pt-16 pb-10">
                 <div className="md:w-1/4 shrink-0" />
                 <div className="md:w-3/4 flex flex-col gap-6 pb-6">
-                    <p className="font-inter font-light leading-7 text-black/80">In the high-fidelity designs, a few choices were particularly intentional:</p>
+                    <p className="font-inter font-light leading-7 text-black/80">Instead of reviewing accessibility once the UI was complete, I incorporated accessibility requirements while defining the interface.</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {cards.map((card) => (
                             <div key={card.title} className="pb-6 sm:pb-12 flex flex-col gap-3">
@@ -158,10 +173,13 @@ export default function PlatePal() {
                     Designing a system, not just screens.
                 </h2>
                 <p className="font-inter font-light leading-7 text-black/80">
-                    To ensure consistency and scalability across PlatePal, I developed a foundational style guide that informed every design decision across the product.
+                    Once the interaction direction was established, I created a lightweight visual system to keep the experience predictable. PlatePal uses a restrained green palette, strong contrast, clear typography and reusable components across planning, recipes, groceries and cooking.
                 </p>
                 <p className="font-inter font-light leading-7 text-black/80">
-                    Rather than treating visuals as isolated choices, I approached the interface as a cohesive system where colour, typography, and components work together to create a clear and accessible experience.
+                    Buttons shouldn't move unpredictably between screens. Selected states needed to remain recognisable. Feedback patterns needed to behave consistently.
+                </p>
+                <p className="font-inter font-light leading-7 text-black/80">
+                    Consistency became particularly important for accessibility. The system therefore wasn't only about making the interface visually cohesive, it helped make the product easier to learn.
                 </p>
             </SectionBlock>
             <div className="px-5 sm:px-[6%] pb-12">

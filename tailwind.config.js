@@ -13,6 +13,7 @@ export default {
         cursive: ['Snowburst One', 'system-ui']
       },
       colors: {
+        'link': '#C0C1CF',
         'secondary-text': '#C0C1CF',
         'highlight': '#BFF500',
         'border-line': '#EDEDED',

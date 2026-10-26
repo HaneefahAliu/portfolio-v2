@@ -38,14 +38,14 @@ export default function Twikkie() {
 
             {/* Heading */}
             <CaseStudyHeader
-                title="Maximizing Workplace Potential: An All-in-One Cloud Solution for People Management."
+                title="Building an All-in-One Cloud Solution for People Management."
                 cover="https://res.cloudinary.com/haneefah/image/upload/v1781113831/Case%20Studies/twikkie_u2cpk4.png"
                 screens="https://res.cloudinary.com/haneefah/image/upload/v1781032337/Case%20Studies/staff_data_u8qklv.png"
                 stats="https://res.cloudinary.com/haneefah/image/upload/v1780947891/Case%20Studies/twikkie_r5ni7z.png"
                 summary="Companies aren't struggling because they lack ambition. They're struggling because their people, processes, and operations live in ten different places at once. Spreadsheets, WhatsApp groups, shared drives, separate apps — none of it connected, all of it slowing them down. Twikkie was built to fix that."
                 role="Sole / Founding Designer"
                 tools="Figma, FigJam."
-                deliverables="UX Research, Full Product Design, Interactive Prototype."
+                deliverables="Research & Discovery, Full Product Design, Interactive Prototype."
                 platform="Web Application"
             />
             {/* End of Heading */}
@@ -87,6 +87,9 @@ export default function Twikkie() {
                     </h2>
                     <p className="font-inter font-light leading-7 text-black/80">
                         Before I got started with Figma, I spent some time researching the tools and technologies that already existed in this industry. There was no shortage of HR softwares but just about all of them had real, recurring issues that Twikkie had the opportunity to avoid.
+                    </p>
+                    <p className="border-l-2 border-gray-500 pl-4 sm:pl-6 py-2 bg-gray-50 font-inter font-light italic leading-7 text-black">
+                        Products were evaluated using a lightweight heuristic review across five criteria relevant to Twikkie's intended experience.
                     </p>
                     <img className="w-full pb-6" src="https://res.cloudinary.com/haneefah/image/upload/v1781115806/Case%20Studies/CR_yfidqf.png" alt="Competitive Research" />
                     <p className="font-inter font-light leading-7 text-black/80">The pattern across all three was clear: existing tools prioritised feature completeness over usability. They were built to do everything, but rarely felt considered for the people actually using them daily. Twikkie's opportunity was to match that feature depth while designing with far more care for the experience of getting things done.</p>   
