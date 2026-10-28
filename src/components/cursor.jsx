@@ -1,93 +1,144 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function CustomCursor() {
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-    const [isHovering, setIsHovering] = useState(false);
-    const [isHidden, setIsHidden] = useState(false);
-    const [isDark, setIsDark] = useState(false);
-    const location = useLocation();
+  const cursorRef = useRef(null);
+  const location = useLocation();
 
-    const isTouch = window.matchMedia('(pointer: coarse)').matches;
-    if (isTouch) return null;
+  useEffect(() => {
+    const cursor = cursorRef.current;
 
-    useEffect(() => {
-        setIsHidden(false);
-        setIsHovering(false);
-    }, [location.pathname]);
+    if (!cursor) return;
 
-    useEffect(() => {
-        const move = (e) => {
-            setPosition({ x: e.clientX, y: e.clientY });
+    const finePointer = window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    );
 
-            // check background color of element under cursor
-            const el = document.elementFromPoint(e.clientX, e.clientY);
-            if (el) {
-                let node = el;
-                while (node && node !== document.body) {
-                    const bg = window.getComputedStyle(node).backgroundColor;
-                    if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
-                        // parse rgb values
-                        const match = bg.match(/\d+/g);
-                        if (match) {
-                            const [r, g, b] = match.map(Number);
-                            const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-                            setIsDark(luminance < 0.5);
-                        }
-                        break;
-                    }
-                    node = node.parentElement;
-                }
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    if (!finePointer.matches || reducedMotion.matches) {
+      return;
+    }
+
+    let animationFrame = null;
+
+    const updateCursor = (event) => {
+      if (animationFrame !== null) {
+        cancelAnimationFrame(animationFrame);
+      }
+
+      animationFrame = requestAnimationFrame(() => {
+        const { clientX, clientY, target } = event;
+
+        // Position cursor directly beneath the pointer
+        cursor.style.transform = `
+          translate3d(${clientX}px, ${clientY}px, 0)
+          translate(-50%, -50%)
+        `;
+
+        // Hide over elements that request it
+        const shouldHide = target.closest(
+          '[data-cursor="hide"]'
+        );
+
+        if (shouldHide) {
+          cursor.style.opacity = "0";
+          return;
+        }
+
+        cursor.style.opacity = "1";
+
+        // Detect interactive elements
+        const interactive = target.closest(
+          "a, button, input, textarea, select, [role='button']"
+        );
+
+        cursor.classList.toggle(
+          "custom-cursor-hover",
+          Boolean(interactive)
+        );
+
+        // Detect the background underneath the pointer
+        let node = target;
+        let isDark = false;
+
+        while (node && node !== document.documentElement) {
+          const background = window.getComputedStyle(
+            node
+          ).backgroundColor;
+
+          const match = background.match(
+            /rgba?\(([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.]+))?\)/
+          );
+
+          if (match) {
+            const r = Number(match[1]);
+            const g = Number(match[2]);
+            const b = Number(match[3]);
+            const alpha = match[4] === undefined
+              ? 1
+              : Number(match[4]);
+
+            if (alpha > 0.5) {
+              const luminance =
+                (0.299 * r + 0.587 * g + 0.114 * b) /
+                255;
+
+              isDark = luminance < 0.5;
+              break;
             }
-        };
-        window.addEventListener('mousemove', move);
-        return () => window.removeEventListener('mousemove', move);
-    }, []);
+          }
 
-    useEffect(() => {
-        const handleOver = (e) => {
-            if (e.target.closest('[data-cursor="hide"]')) setIsHidden(true);
-            else if (e.target.closest('a, button')) setIsHovering(true);
-        };
-        const handleOut = (e) => {
-            if (e.target.closest('[data-cursor="hide"]')) setIsHidden(false);
-            else if (e.target.closest('a, button')) setIsHovering(false);
-        };
-        document.addEventListener('mouseover', handleOver);
-        document.addEventListener('mouseout', handleOut);
-        return () => {
-            document.removeEventListener('mouseover', handleOver);
-            document.removeEventListener('mouseout', handleOut);
-        };
-    }, []);
+          node = node.parentElement;
+        }
 
-    if (isHidden) return null;
+        cursor.classList.toggle(
+          "custom-cursor-dark",
+          isDark
+        );
+      });
+    };
 
-    const color = isDark ? 'white' : 'black';
-    const borderColor = isDark ? 'border-white' : 'border-black';
-    const bgColor = isDark ? 'bg-white' : 'bg-black';
+    const hideCursor = () => {
+      cursor.style.opacity = "0";
+    };
 
-    return (
-    <>
-        <div
-            className="fixed top-0 left-0 z-[9999] pointer-events-none transition-transform duration-75"
-            style={{ transform: `translate(${position.x - 6}px, ${position.y - 6}px)` }}
-        >
-            <div 
-                className="rounded-full w-3 h-3 transition-colors duration-200"
-                style={{ backgroundColor: 'var(--cursor-color)' }}
-            />
-        </div>
+    document.documentElement.classList.add(
+      "custom-cursor-enabled"
+    );
 
-        <div
-            className="fixed top-0 left-0 z-[9998] pointer-events-none transition-all duration-300 ease-out"
-            style={{ transform: `translate(${position.x - 20}px, ${position.y - 20}px)` }}
-        >
-            <div 
-                className={`rounded-full border transition-all duration-300 ${isHovering ? 'w-14 h-14' : 'w-10 h-10'}`}
-                style={{ borderColor: 'var(--cursor-color)' }}
-            />
-        </div>
-    </>
-);
+    window.addEventListener("pointermove", updateCursor);
+    document.addEventListener("pointerleave", hideCursor);
+    window.addEventListener("blur", hideCursor);
+
+    return () => {
+      document.documentElement.classList.remove(
+        "custom-cursor-enabled"
+      );
+
+      window.removeEventListener(
+        "pointermove",
+        updateCursor
+      );
+      document.removeEventListener(
+        "pointerleave",
+        hideCursor
+      );
+      window.removeEventListener("blur", hideCursor);
+
+      if (animationFrame !== null) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [location.pathname]);
+
+  return (
+    <div
+      ref={cursorRef}
+      aria-hidden="true"
+      className="custom-cursor"
+    />
+  );
 }

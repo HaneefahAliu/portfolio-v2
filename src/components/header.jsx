@@ -1,189 +1,312 @@
-import { useLocation, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+
+import { useLocation, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Logo from "../assets/images/Logo-black.png";
 
+const links = [
+  { label: "Case Studies", href: "/case-studies", emoji: "💼" },
+  { label: "Lab", href: "/lab", emoji: "🧪" },
+  { label: "About", href: "/about", emoji: "✌️" },
+];
+
+const extraLinks = [
+  {
+    label: "Contact",
+    href: "mailto:aliuhaneefah@gmail.com",
+  },
+];
+
 export default function Header() {
-    const location = useLocation();
-    const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-    useEffect(() => {
-        setMenuOpen(false);
-    }, [location.pathname]);
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
-    useEffect(() => {
-        document.body.style.overflow = menuOpen ? 'hidden' : '';
-        return () => { document.body.style.overflow = ''; };
-    }, [menuOpen]);
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
 
-    const links = [
-        { label: "Case Studies", href: "/case-studies", emoji: "💼", color: "#f4a261" },
-        { label: "Lab", href: "/lab", emoji: "🧪", color: "#6bcb77" },
-        { label: "About", href: "/about", emoji: "✌️", color: "#4d96ff" },
-    ];
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    }
 
-    const extraLinks = [
-        { label: "Contact", href: "mailto:aliuhaneefah@gmail.com", external: false },
-    ];
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [menuOpen]);
 
-    const isActive = (href) =>
-        location.pathname === href || location.pathname.startsWith(href + '/');
+  const isActive = (href) =>
+    location.pathname === href ||
+    location.pathname.startsWith(href + "/");
 
-    return (
-        <header className='page-grid relative z-50'>
-            <div className="flex items-center justify-between px-5 sm:px-[4%] py-6 sm:py-8">
-                <Link to='/'>
-                    <img className='h-auto w-7 sm:w-8' src={Logo} alt="Haneefah" />
+  return (
+    <header className="page-grid relative z-50">
+      <div className="flex items-center justify-between px-5 py-6 sm:px-[4%] sm:py-8">
+        {/* LOGO */}
+        <Link to="/" aria-label="Home">
+          <img
+            className="h-auto w-7 sm:w-8"
+            src={Logo}
+            alt="Haneefah"
+          />
+        </Link>
+
+        {/* DESKTOP NAVIGATION */}
+        <nav
+          aria-label="Main navigation"
+          className="hidden items-center gap-1 px-2 py-1.5 md:flex"
+        >
+          {links.map(({ label, href, emoji }) => {
+            const active = isActive(href);
+
+            return (
+              <div key={href} className="group relative">
+                <Link
+                  to={href}
+                  aria-current={active ? "page" : undefined}
+                  className={`
+                    relative block rounded-full
+                    px-4 py-1.5
+                    font-inter text-[13px] font-light uppercase
+                    transition-colors duration-300
+                    ${
+                      active
+                        ? "font-medium text-black"
+                        : "text-black/55 hover:text-black"
+                    }
+                  `}
+                >
+                  {label}
+
+                  {/* REFINED UNDERLINE */}
+                  <span
+                    aria-hidden="true"
+                    className={`
+                      pointer-events-none absolute
+                      bottom-0 left-4 right-4 h-px
+                      origin-left bg-[#ed9b75]
+                      transition-transform duration-300
+                      ease-[cubic-bezier(0.22,1,0.36,1)]
+                      ${
+                        active
+                          ? "scale-x-100"
+                          : "scale-x-0 group-hover:scale-x-100 group-focus-within:scale-x-100"
+                      }
+                    `}
+                  />
                 </Link>
 
-                {/* Desktop Nav */}
-                <nav className="hidden md:flex items-center px-2 py-1.5 gap-1">
-                    {links.map(({ label, href, emoji, color }) => (
-                        <div key={href} className="relative group">
-                            <Link
-                                to={href}
-                                className={`text-[13px] font-inter px-4 py-1.5 rounded-full font-light uppercase transition-all duration-200 block ${
-                                    isActive(href)
-                                        ? 'bg-black/8 text-black font-medium'
-                                        : 'text-link hover:text-black'
-                                }`}
-                            >
-                                {label}
-                            </Link>
+                {/* FLOATING EMOJI */}
+                <span
+                  aria-hidden="true"
+                  className="
+                    pointer-events-none absolute
+                    left-1/2 top-full z-50 mt-2
+                    -translate-x-1/2 translate-y-1
+                    scale-75 opacity-0
+                    text-[19px]
+                    transition-all duration-300
+                    ease-[cubic-bezier(0.22,1,0.36,1)]
+                    group-hover:translate-y-0
+                    group-hover:scale-100
+                    group-hover:opacity-100
+                    group-focus-within:translate-y-0
+                    group-focus-within:scale-100
+                    group-focus-within:opacity-100
+                  "
+                >
+                  {emoji}
+                </span>
+              </div>
+            );
+          })}
 
-                            {/* Wiggle + emoji tooltip */}
-                            <div className="absolute left-1/2 -translate-x-1/2 top-full mt-1 flex flex-col items-center
-                                opacity-0 group-hover:opacity-100 pointer-events-none
-                                transition-all duration-200 translate-y-1 group-hover:translate-y-0 z-50">
-                                <svg width="60" height="12" viewBox="0 0 60 12" fill="none">
-                                    <path
-                                        d="M0 6 Q7.5 0 15 6 Q22.5 12 30 6 Q37.5 0 45 6 Q52.5 12 60 6"
-                                        stroke={color}
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        fill="none"
-                                    />
-                                </svg>
-                                <div className="mt-1 px-2 py-1 rounded-xl bg-white border border-black/8 shadow-sm text-lg">
-                                    {emoji}
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+          {/* DIVIDER */}
+          <div className="mx-1 h-4 w-px bg-black/15" />
 
-                    <div className="w-px h-4 bg-secondary-text mx-1" />
+          {/* CONTACT */}
+          <a
+            href="mailto:aliuhaneefah@gmail.com"
+            className="
+              rounded-full px-4 py-1.5
+              font-inter text-[13px] font-light uppercase
+              text-black/55 transition-colors duration-300
+              hover:text-black
+            "
+          >
+            Contact
+          </a>
+        </nav>
 
-                    <a 
-                        href="mailto:aliuhaneefah@gmail.com"
-                        className="text-[13px] font-inter px-4 py-1.5 rounded-full font-light uppercase text-link hover:text-black transition-all duration-200"
-                    >
-                        Contact
-                    </a>
-                    {/* <ResumeButton className="text-[13px] font-inter px-4 py-1.5 rounded-full font-light uppercase text-secondary-text hover:text-black transition-all duration-200" /> */}
-                </nav>
+        {/* DESKTOP LOCATION + STATUS */}
+        <div className="hidden flex-col text-right md:flex">
+          <span className="font-inter text-[13px] font-medium text-black">
+            Toronto, ON
+          </span>
 
-                {/* Desktop — Location + Status */}
-                <div className="hidden md:flex flex-col text-right">
-                    <span className="text-[13px] font-inter font-medium text-black">Toronto, ON</span>
-                    <div className="flex items-center justify-end gap-1.5 mt-0.5">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                        </span>
-                        <span className="text-[13px] font-inter font-light text-black/40">Open to Work</span>
-                    </div>
-                </div>
+          <div className="mt-0.5 flex items-center justify-end gap-1.5">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+            </span>
 
-                {/* Mobile — status dot + hamburger */}
-                <div className="flex md:hidden items-center gap-3">
-                    <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                    </span>
-                    <button
-                        onClick={() => setMenuOpen((o) => !o)}
-                        aria-label="Toggle menu"
-                        className="flex flex-col justify-center gap-[5px] w-6 h-6"
-                    >
-                        <span className={`block h-px bg-black transition-all duration-300 origin-center ${menuOpen ? 'rotate-45 translate-y-[6px]' : ''}`} />
-                        <span className={`block h-px bg-black transition-all duration-300 ${menuOpen ? 'opacity-0 scale-x-0' : ''}`} />
-                        <span className={`block h-px bg-black transition-all duration-300 origin-center ${menuOpen ? '-rotate-45 -translate-y-[6px]' : ''}`} />
-                    </button>
-                </div>
-            </div>
+            <span className="font-inter text-[13px] font-light text-black/40">
+              Open to Work
+            </span>
+          </div>
+        </div>
 
-            {/* Mobile Fullscreen Menu */}
-            <div className={`fixed md:hidden inset-0 bg-white z-40 flex flex-col px-5 pt-6 pb-10 transition-all duration-300 ease-in-out ${
-                menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-            }`}>
-                <div className="flex items-center justify-between mb-10">
-                    <Link to='/' onClick={() => setMenuOpen(false)}>
-                        <img className='h-auto w-7' src={Logo} alt="Haneefah" />
-                    </Link>
-                    <button
-                        onClick={() => setMenuOpen(false)}
-                        aria-label="Close menu"
-                        className="flex flex-col justify-center gap-[5px] w-6 h-6"
-                    >
-                        <span className="block h-px bg-black transition-all duration-300 origin-center rotate-45 translate-y-[3px]" />
-                        <span className="block h-px bg-black transition-all duration-300 origin-center -rotate-45 -translate-y-[3px]" />
-                    </button>
-                </div>
+        {/* MOBILE STATUS + MENU BUTTON */}
+        <div className="flex items-center gap-3 md:hidden">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+          </span>
 
-                <nav className="flex flex-col gap-1 flex-1">
-                    {links.map(({ label, href, emoji }, i) => (
-                        <Link
-                            key={href}
-                            to={href}
-                            className={`text-[13px] font-inter px-4 py-3 rounded-full font-light uppercase transition-colors duration-200 flex items-center justify-between ${
-                                isActive(href)
-                                    ? 'bg-black/5 text-black font-medium'
-                                    : 'text-secondary-text hover:text-black'
-                            }`}
-                            style={{
-                                transform: menuOpen ? 'translateY(0)' : 'translateY(12px)',
-                                opacity: menuOpen ? 1 : 0,
-                                transition: `transform 0.3s ease ${i * 0.06}s, opacity 0.3s ease ${i * 0.06}s`,
-                            }}
-                        >
-                            <span>{label}</span>
-                            <span className="text-base">{emoji}</span>
-                        </Link>
-                    ))}
+          <button
+            type="button"
+            onClick={() => setMenuOpen((value) => !value)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            className="relative z-[60] flex h-6 w-6 flex-col justify-center gap-[5px]"
+          >
+            <span
+              className={`block h-px origin-center bg-black transition-all duration-300 ${
+                menuOpen ? "translate-y-[6px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`block h-px bg-black transition-all duration-300 ${
+                menuOpen ? "scale-x-0 opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`block h-px origin-center bg-black transition-all duration-300 ${
+                menuOpen ? "-translate-y-[6px] -rotate-45" : ""
+              }`}
+            />
+          </button>
+        </div>
+      </div>
 
-                    <div className="h-px bg-black/8 mx-4 my-2" />
+      {/* MOBILE FULLSCREEN MENU */}
+      <div
+        id="mobile-navigation"
+        aria-hidden={!menuOpen}
+        className={`
+          fixed inset-0 z-40 flex flex-col
+          bg-white px-5 pb-10 pt-6
+          transition-all duration-300 ease-in-out
+          md:hidden
+          ${
+            menuOpen
+              ? "pointer-events-auto visible opacity-100"
+              : "pointer-events-none invisible opacity-0"
+          }
+        `}
+      >
+        <div className="mb-10 flex items-center justify-between">
+          <Link to="/" onClick={() => setMenuOpen(false)}>
+            <img
+              className="h-auto w-7"
+              src={Logo}
+              alt="Haneefah"
+            />
+          </Link>
 
-                    {extraLinks.map(({ label, href, external }, i) => (
-                        <a
-                            key={label}
-                            href={href}
-                            target={external ? "_blank" : undefined}
-                            rel={external ? "noreferrer" : undefined}
-                            className="text-[13px] font-inter px-4 py-3 rounded-full font-light uppercase text-secondary-text hover:text-black transition-colors duration-200"
-                            style={{
-                                transform: menuOpen ? 'translateY(0)' : 'translateY(12px)',
-                                opacity: menuOpen ? 1 : 0,
-                                transition: `transform 0.3s ease ${(links.length + 1 + i) * 0.06}s, opacity 0.3s ease ${(links.length + 1 + i) * 0.06}s`,
-                            }}
-                        >
-                            {label}
-                        </a>
-                    ))}
+          <button
+            type="button"
+            onClick={() => setMenuOpen(false)}
+            aria-label="Close menu"
+            className="flex h-6 w-6 flex-col justify-center gap-[5px]"
+          >
+            <span className="block h-px translate-y-[3px] rotate-45 bg-black" />
+            <span className="block h-px -translate-y-[3px] -rotate-45 bg-black" />
+          </button>
+        </div>
 
-                    {/* <ResumeButton
-                        className="text-[13px] font-inter px-4 py-3 rounded-full font-light uppercase text-secondary-text hover:text-black transition-colors duration-200 text-left"
-                        style={{
-                            transform: menuOpen ? 'translateY(0)' : 'translateY(12px)',
-                            opacity: menuOpen ? 1 : 0,
-                            transition: `transform 0.3s ease ${(links.length + 2) * 0.06}s, opacity 0.3s ease ${(links.length + 2) * 0.06}s`,
-                        }}
-                    /> */}
-                </nav>
+        <nav
+          aria-label="Mobile navigation"
+          className="flex flex-1 flex-col gap-1"
+        >
+          {links.map(({ label, href, emoji }, index) => (
+            <Link
+              key={href}
+              to={href}
+              tabIndex={menuOpen ? 0 : -1}
+              aria-current={isActive(href) ? "page" : undefined}
+              onClick={() => setMenuOpen(false)}
+              className={`
+                flex items-center justify-between
+                rounded-full px-4 py-3
+                font-inter text-[13px] font-light uppercase
+                transition-colors duration-200
+                ${
+                  isActive(href)
+                    ? "bg-black/5 font-medium text-black"
+                    : "text-secondary-text hover:text-black"
+                }
+              `}
+              style={{
+                transform: menuOpen
+                  ? "translateY(0)"
+                  : "translateY(12px)",
+                opacity: menuOpen ? 1 : 0,
+                transition: `transform 0.3s ease ${
+                  index * 0.06
+                }s, opacity 0.3s ease ${index * 0.06}s`,
+              }}
+            >
+              <span>{label}</span>
+              <span className="text-base" aria-hidden="true">
+                {emoji}
+              </span>
+            </Link>
+          ))}
 
-                <div className="flex flex-col">
-                    <span className="text-[13px] font-inter font-medium text-black">Toronto, ON</span>
-                    <span className="text-[13px] font-inter font-light text-black/40 mt-0.5">Open to Work</span>
-                </div>
-            </div>
-        </header>
-    );
+          <div className="mx-4 my-2 h-px bg-black/10" />
+
+          {extraLinks.map(({ label, href }, index) => (
+            <a
+              key={label}
+              href={href}
+              tabIndex={menuOpen ? 0 : -1}
+              onClick={() => setMenuOpen(false)}
+              className="
+                rounded-full px-4 py-3
+                font-inter text-[13px] font-light uppercase
+                text-secondary-text
+                transition-colors duration-200
+                hover:text-black
+              "
+              style={{
+                transform: menuOpen
+                  ? "translateY(0)"
+                  : "translateY(12px)",
+                opacity: menuOpen ? 1 : 0,
+                transition: `transform 0.3s ease ${
+                  (links.length + 1 + index) * 0.06
+                }s, opacity 0.3s ease ${
+                  (links.length + 1 + index) * 0.06
+                }s`,
+              }}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="flex flex-col">
+          <span className="font-inter text-[13px] font-medium text-black">
+            Toronto, ON
+          </span>
+          <span className="mt-0.5 font-inter text-[13px] font-light text-black/40">
+            Open to Work
+          </span>
+        </div>
+      </div>
+    </header>
+  );
 }
