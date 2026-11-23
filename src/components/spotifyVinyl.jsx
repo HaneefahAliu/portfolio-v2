@@ -9,8 +9,31 @@ export default function SpotifyVinyl() {
   const [track, setTrack] = useState(null);
   const [open, setOpen] = useState(false);
   const [spotifyError, setSpotifyError] = useState(null);
+  const [footerVisible, setFooterVisible] = useState(false);
 
   const controllerRef = useRef(null);
+
+
+useEffect(() => {
+  const footer = document.querySelector("footer");
+
+  if (!footer) return;
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      setFooterVisible(entry.isIntersecting);
+    },
+    {
+      root: null,
+      threshold: 0,
+    }
+  );
+
+  observer.observe(footer);
+
+  return () => observer.disconnect();
+}, []);
+
 
   useEffect(() => {
     let active = true;
@@ -106,16 +129,24 @@ export default function SpotifyVinyl() {
 
   const isPlaying = track.isPlaying === true;
 
-  return (
-    <div
-      className="
-        fixed bottom-5 right-4 z-[100]
-        flex flex-col items-end
-        sm:bottom-8 sm:right-8
-      "
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
+ 
+return (
+  <div
+    className={`
+      fixed bottom-5 right-4 z-[100]
+      flex flex-col items-end
+      sm:bottom-8 sm:right-8
+      transition-all duration-500 ease-in-out
+      ${
+        footerVisible
+          ? "opacity-0 translate-y-6 pointer-events-none"
+          : "opacity-100 translate-y-0"
+      }
+    `}
+    onMouseEnter={() => setOpen(true)}
+    onMouseLeave={() => setOpen(false)}
+  >
+
       {/* ALWAYS-VISIBLE MUSIC CARD */}
       <div
         className="
